@@ -52,23 +52,24 @@ function App() {
         <h3 className='section-item-sub-header'>All the newest stuff</h3>
         <hr align='left' className='section-divider'/>
         </div>
-        
-        </div>
-        
-      <section className="container">
-        {latestItems.map((item, index) => <div className='item-card'>
+        <section className="items-container">
+        {latestItems.map((item, index) => <div className='item-card' key={index}>
           <div className="item-card-img-cnt">
             <img loading="lazy" src={`https://shopietbackend-wlzwbcznba-bq.a.run.app${item.item_thumbnail}`} className="item-image" srcSet="" />
           </div>
           <div className="item-card-desc">
-             <h1>{item.item_name}</h1>
-          <p>R{item.item_price}</p>
+             <h3 >{item.item_name}</h3>
+          <p className='item-card-price'>R{item.item_price}</p>
           <p>{item.item_condition}</p>
           </div>
          
         </div>)}
         </section> 
+        </div>
+        
+      
     </section>   
+    
     </>
   )
 }

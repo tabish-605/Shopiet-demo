@@ -40,8 +40,9 @@
 .section-item-sub-header{
   text-align: left;
   margin-top: 0px;
-  margin-bottom: 0px;
+  margin-bottom: 0px; font-weight: 500 !important;
 }
+
 
 .cta-text{
   display: flex;
@@ -51,6 +52,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   line-height: 1.8em;
+  
 }
 
 .cta-text-btn button{
@@ -66,7 +68,9 @@
   background-color: #222;
   color: #fff;
 }
-
+.cta-text h2{
+  font-weight: 500 !important;
+}
 .cta-image{
   max-height: 100%;
   max-width: 100%;
@@ -83,6 +87,51 @@
 .section-divider{
   width: 95%;
  color: #222;
+}
+
+.items-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5,1fr );
+  gap: 10px;
+}
+
+.item-card{
+  max-width: 100%;
+  border-radius: 22px;
+  background-color: rgb(243, 243, 243);
+  height: 280px;
+}
+
+.item-card-desc{
+  text-align: left;
+  background-color: rgb(243, 243, 243);
+  padding: 0.8rem;
+  border-bottom-left-radius: 22px;
+  border-bottom-right-radius: 22px;
+ 
+}
+
+.item-card-desc h3{
+  margin-top: 2px;
+  margin-bottom: 4px;
+  font-weight: bold;
+  line-height: 1.3em;
+}
+.item-card-price{
+  color: #8ec572;
+}
+.item-card-img-cnt{
+  max-width: 100%;
+  height: 40%;
+  padding: 0.5rem;
+}
+
+.item-card-img-cnt img{
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ border-radius: 16px;
 }
 @media screen and (max-width: 726px) {
   .section-items{
