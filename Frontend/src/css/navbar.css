@@ -1,0 +1,132 @@
+.navbar{
+  
+    display: flex;
+    background-color: #222;   
+    color: #8dc572;
+    width: 100vw;
+    height: 6rem;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+.user-icon, .book-icon{
+ 
+    width: 20px;
+    padding: 4px;
+}
+
+.book-icon{
+    width: 16px;
+}
+.nav-items{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    
+    justify-content: space-between;
+}
+.items{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+   
+    justify-content: flex-end;
+}
+
+.tools{
+    display: flex;
+    align-self: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+
+
+.sign-in, .save{
+    border-radius: 35px;
+
+    border: 2px solid #8dc572;
+
+ 
+
+}
+
+.search-div{
+   width: 70%;
+    min-height: 100%;
+    margin-right: 10px;
+    
+    
+}
+.search{
+    width: 100%;
+    min-height: 100%;
+    border-radius: 22px;
+    font-family:  'outfit', sans-serif;
+    font-size: 18px;
+    padding: 12px;
+    border-style: solid;
+}
+
+.search:hover{
+    border-color: #8dc572;
+}
+
+.header-div{
+    display: flex;
+    
+}
+.tools{
+    order: 3;
+}
+
+.account-actions{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+@media screen and (max-width: 900px) {
+    .navbar{
+        height: auto;
+    }
+    .nav-items{
+       display: grid;
+       grid-template-columns: 1fr 1fr;
+       grid-template-rows: auto;
+       justify-content: center;
+        gap: 10px;
+    }
+    .header{
+        margin: 0px;
+    }
+    .items{
+        justify-content: center; order: 1;
+    }
+    .account-actions{
+       
+    }
+    .search{
+        display: block;
+    }
+    .search-div{
+        width: 100%;
+        grid-column: 1 / span 2; grid-row: 2 / span 1;
+    }
+
+    .account-actions{
+        grid-column: 2 / span 1;
+        grid-row: 1 / span 1;
+        justify-content: flex-end;
+    }
+
+    .items{
+
+        display: contents;
+    }
+
+    .header-div{
+        grid-column: 1 / span 1; 
+        grid-row: 1 / span 1;
+    }
+}
