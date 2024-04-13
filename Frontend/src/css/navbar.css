@@ -85,6 +85,33 @@
     align-items: center;
     gap: 10px;
 }
+.quicknav{
+    background-color: #222;
+    color: #ffff;
+    
+}
+
+.quicknav ul{
+    display: flex;
+    margin-top: 1px;
+   justify-content: center;
+   gap: 16px;
+   text-wrap: nowrap;
+  
+   padding: 0.8rem 1rem;
+
+}
+
+.quicknav li{
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.662);
+}
+.quicknav li:hover{
+    color: #8dc572;
+
+}
+
+
 
 @media screen and (max-width: 900px) {
     .navbar{
@@ -100,11 +127,14 @@
     .header{
         margin: 0px;
     }
+    .quicknav ul{
+        overflow-x: scroll;
+    }
     .items{
         justify-content: center; order: 1;
     }
-    .account-actions{
-       
+    .quicknav ul{
+        justify-content: flex-start;
     }
     .search{
         display: block;

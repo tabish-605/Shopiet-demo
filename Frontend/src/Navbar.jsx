@@ -39,6 +39,24 @@ export default function Navbar(){
             
 
         </nav>
+        <nav className="quicknav">
+            <ul>
+                <li>TECH</li>
+                <li>Furniture</li>
+                <li>Car Parts</li>
+                <li>Jewelery</li>
+                <li>Books</li>
+                <li>Sports</li>
+                <li>Electronics</li>
+                <li>Gardening</li>
+                <li>Gym Equipment</li>
+                <li>Toys</li>
+                <li>Kids</li>
+                <li>Car Accesories</li>
+                
+            </ul>
+
+        </nav>
         
         </>
     )
