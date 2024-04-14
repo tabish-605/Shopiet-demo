@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
-
+from django.contrib.auth.models import User
 # Create your models here.
+
+
 
 class Category(models.Model):
     name = models.CharField(max_length=30, default="Top")
@@ -23,6 +25,7 @@ class Item(models.Model):
     ]
     item_name = models.CharField( max_length=50, blank=False)
     item_price = models.DecimalField(max_digits=10, decimal_places=2,  blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     item_thumbnail = models.ImageField(upload_to='item_thumbnails')
     item_description = models.TextField( blank=False)
     item_condition = models.CharField(max_length=10, choices=CONDITION_CHOICES, default='used')

@@ -1,16 +1,19 @@
-import React from "react";
+import React,{useContext} from "react";
 import './css/navbar.css'
 import usericon from './assets/user-solid.svg'
 import bookicon from './assets/bookmark-solid.svg'
+import { Link } from "react-router-dom";
+import AuthContext from "./context/AuthContext";
 
 
 export default function Navbar(){
+    let {name} = useContext(AuthContext)
     return(
         <>
         <nav className="navbar">
             <div className="nav-items">
                 <div className="header-div">
-                    <h1 className="header">SHOPIET</h1>
+                    <Link to={'/'}><h1 className="header">SHOPIET</h1></Link>
                 </div>
                     
                 
@@ -29,8 +32,8 @@ export default function Navbar(){
                         <button className="save"><img className="book-icon"src={bookicon} alt="" /></button>
                     </div>
                 <div className="sign-div">
-                       <button className="sign-in"><img className="user-icon"src={usericon} alt="" /></button> 
-                    </div>
+                    <Link to={'/login'}>
+                      <button className="sign-in"><img className="user-icon"src={usericon} alt="" /></button></Link></div>
                     
                
             </div>
