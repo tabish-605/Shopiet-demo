@@ -9,8 +9,8 @@ const UploadItem = () => {
         item_name: '',
         item_price: '',
         item_description: '',
-        item_condition: '1',
-        category: '',
+        item_condition: 'used',
+        category: 1,
         user:user.user_id,
         item_thumbnail: null,
     });
