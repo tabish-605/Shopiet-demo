@@ -9,7 +9,7 @@ const UploadItem = () => {
         item_name: '',
         item_price: '',
         item_description: '',
-        item_condition: 'used',
+        item_condition: '1',
         category: '',
         user:user.user_id,
         item_thumbnail: null,
