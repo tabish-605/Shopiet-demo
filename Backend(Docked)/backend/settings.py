@@ -29,15 +29,16 @@ SECRET_KEY = 'django-insecure-y!_+h8g6l_m(!d6co5ivs+jk6w%^0bv%h*jehc+^7%2whg#gne
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
+    'shopietbackend-wlzwbcznba-bq.a.run.app',
     'shopiet.netlify.app',
     'main--shopiet.netlify.app',
-    'shopietbackend-wlzwbcznba-bq.a.run.app',
+    'shopietbackend-wlzwbcznba-bq.a.run.app'
 ]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:5173',
     'https://shopietbackend-wlzwbcznba-bq.a.run.app',
