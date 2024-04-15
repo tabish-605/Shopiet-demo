@@ -37,9 +37,9 @@ const UploadItem = () => {
             }
         })
             .then(res => {
-                console.log(res.data);
+                console.log(response.data);
             })
-            .catch(err => console.log(err), console.log(res.data));
+            .catch(err => console.log(err), console.log(response.data));
     };
 
     return (
