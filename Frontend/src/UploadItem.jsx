@@ -36,7 +36,7 @@ const UploadItem = () => {
                 'content-type': 'multipart/form-data'
             }
         })
-            .then(res => {
+            .then(response => {
                 console.log(response.data);
             })
             .catch(err => console.log(err), console.log(response.data));
