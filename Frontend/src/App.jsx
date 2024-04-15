@@ -12,7 +12,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/');
+        const response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/');
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -58,7 +58,7 @@ function App() {
         <section className="items-container">
         {latestItems.map((item, index) => <div className='item-card' key={index}>
           <div className="item-card-img-cnt">
-            <img loading="lazy" alt={item.item_thumbnail.name} src={`http://127.0.0.1:8000${item.item_thumbnail}`} className="item-image" srcSet="" />
+            <img loading="lazy" alt={item.item_thumbnail.name} src={`https://shopietbackend-wlzwbcznba-bq.a.run.app${item.item_thumbnail}`} className="item-image" srcSet="" />
           </div>
           <div className="item-card-desc">
              <h3 >{item.item_name}</h3>

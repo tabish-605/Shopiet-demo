@@ -24,7 +24,7 @@ export default function SignUp() {
             }
     
            
-            const response = await fetch('http://127.0.0.1:8000/api/signup/', {
+            const response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
