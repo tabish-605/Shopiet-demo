@@ -1,0 +1,45 @@
+.signup-header{
+    font-family: 'Outfit';
+}
+
+.signup-form, .login-form{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    gap: 30px;
+}
+
+input{
+    border-radius: 22px;
+    padding: 16px;
+    border: 1px solid ;
+}
+
+.signup-submit, .login-submit{
+    background-color: #8dc572;
+    color:#fff;
+}
+
+
+.flex-col{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.btn-logout{
+    padding: 12px;
+    background-color: #8dc572;
+    border-radius: 22px;
+    color: #fff;
+}
+
+.btn-sell{
+    padding: 10px;
+    border-radius: 22px;
+    border: 2px solid black;
+}
+
+.welcome-login{
+    padding: 2rem;
+}

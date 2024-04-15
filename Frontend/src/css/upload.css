@@ -1,0 +1,24 @@
+.upload-form{
+ 
+    padding: 2rem;
+    
+}
+.upload-form select{
+    height: 40px;
+    padding: 10px;
+}
+
+.input-thumb{
+    height: 16px;
+    padding: 4px;
+}
+
+.input-sub{
+    background-color: #222;
+    color: #fff;
+    
+}
+
+.input-desc{
+    height:80px
+}

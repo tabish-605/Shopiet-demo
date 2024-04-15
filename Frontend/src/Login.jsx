@@ -11,19 +11,19 @@ export default function Login(){
         <>
             
 
-            {user ? <><p>Hello, {user.username}</p> <button onClick={logoutUser}>Logout</button>
+            {user ? <div className="welcome-login flex-col"><h1>Hello, {user.username}</h1> <button className='btn-logout' onClick={logoutUser}>Logout</button>
             
             
-            <Link to ={'/upload'}> <button>Sell an Item</button></Link>
-            </> 
+            <Link to ={'/upload'} className='btn-sell'> <button >Sell an Item</button></Link>
+            </div>
             
             
             
-            : <form onSubmit={loginUser}>
+            :  <><h1 className='signup-header'> Login</h1> <form className='login-form' onSubmit={loginUser}>
                 <input type="text" name="username" id="username" placeholder='Enter User Name' />
                 <input type="password" name="password" id="password" placeholder='Enter Password'/>
-                <input type="submit" value="" /><h3>Don't Have an account? <Link to={'/signup'}>Sign Up</Link> </h3>
-            </form>}
+                <input type="submit" className='login-submit' value="Login" /><h3>Don't Have an account? <Link to={'/signup'}>Sign Up</Link> </h3>
+            </form></>}
             
         </>
     )

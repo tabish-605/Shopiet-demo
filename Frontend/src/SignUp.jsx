@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from './context/AuthContext';
+import './css/signup.css'
 
 export default function SignUp() {
     const { loginUser } = useContext(AuthContext);
@@ -50,12 +51,13 @@ export default function SignUp() {
     };
     return (
         <>
-            <form onSubmit={handleSubmit}>
+        <h1 className='signup-header'> Sign Up</h1>
+            <form className='signup-form ' onSubmit={handleSubmit}>
                 <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder='Enter User Name' />
                 <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Enter Email' />
                 <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder='Enter Password' />
                 <input type="password" name="password2" value={formData.password2} onChange={handleChange} placeholder='Enter Password Again' />
-                <input type="submit" value="Sign Up" />
+                <input type="submit" className="signup-submit"name='signup-submit' value="Sign Up" />
             </form>
         </>
     );

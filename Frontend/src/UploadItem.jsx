@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from './context/AuthContext';
+import './css/upload.css'
 
 const UploadItem = () => {
     const {user} = useContext(AuthContext)
@@ -42,10 +43,11 @@ const UploadItem = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <h1>Say Goodbye</h1>
+            <form className="upload-form flex-col" onSubmit={handleSubmit}>
                 <input type="text" id="item_name" value={formData.item_name} onChange={handleChange} placeholder="Enter Item Name" required />
                 <input type="number" id="item_price" value={formData.item_price} onChange={handleChange} placeholder="Enter Item Price" required />
-                <input type="text" id="item_description" value={formData.item_description} onChange={handleChange} placeholder="Enter Item Description" required />
+                <input type="text" className='input-desc' id="item_description" value={formData.item_description} onChange={handleChange} placeholder="Enter Item Description" required />
                 <select id="item_condition" value={formData.item_condition} onChange={handleChange}>
                     <option value="love">Needs Love</option>
                     <option value="used">Used</option>
@@ -58,8 +60,8 @@ const UploadItem = () => {
                     <option value="2">Furniture</option>
                     <option value="3">Car Parts</option>
                 </select>
-                <input type="file" id="item_thumbnail" onChange={handleFileChange} accept="image/*" required />
-                <input type="submit" value="Post" />
+                <input type="file" className='input-thumb' id="item_thumbnail" onChange={handleFileChange} accept="image/*" required />
+                <input type="submit" className='input-sub' value="Post" />
             </form>
         </div>
     );
