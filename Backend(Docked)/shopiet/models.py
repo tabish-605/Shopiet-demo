@@ -45,7 +45,7 @@ class Item(models.Model):
     def generate_unique_slug(self):
         base_slug = slugify(self.item_name)
         unique_part = str(int(time.time())) + str(random.randint(1, 1000))  # Combine time and random number
-        return f"{base_slug}-{unique_part}"
+        return f"{base_slug}-{unique_part}6"
 
     time_stamp = models.DateField(auto_now_add=True)
     category = models.ForeignKey(
