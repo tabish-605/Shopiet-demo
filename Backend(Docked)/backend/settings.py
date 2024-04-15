@@ -46,9 +46,6 @@ CORS_ORIGIN_WHITELIST = [
     'https://shopiet.netlify.app'
 ]
 
-
-
-
 # Application definition
 
 INSTALLED_APPS = [
