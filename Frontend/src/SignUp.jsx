@@ -47,7 +47,7 @@ export default function SignUp() {
     return (
         <>
             <h1 className='signup-header'> Sign Up</h1>
-            {message && <div className="signup-message">{message}</div>} 
+            {message && <div className="signup-message"><h3>{message}</h3></div>} 
             <form className='signup-form' onSubmit={handleSubmit}>
                 <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder='Enter User Name' />
                 <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Enter Email' />
