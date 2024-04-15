@@ -35,11 +35,9 @@ const UploadItem = () => {
             headers: {
                 'content-type': 'multipart/form-data'
             }
-        })
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(err => console.log(err), console.log(response.data));
+        }).then(response => {
+            console.log(response.data);
+        }).catch(err => console.log(err));
     };
 
     return (
