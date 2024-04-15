@@ -28,7 +28,7 @@ const UploadItem = () => {
         for (let key in formData) {
             form_data.append(key, formData[key]);
         }
-        let url = 'http://localhost:8000/api/upload/';
+        let url = 'https://shopietbackend-wlzwbcznba-bq.a.run.app/api/upload/';
         axios.post(url, form_data, {
             headers: {
                 'content-type': 'multipart/form-data'
