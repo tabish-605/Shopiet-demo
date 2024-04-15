@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+import random
+import time
 # Create your models here.
 
 
@@ -33,8 +35,17 @@ class Item(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(self.item_name)
+            self.slug = self.generate_unique_slug()
+        if self.user:
+            self.item_username = self.user.username
+        if self.category:
+            self.item_category_name = self.category.name
         super().save(*args, **kwargs)
+
+    def generate_unique_slug(self):
+        base_slug = slugify(self.item_name)
+        unique_part = str(int(time.time())) + str(random.randint(1, 1000))  # Combine time and random number
+        return f"{base_slug}-{unique_part}"
 
     time_stamp = models.DateField(auto_now_add=True)
     category = models.ForeignKey(
@@ -42,17 +53,7 @@ class Item(models.Model):
     item_username = models.CharField(max_length=150, blank=True)
     item_category_name = models.CharField(max_length=150, blank=True)
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.item_name)
-
-        # Populate item_username and item_category_name before saving
-        if self.user:
-            self.item_username = self.user.username
-        if self.category:
-            self.item_category_name = self.category.name
-
-        super().save(*args, **kwargs)
+    
 
     
     def __str__(self):

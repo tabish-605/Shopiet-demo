@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['http://localhost:5173', 'https://shopiet.netlify.app','https:/
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:5173',
-    'https://shopietbackend-wlzwbcznba-bq.a.run.app'
+    'https://shopietbackend-wlzwbcznba-bq.a.run.app',
     'https://main--shopiet.netlify.app',
     'https://shopiet.netlify.app'
 ]
