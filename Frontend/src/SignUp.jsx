@@ -15,15 +15,15 @@ export default function SignUp() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Ensure e is an event object and prevent default form submission behavior
+        e.preventDefault();
         try {
-            // Validate form fields
+       
             if (formData.password !== formData.password2) {
                 alert('Passwords do not match');
                 return;
             }
     
-            // Send sign-up request
+           
             const response = await fetch('http://127.0.0.1:8000/api/signup/', {
                 method: 'POST',
                 headers: {
@@ -33,19 +33,19 @@ export default function SignUp() {
             });
     
             if (response.ok) {
-                // If sign-up is successful, login the user
-                await loginUser(e); // Pass the event object to loginUser
-                // Optionally, redirect the user to a different page or display a success message
+             
+                await loginUser(e);
+                
                 console.log('Sign-up successful');
-                loginUser; // This line seems unnecessary
+                loginUser;
             } else {
-                // If sign-up fails, handle the error
+            
                 console.error('Sign-up failed:', response.statusText);
-                // Optionally, display an error message to the user
+                
             }
         } catch (error) {
             console.error('Error:', error);
-            // Optionally, display an error message to the user
+            
         }
     };
     return (

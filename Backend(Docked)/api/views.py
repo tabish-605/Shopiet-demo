@@ -5,7 +5,7 @@ from rest_framework import status
 
 from shopiet.models import Item, Category, Images, User
 from .serialisers import ItemSerializer
-from .serialisers import AddUserSerializer
+from .serialisers import AddUserSerializer, AddItemSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -52,10 +52,22 @@ def addUser(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+
 @api_view(['POST'])
 def addItem(request):
-    serializer = ItemSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data)
+    if request.method == 'POST':
+        serializer = AddItemSerializer(data=request.data)
+        if serializer.is_valid():
+            # Save the item object
+            item = serializer.save()
+            # Optionally, you may customize the response data
+            response_data = {
+                'message': 'Item uploaded',     
+                'data': serializer.data  # Return serialized item data
+            }
+            # Return a success response with status code 201 (created)
+            return Response(response_data, status=status.HTTP_201_CREATED)
+        # If the request data is invalid, return an error response
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
 

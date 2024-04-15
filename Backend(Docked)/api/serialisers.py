@@ -39,3 +39,11 @@ class AddUserSerializer(serializers.ModelSerializer):
         user.save()
         return user
      
+class AddItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields = ('__all__')
+    
+
+   
+   

@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect} from 'react'
 import exchangeImg from './assets/exchange.webp'
-
+import { Link } from 'react-router-dom'
 
 
 import './css/App.css'
@@ -19,6 +19,7 @@ function App() {
         }
         const jsonData = await response.json();
         setData(jsonData);
+        console.log(jsonData)
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -38,9 +39,9 @@ function App() {
      <section className="section-items">
         <div className="cta">
           <div className="cta-text">
-            <div className="cta-text-head"> <h2>Give Your Preloved Items a New Story</h2></div>
+            <div className="cta-text-head"> <h2>Give Your Preloved Items a New Home</h2></div>
            <div className="cta-text-btn">
-             <button>Sell an Item</button>
+           <Link to ={'/upload'}> <button>Sell an Item</button></Link>
            </div>
            
           </div>
@@ -57,12 +58,14 @@ function App() {
         <section className="items-container">
         {latestItems.map((item, index) => <div className='item-card' key={index}>
           <div className="item-card-img-cnt">
-            <img loading="lazy" src={`https://shopietbackend-wlzwbcznba-bq.a.run.app${item.item_thumbnail}`} className="item-image" srcSet="" />
+            <img loading="lazy" alt={item.item_thumbnail.name} src={`http://127.0.0.1:8000${item.item_thumbnail}`} className="item-image" srcSet="" />
           </div>
           <div className="item-card-desc">
              <h3 >{item.item_name}</h3>
           <p className='item-card-price'>R{item.item_price}</p>
           <p>{item.item_condition}</p>
+          
+          <p>{item.item_username}</p>
           </div>
          
         </div>)}

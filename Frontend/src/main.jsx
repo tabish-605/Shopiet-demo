@@ -8,6 +8,7 @@ import Login from './Login.jsx';
 import PrivateRoutes from './utils/PrivateRoute.jsx';
 import { AuthProvider } from './context/AuthContext'
 import SignUp from './SignUp.jsx';
+import UploadItem from './UploadItem.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -18,9 +19,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        {/* Add private routes by wrapping them with PrivateRoute */}
-       <Route element={<PrivateRoutes/>}>
         <Route path="/" element={<App />} />
+        
+       <Route element={<PrivateRoutes/>}>
+        <Route path="/upload" element={<UploadItem/>} />
        </Route>
         
       </Routes>

@@ -9,14 +9,22 @@ export default function Login(){
     let {logoutUser} = useContext(AuthContext)
     return(
         <>
-            <form onSubmit={loginUser}>
-                <input type="text" name="username" id="" placeholder='Enter User Name' />
-                <input type="password" name="password" id="" placeholder='Enter Password'/>
-                <input type="submit" value="" />
-            </form>
+            
 
-            {user && <><p>Hello, {user.username}</p> <button onClick={logoutUser}>Logout</button></>}
-            <h3>Don't Have an account? <Link to={'/signup'}>Sign Up</Link> </h3>
+            {user ? <><p>Hello, {user.username}</p> <button onClick={logoutUser}>Logout</button>
+            
+            
+            <Link to ={'/upload'}> <button>Sell an Item</button></Link>
+            </> 
+            
+            
+            
+            : <form onSubmit={loginUser}>
+                <input type="text" name="username" id="username" placeholder='Enter User Name' />
+                <input type="password" name="password" id="password" placeholder='Enter Password'/>
+                <input type="submit" value="" /><h3>Don't Have an account? <Link to={'/signup'}>Sign Up</Link> </h3>
+            </form>}
+            
         </>
     )
 }

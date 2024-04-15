@@ -39,7 +39,22 @@ class Item(models.Model):
     time_stamp = models.DateField(auto_now_add=True)
     category = models.ForeignKey(
         Category, related_name="category", on_delete=models.CASCADE, null=True)
+    item_username = models.CharField(max_length=150, blank=True)
+    item_category_name = models.CharField(max_length=150, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.item_name)
+
+        # Populate item_username and item_category_name before saving
+        if self.user:
+            self.item_username = self.user.username
+        if self.category:
+            self.item_category_name = self.category.name
+
+        super().save(*args, **kwargs)
+
+    
     def __str__(self):
      return self.item_name
     
