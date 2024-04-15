@@ -29,6 +29,7 @@ const UploadItem = () => {
         for (let key in formData) {
             form_data.append(key, formData[key]);
         }
+        console.log(JSON.stringify(formData))
         let url = 'https://shopietbackend-wlzwbcznba-bq.a.run.app/api/upload/';
         axios.post(url, form_data, {
             headers: {
@@ -38,7 +39,7 @@ const UploadItem = () => {
             .then(res => {
                 console.log(res.data);
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err), console.log(res.data));
     };
 
     return (

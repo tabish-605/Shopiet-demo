@@ -46,7 +46,7 @@ function App() {
            
           </div>
           <div className="cta-image">
-            <img src={exchangeImg} alt="" />
+            <img src={exchangeImg} alt="couple-exchanging-items" />
           </div>
         </div>
         <div className="items-section">
