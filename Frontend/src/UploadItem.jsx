@@ -59,6 +59,7 @@ const UploadItem = () => {
                     <option value="1">Tech</option>
                     <option value="2">Furniture</option>
                     <option value="3">Car Parts</option>
+                    <option value="4">Gardening</option>
                 </select>
                 <input type="file" className='input-thumb' id="item_thumbnail" onChange={handleFileChange} accept="image/*" required />
                 <input type="submit" className='input-sub' value="Post" />
