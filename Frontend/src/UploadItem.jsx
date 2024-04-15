@@ -11,6 +11,7 @@ const UploadItem = () => {
         item_description: '',
         item_condition: 'used',
         category: '',
+        user:user.user_id,
         item_thumbnail: null,
     });
 
