@@ -37,18 +37,20 @@ def addUser(request):
     if request.method == 'POST':
         serializer = AddUserSerializer(data=request.data)
         if serializer.is_valid():
-            # Save the user object
+            # Check if user already exists
+            username = serializer.validated_data["username"]
+            email = serializer.validated_data["email"]
+            if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+                return Response({'message': 'A user with that username already exists'}, status=status.HTTP_409_CONFLICT)
+            
             user = serializer.save()
-            # Optionally, you may customize the response data
             response_data = {
                 'message': 'User registered successfully',
                 'user_id': user.id,
                 'username': user.username,
                 'email': user.email,
             }
-            # Return a success response with status code 201 (created)
             return Response(response_data, status=status.HTTP_201_CREATED)
-        # If the request data is invalid, return an error response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -58,16 +60,12 @@ def addItem(request):
     if request.method == 'POST':
         serializer = AddItemSerializer(data=request.data)
         if serializer.is_valid():
-            # Save the item object
             item = serializer.save()
-            # Optionally, you may customize the response data
             response_data = {
-                'message': 'Item uploaded',     
-                'data': serializer.data  # Return serialized item data
+                'message': 'Item uploaded',
+                'data': serializer.data
             }
-            # Return a success response with status code 201 (created)
             return Response(response_data, status=status.HTTP_201_CREATED)
-        # If the request data is invalid, return an error response
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

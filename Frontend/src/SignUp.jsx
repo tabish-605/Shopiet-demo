@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import axios from 'axios';
 import AuthContext from './context/AuthContext';
 import './css/signup.css';
 
@@ -10,34 +11,34 @@ export default function SignUp() {
         password: '',
         password2: ''
     });
-    const [message, setMessage] = useState(null); // State variable for displaying messages
+    const [message, setMessage] = useState(null);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     const handleSubmit = async (e) => {
+        setMessage(null)
         e.preventDefault();
         try {
             if (formData.password !== formData.password2) {
-                setMessage('Passwords do not match lil bro');
+                setMessage('Passwords do not match');
                 return;
             }
 
-            const response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', {
-                method: 'POST',
+            const response = await axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', formData, {
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
+                }
             });
 
-            if (response.ok) {
+            if (response.status === 201) {
                 await loginUser(e);
                 setMessage('Sign-up successful');
+            } else if (response.status === 400 && response.data.message === 'A user with that username already exists') {
+                setMessage('A user with that username already exists');
             } else {
-                const data = await response.json();
-                setMessage(`Sign-up failed: ${data.detail}`);
+                setMessage('Sign-up failed');
             }
         } catch (error) {
             setMessage('Error occurred during sign-up');
@@ -47,7 +48,7 @@ export default function SignUp() {
     return (
         <>
             <h1 className='signup-header'> Sign Up</h1>
-            {message && <div className="signup-message"><h3>{message}</h3></div>} 
+            {message && <div className="signup-message"><h3>{message}</h3></div>}
             <form className='signup-form' onSubmit={handleSubmit}>
                 <input type="text" name="username" value={formData.username} onChange={handleChange} placeholder='Enter User Name' />
                 <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Enter Email' />

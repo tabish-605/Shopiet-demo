@@ -18,6 +18,7 @@ const UploadItem = () => {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
+        console.log(user.user_id)
     };
 
     const handleFileChange = (e) => {
@@ -57,9 +58,9 @@ const UploadItem = () => {
                 <select id="category" value={formData.category} onChange={handleChange}>
                     <option value="">Select Category</option>
                     <option value="960732137074130945">Tech</option>
-                    <option value="960732137074130946">Furniture</option>
-                    <option value="960732137074130947">Car Parts</option>
-                    <option value="960732137074130948">Gardening</option>
+                    <option value="960807240398831617">Furniture</option>
+                    <option value="	960807346087755777">Car Parts</option>
+                    <option value="960807528684290049">Gardening</option>
                 </select>
                 <input type="file" className='input-thumb' id="item_thumbnail" onChange={handleFileChange} accept="image/*" required />
                 <input type="submit" className='input-sub' value="Post" />

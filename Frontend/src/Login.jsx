@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from './context/AuthContext';
 
-
 export default function Login() {
     const { loginUser, user, logoutUser } = useContext(AuthContext);
     const [message, setMessage] = useState(null); // State variable for displaying messages
