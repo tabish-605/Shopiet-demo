@@ -146,11 +146,14 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-
-
-
-DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL', ''), engine='django_cockroachdb')}
-
+DATABASES = {
+    'default': dj_database_url.config(
+        default=os.environ['DATABASE_URL'],
+        engine='django_cockroachdb',
+        ssl_require=True,  # Enable SSL certificate verification
+        conn_max_age=600  # Adjust the connection age if needed
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

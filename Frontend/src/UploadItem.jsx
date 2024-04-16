@@ -11,7 +11,7 @@ const UploadItem = () => {
         item_price: '',
         item_description: '',
         item_condition: 'used',
-        category: 1,
+        category: 960732137074130945,
         user:user.user_id,
         item_thumbnail: null,
     });
@@ -56,10 +56,10 @@ const UploadItem = () => {
                 </select>
                 <select id="category" value={formData.category} onChange={handleChange}>
                     <option value="">Select Category</option>
-                    <option value="1">Tech</option>
-                    <option value="2">Furniture</option>
-                    <option value="3">Car Parts</option>
-                    <option value="4">Gardening</option>
+                    <option value="960732137074130945">Tech</option>
+                    <option value="960732137074130946">Furniture</option>
+                    <option value="960732137074130947">Car Parts</option>
+                    <option value="960732137074130948">Gardening</option>
                 </select>
                 <input type="file" className='input-thumb' id="item_thumbnail" onChange={handleFileChange} accept="image/*" required />
                 <input type="submit" className='input-sub' value="Post" />
