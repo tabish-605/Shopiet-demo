@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+from dotenv import load_dotenv
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,27 +27,18 @@ from datetime import timedelta
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-y!_+h8g6l_m(!d6co5ivs+jk6w%^0bv%h*jehc+^7%2whg#gne'
+SECRET_KEY = os.getenv('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-ALLOWED_HOSTS = [
-    'localhost',
-    '127.0.0.1',
-    'shopietbackend-wlzwbcznba-bq.a.run.app',
-    'shopiet.netlify.app',
-    'main--shopiet.netlify.app',
-    'shopietbackend-wlzwbcznba-bq.a.run.app'
-]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:5173',
-    'https://shopietbackend-wlzwbcznba-bq.a.run.app',
-    'https://main--shopiet.netlify.app',
-    'https://shopiet.netlify.app'
-]
+
+
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
+CORS_ORIGIN_WHITELIST = os.getenv('CORS_ORIGIN_WHITELIST', '').split(',')
+
 
 # Application definition
 
@@ -151,12 +145,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+
+
+
+
+DATABASES = {'default': dj_database_url.config(default=os.getenv('DATABASE_URL', ''), engine='django_cockroachdb')}
 
 
 # Password validation
