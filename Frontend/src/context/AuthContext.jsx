@@ -11,7 +11,10 @@ export const AuthProvider = ({ children }) => {
     let [loading, setLoading] = useState(true);
 
     const loginUser = async (e) => {
-        e.preventDefault();
+
+        console.log(e.username)
+        console.log(e.password)
+    
         try {
             let response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/token/', {
                 method: 'POST',
@@ -19,21 +22,27 @@ export const AuthProvider = ({ children }) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    'username': e.target.username.value,
-                    'password': e.target.password.value
+                    'username': e.username,
+                    'password': e.password
                 })
             });
 
             if (!response.ok) {
                 throw new Error('Failed to login');
             }
-
+           alert('hi')
             let data = await response.json();
             console.log(JSON.stringify(data))
-            localStorage.setItem('authTokens', JSON.stringify(data));
+            
+            alert('hi2')
+            
             setAuthTokens(data);
             setUser(jwtDecode(data.access));
+            localStorage.setItem('authTokens', JSON.stringify(data));
+            
             console.log(JSON.stringify(data))
+            console.log('dat is this:' + JSON.stringify(data))
+            
         } catch (error) {
             console.error('Error:', error.message);
         }
@@ -61,7 +70,7 @@ export const AuthProvider = ({ children }) => {
                 throw new Error('Failed to refresh token');
             }
 
-            const data = await response.json();
+            let data = await response.json();
             setAuthTokens(data);
             setUser(jwtDecode(data.access));
             localStorage.setItem('authTokens', JSON.stringify(data));
@@ -87,7 +96,7 @@ export const AuthProvider = ({ children }) => {
         authTokens,
         loginUser,
         logoutUser,
-        loading // Make sure to include loading state in context data
+        loading
     };
 
     return (

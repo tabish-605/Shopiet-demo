@@ -5,14 +5,14 @@ import './css/upload.css'
 
 const UploadItem = () => {
     const {user} = useContext(AuthContext)
-    console.log(user.user_id)
+    console.log(user.id)
     const [formData, setFormData] = useState({
         item_name: '',
         item_price: '',
         item_description: '',
         item_condition: 'used',
         category: 960732137074130945,
-        user:user.user_id,
+        item_username:user.username,
         item_thumbnail: null,
     });
 
