@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AuthContext from './context/AuthContext';
 
 export default function Login() {
-    const { loginUser, user, logoutUser } = useContext(AuthContext);
+    let { loginUser, user, logoutUser } = useContext(AuthContext);
     const [message, setMessage] = useState(null); // State variable for displaying messages
 
     const handleSubmit = async (e) => {
@@ -15,7 +15,10 @@ export default function Login() {
         };
         try {
             await loginUser(formData);
-            setMessage('Login successful');
+            if (user=null){
+                setMessage('Login failed, check username or credentials');  
+            }else {
+            setMessage('Login successful');}
         } catch (error) {
             setMessage('Login failed. Please check your credentials.');
         }

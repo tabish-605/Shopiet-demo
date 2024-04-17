@@ -4,7 +4,7 @@ import AuthContext from './context/AuthContext';
 import './css/signup.css';
 
 export default function SignUp() {
-    const { loginUser } = useContext(AuthContext);
+    let { loginUser } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         username: '',
         email: '',
