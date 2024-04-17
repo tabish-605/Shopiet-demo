@@ -25,7 +25,7 @@ export default function SignUp() {
                 setMessage('Passwords do not match');
                 return;
             } else if (formData.password.length < 8 || formData.password.length < 8){
-                setMessage('Password is too short, should be at least characters ');
+                setMessage('Password is too short, should be at least 8 characters ');
                 return;
 
             }
