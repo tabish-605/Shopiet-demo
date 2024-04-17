@@ -16,9 +16,9 @@ export default function Login() {
         try {
             await loginUser(formData);
             if (user=null){
-                setMessage('Login failed, check username or credentials');  
+                setMessage('Login succesful');  
             }else {
-            setMessage('Login successful');}
+            setMessage('Login failed, check username or credentials');}
         } catch (error) {
             setMessage('Login failed. Please check your credentials.');
         }
