@@ -7,7 +7,7 @@ export default function Login() {
     const [message, setMessage] = useState(null); // State variable for displaying messages
 
     const handleSubmit = async (e) => {
-      
+        setMessage(null)   
         e.preventDefault();
         const formData = {
             username: e.target.username.value,

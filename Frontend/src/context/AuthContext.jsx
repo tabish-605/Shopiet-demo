@@ -30,11 +30,11 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) {
                 throw new Error('Failed to login');
             }
-           alert('hi')
+         
             let data = await response.json();
             console.log(JSON.stringify(data))
             
-            alert('hi2')
+
             
             setAuthTokens(data);
             setUser(jwtDecode(data.access));

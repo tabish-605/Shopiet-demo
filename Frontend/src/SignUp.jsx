@@ -24,6 +24,10 @@ export default function SignUp() {
             if (formData.password !== formData.password2) {
                 setMessage('Passwords do not match');
                 return;
+            } else if (formData.password.length < 8 || formData.password.length < 8){
+                setMessage('Password is too short, should be at least characters ');
+                return;
+
             }
 
             const response = await axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', formData, {
