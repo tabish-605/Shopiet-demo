@@ -61,7 +61,7 @@ function App() {
         <section className="items-container">
         {latestItems.map((item, index) => <div className='item-card' key={index}>
           <div className="item-card-img-cnt">
-            <img loading="lazy" alt={item.item_thumbnail.name} src={`https://shopietbackend-wlzwbcznba-bq.a.run.app${item.item_thumbnail}`} className="item-image" srcSet="" />
+            <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
           </div>
           <div className="item-card-desc">
              <h3 >{item.item_name}</h3>
