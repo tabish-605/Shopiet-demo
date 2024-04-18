@@ -139,7 +139,7 @@
 .item-card-price{
   color: #8ec572;
   margin-top: 10px;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   font-weight: bold;
 }
 .item-card-img-cnt{
@@ -151,13 +151,16 @@
   display: flex;
   justify-content: center;
   gap: 10%;
+  border: 2px solid;
+  border-radius: 12px;
   
 }
 
 .item-meta p{
-  border: 2px solid;
+  
   padding: 4px;
   border-radius: 8px;
+  font-size: 1.3rem;
 }
 .item-card-img-cnt img{
  width: 100%;
