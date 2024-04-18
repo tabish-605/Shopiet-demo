@@ -61,7 +61,7 @@ const UploadItem = () => {
             <h1>Say Goodbye</h1>
             <form className="upload-form flex-col" onSubmit={handleSubmit}>
                 <input type="text" id="item_name" className="prevent-zoom" value={formData.item_name} onChange={handleChange} placeholder="Enter Item Name" required />
-                R <input type="number" id="item_price"  className="prevent-zoom"  value={formData.item_price} onChange={handleChange} placeholder="Enter Item Price" required />
+                <div >R <input type="number" id="item_price"  className="prevent-zoom"  value={formData.item_price} onChange={handleChange} placeholder="Enter Item Price" required /></div>
                 <input type="text" className="input-desc prevent-zoom" id="item_description" value={formData.item_description} onChange={handleChange} placeholder="Enter Item Description" required />
                 <select id="item_condition"  className="prevent-zoom"  value={formData.item_condition} onChange={handleChange}>
                     <option value="needs love">Needs Love</option>
@@ -81,7 +81,7 @@ const UploadItem = () => {
                     <p>Uploading{Array(Math.floor((Date.now() / 1000) % 4) + 1).join('.')}</p>
                 ) : (<>
                   
-                    <input type="submit" className="input-sub" value="Post" /></>
+                    <input type="submit" className="input-sub shd-press-eff" value="Post" /></>
                 )}
             </form>
         </div>

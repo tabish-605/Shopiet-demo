@@ -24,10 +24,11 @@ export default function SignUp() {
             if (formData.password !== formData.password2) {
                 setMessage('Passwords do not match');
                 return;
-            } else if (formData.password.length < 8 || formData.password.length < 8){
+            } else if (formData.password.length < 8 || formData.password2.length < 8){
                 setMessage('Password is too short, should be at least 8 characters ');
                 return;
-
+            } else if (/^\d+$/.test(formData.password)) {
+                setMessage(`Password can't be all numbers`);
             }
 
             const response = await axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', formData, {
@@ -37,7 +38,7 @@ export default function SignUp() {
             });
 
             if (response.status === 201) {
-                await loginUser(e);
+                await loginUser(formData);
                 setMessage('Sign-up successful');
             } else if (response.status === 400 && response.data.message === 'A user with that username already exists') {
                 setMessage('A user with that username already exists');
@@ -58,7 +59,7 @@ export default function SignUp() {
                 <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder='Enter Email' />
                 <input type="password" name="password" value={formData.password} onChange={handleChange} placeholder='Enter Password' />
                 <input type="password" name="password2" value={formData.password2} onChange={handleChange} placeholder='Enter Password Again' />
-                <input type="submit" className="signup-submit" name='signup-submit' value="Sign Up" />
+                <input type="submit" className="signup-submit shd-press-eff" name='signup-submit' value="Sign Up" />
             </form>
         </>
     );

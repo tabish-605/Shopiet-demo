@@ -3,6 +3,7 @@
     display: flex;
     background-color: #222;   
     color: #8dc572;
+    align-items: center;
     width: 100vw;
     height: 6rem;
     
@@ -20,10 +21,15 @@
 .nav-items{
     display: flex;
     align-items: center;
+    justify-items: center;
     width: 100%;
     padding: 1rem;
     
     justify-content: space-between;
+}
+
+.header{
+    margin-top: 0px;
 }
 .items{
     width: 100%;
@@ -89,6 +95,7 @@
     background-color: #222;
     color: #ffff;
     text-wrap: nowrap;
+    transition: all 4s;
 }
 
 .quicknav ul{

@@ -34,12 +34,17 @@ input{
     color: #fff;
 }
 
+
+
 .btn-sell{
     padding: 10px;
     border-radius: 22px;
     border: 2px solid black;
 }
 
+.btn-sell button{
+    background-color: transparent;
+}
 .welcome-login{
     padding: 2rem;
 }

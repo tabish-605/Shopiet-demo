@@ -42,7 +42,7 @@ export default function Login() {
                     <form className='login-form' onSubmit={handleSubmit}>
                         <input type="text" name="username" className="prevent-zoom" id="username" placeholder='Enter User Name' />
                         <input type="password" name="password" className="prevent-zoom" id="password" placeholder='Enter Password' />
-                        <input type="submit" className='login-submit' value="Login" />
+                        <input type="submit" className='login-submit shd-press-eff' value="Login" />
                         <h3>Don't Have an account? <Link to='/signup'>Sign Up</Link></h3>
                     </form>
                 </>
