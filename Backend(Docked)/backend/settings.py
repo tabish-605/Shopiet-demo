@@ -15,6 +15,7 @@ import os
 import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
+from google.cloud import storage
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,7 +79,7 @@ SIMPLE_JWT = {
 
     "ALGORITHM": "HS256",
 
-    "VERIFYING_KEY": "",
+    "VERIFYING_KEY": os.getenv('SECRET_KEY', ''),
     "AUDIENCE": None,
     "ISSUER": None,
     "JSON_ENCODER": None,
@@ -190,8 +191,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS']='shopiet-420118-0c90e2301f32.json'
+storage_client = storage.Client()
+
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_PROJECT_ID = 'shopiet-420118'
+GS_BUCKET_NAME = 'shopiet-media'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
+
 
 
 # Default primary key field type

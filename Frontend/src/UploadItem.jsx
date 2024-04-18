@@ -29,7 +29,11 @@ const UploadItem = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setLoading(true); // Set loading to true when form is submitted
+        if (!formData.item_name || !formData.item_price || !formData.item_description || !formData.item_thumbnail) {
+            alert('Please fill in all required fields.'); // Display error message
+            return;
+        }
+        setLoading(true);
         let form_data = new FormData();
         for (let key in formData) {
             form_data.append(key, formData[key]);
@@ -56,16 +60,16 @@ const UploadItem = () => {
         <div>
             <h1>Say Goodbye</h1>
             <form className="upload-form flex-col" onSubmit={handleSubmit}>
-                <input type="text" id="item_name" value={formData.item_name} onChange={handleChange} placeholder="Enter Item Name" required />
-                <input type="number" id="item_price" value={formData.item_price} onChange={handleChange} placeholder="Enter Item Price" required />
-                <input type="text" className="input-desc" id="item_description" value={formData.item_description} onChange={handleChange} placeholder="Enter Item Description" required />
-                <select id="item_condition" value={formData.item_condition} onChange={handleChange}>
-                    <option value="love">Needs Love</option>
+                <input type="text" id="item_name" className="prevent-zoom" value={formData.item_name} onChange={handleChange} placeholder="Enter Item Name" required />
+                R <input type="number" id="item_price"  className="prevent-zoom"  value={formData.item_price} onChange={handleChange} placeholder="Enter Item Price" required />
+                <input type="text" className="input-desc prevent-zoom" id="item_description" value={formData.item_description} onChange={handleChange} placeholder="Enter Item Description" required />
+                <select id="item_condition"  className="prevent-zoom"  value={formData.item_condition} onChange={handleChange}>
+                    <option value="needs love">Needs Love</option>
                     <option value="used">Used</option>
-                    <option value="like_new">Like New</option>
+                    <option value="like new">Like New</option>
                     <option value="new">New</option>
                 </select>
-                <select id="category" value={formData.category} onChange={handleChange}>
+                <select id="category"  className="prevent-zoom"  value={formData.category} onChange={handleChange}>
                     <option value="">Select Category</option>
                     <option value="960732137074130945">Tech</option>
                     <option value="960807240398831617">Furniture</option>
@@ -75,8 +79,9 @@ const UploadItem = () => {
                 <input type="file" className="input-thumb" id="item_thumbnail" onChange={handleFileChange} accept="image/*" required />
                 {loading ? ( // Display loading message with animated dots if loading is true
                     <p>Uploading{Array(Math.floor((Date.now() / 1000) % 4) + 1).join('.')}</p>
-                ) : (
-                    <input type="submit" className="input-sub" value="Post" />
+                ) : (<>
+                  
+                    <input type="submit" className="input-sub" value="Post" /></>
                 )}
             </form>
         </div>

@@ -43,3 +43,10 @@ input{
 .welcome-login{
     padding: 2rem;
 }
+
+.prevent-zoom {
+    max-height: 100px;
+    max-width: 100%;
+    -webkit-text-size-adjust: none;
+    text-size-adjust: none; 
+}

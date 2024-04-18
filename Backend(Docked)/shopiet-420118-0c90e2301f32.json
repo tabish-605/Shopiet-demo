@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "shopiet-420118",
+  "private_key_id": "0c90e2301f329a6cad8eb2d89513c08003375dfe",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCdHjnrqEANyPS9\nQD7fJnKWkS8cjyRzVMBYRacxwzewQSLDwyF8VjSSpV3glhC2if9FYywLAZkQdv6v\n/n3x88CbFqZB9schPt//XS2bg8/B768UHy70f66QHj0wrx6gR3qtd26Kwk6fNnG7\nbkZrbtA92T7JNocCt9/yMJQ1QvsHZCxuaiytcmnTE2M9q+nMWhBmcUti9eGdixFv\n9cJ2Az06mxHn/gyvYv6TmAILakvoU45mpoh/zbFkrvPpQtwNC8hHlz7WukjmcQkJ\nvqSlE34TDwjEUjSzomlprLKJbNFObeVNno4Y8VD+aoojahEjifNkJ/EhlQ4J8xSO\nAy1RvU0HAgMBAAECggEAR8hlggsuqJ2lY0mU7/Lq62uNcKjdaGvSLQI1rwCX0skP\njwz5oYrpHg67Yz5siFln7VWv659hRSp4lgPZms9YsgKZFw4eUEwfntX9Xk3Mf7h3\n7uOIWmBzapjGMBXyEhxWKiaktHSt4wPG1nE9bxwDvB4jF174M/+6KzaSn/roIaml\nW625heslCeEUdGkzhDg62zpkMzJQEHuuw1R4GnMln3gNxILWqzU8bLTsBY1NHbLj\nF/uuM9jEse+2hVHAWYY1BZ+vWIvgZbJw6qVaTAL5cwtauPZ6fGnBnRfC+QdvP0s9\nwxoiVAkFONOQa1zX5u/aUO818Owd/kfAOVecdhbk4QKBgQDPw0ppJnYQgQAXUvIy\nB/f4/Bo4JMx2mDp/Wtjjbrfrs3jKnwBl3epIbOl2pGziBgvXb2f1Wz8lSZUJNWDS\nYpw2/umCIaHgQhrpqS57BTJAdBceSwjD4AldG8QOzjo7lJ5G6QR51NeL7fz8mxxC\nqckvXwARzUusNlNEX7pKRoaiXwKBgQDBmMiug8hKBlKUbJEOKO6FtpggnkrE0lwV\nz2L8JDdcypP2xlf/Go57jQMdEiE2+C9S36hEP6svSFOXHEHicfe+vIX0c1YhdZzg\nQLicy+9aQ0o4CRF2AAm3ykwoz8g9Q0EigKV0kfp3bscKzA8xkgUEYHSKQcjEa5d7\nOFLbkuNmWQKBgB8PrWJHE8On5aGXDwqX0mTxG+Jk7gSVAbnklSR7exfL/zUbzG1u\nXgZx8f2A2553FPIif8JY3/ntJFD6H/2ULJK0Tajc6lyixW9FkeNmhXrJYGNxCGBw\ncDXxXsBv6JjbwUYMtFSak5ch/36sme8Ff0SLyXDf5n5aqNxCC5HrNVm1AoGAYLDK\nKj8vXalivTasDAJtfuL/f+sPNNZLn6kAqyX7cKDM3ceaU5MT7qkzEOXpKOcz25RR\nGiUifm8FMMewMETzk5Pc44ZnUjbHr0kj60v/s3lALFR7IBBMyjqDZy6/t7lLYswV\n1u7BxbzSNJZOUFe5ocH68sKAX3nNIoGzAG+Qm6ECgYAnIdkTP/xW0RYTCaD88wPD\nczRTMUCzW5N3nYjw0hcPRzEZNcd2yZUX27ijmZ8zUuZYdlvvylwBoreGUxZc0knx\nZBYfPzNYU48vxCaFq+9IIlyDeReYZ3QlyPMho31AaMcTC02yYnHB+mjF2ipHrPHe\ntzquEpM3lSYu5YYOGQzTig==\n-----END PRIVATE KEY-----\n",
+  "client_email": "shopietservice@shopiet-420118.iam.gserviceaccount.com",
+  "client_id": "107236806187329408934",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/shopietservice%40shopiet-420118.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

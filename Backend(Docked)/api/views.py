@@ -17,6 +17,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         # Add custom claims
         token['username'] = user.username
+        token['password'] = user.password
+        token['id'] = user.id
         # ...
 
         return token
@@ -47,6 +49,7 @@ def addUser(request):
             response_data = {
                 'message': 'User registered successfully',
                 'user_id': user.id,
+                'password':user.password,
                 'username': user.username,
                 'email': user.email,
             }
@@ -58,6 +61,14 @@ def addUser(request):
 @api_view(['POST'])
 def addItem(request):
     if request.method == 'POST':
+        item_username = request.data.get('item_username')  # Assuming 'username' is passed in the request data
+        try:
+            user = User.objects.get(username=item_username)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Add the user object to the request data
+        request.data['user'] = user.id
         serializer = AddItemSerializer(data=request.data)
         if serializer.is_valid():
             item = serializer.save()
