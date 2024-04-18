@@ -60,6 +60,7 @@ share/python-wheels/
 MANIFEST
 
 shopiet-420118-0c90e2301f32.json
+Backend(Docked)/shopiet-420118-0c90e2301f32.json
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
