@@ -66,12 +66,12 @@ function App() {
           <div className="item-card-desc">
              <h3 >{item.item_name}</h3>
              <div className="item-info">
-               <p className='item-card-price'>R {item.item_price}</p>
-               <div className="item-meta">
-                <p>{item.item_condition}</p>
+              
+                <p className='item-card-price'>R {item.item_price}</p>
+                <p className='item-card-condition'>{item.item_condition}</p>
           
-          <p>{item.item_username}</p>
-               </div>
+          
+         
           
              </div>
          
