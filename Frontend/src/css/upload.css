@@ -1,3 +1,8 @@
+.upload-cnt{
+    height: 90vh;
+    justify-content: center;
+}
+
 .upload-form{
  
     padding: 2rem;
@@ -41,7 +46,9 @@
 }
 
 .input-desc{
-    height:100px
+    height:100px;
+    border-radius:18px;
+    padding: 12px;
 }
 /* Hide the default radio button */
 input[type="radio"] {

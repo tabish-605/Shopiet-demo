@@ -57,7 +57,7 @@ const UploadItem = () => {
     };
 
     return (
-        <div>
+        <div className='upload-cnt flex-col '>
             <h1>Say Goodbye</h1>
             <form className="upload-form flex-col" onSubmit={handleSubmit}>
                 <input type="text" id="item_name" className="prevent-zoom" value={formData.item_name} onChange={handleChange} placeholder="Enter Item Name" required />
