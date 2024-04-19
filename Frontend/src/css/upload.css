@@ -11,6 +11,15 @@
 .input-thumb{
     height: 16px;
     padding: 4px;
+    border: none;
+}
+
+.input-thumb button{
+    
+}
+
+.file-upload-button{
+   background-color: #8dc572; 
 }
 
 .input-sub{
@@ -32,8 +41,48 @@
 }
 
 .input-desc{
-    height:80px
+    height:100px
 }
+/* Hide the default radio button */
+input[type="radio"] {
+    display: none;
+}
+
+.chip{
+    padding: 8px;
+    border: 1px solid #333;
+    
+}
+
+label:first-child .chip {
+    border-top-left-radius: 18px;
+   border-bottom-left-radius: 18px;
+
+}
+
+/* Style for the last chip */
+label:last-child .chip {
+    /* Your styles for the last chip */
+    border-top-right-radius: 18px;
+    border-bottom-right-radius: 18px;
+
+}
+
+label {
+    display: inline-block;
+   
+
+    
+}
+
+
+input[type="radio"]:checked + .chip {
+    background-color: #333; 
+   
+    color: #fff; 
+}
+
+
 
 .prevent-zoom {
     max-height: 100px;

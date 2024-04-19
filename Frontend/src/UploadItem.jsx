@@ -62,13 +62,53 @@ const UploadItem = () => {
             <form className="upload-form flex-col" onSubmit={handleSubmit}>
                 <input type="text" id="item_name" className="prevent-zoom" value={formData.item_name} onChange={handleChange} placeholder="Enter Item Name" required />
                 <div >R <input type="number" id="item_price"  className="prevent-zoom"  value={formData.item_price} onChange={handleChange} placeholder="Enter Item Price" required /></div>
-                <input type="text" className="input-desc prevent-zoom" id="item_description" value={formData.item_description} onChange={handleChange} placeholder="Enter Item Description" required />
-                <select id="item_condition"  className="prevent-zoom"  value={formData.item_condition} onChange={handleChange}>
-                    <option value="needs love">Needs Love</option>
-                    <option value="used">Used</option>
-                    <option value="like new">Like New</option>
-                    <option value="new">New</option>
-                </select>
+                <textarea name="description" id="item_description"className="input-desc prevent-zoom" value={formData.description} onChange={handleChange} placeholder='Enter Description'></textarea> {/* Description textarea */}
+                <div>
+                    <label>
+                        <input
+                            type="radio"
+                            name="item_condition"
+                            id="item_condition"
+                            value="love"
+                            checked={formData.item_condition === 'love'}
+                            onChange={handleChange}
+                        />
+                        <span className="chip">Needs Love</span>
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="item_condition"
+                            value="used"
+                            id="item_condition"
+                            checked={formData.item_condition === 'used'}
+                            onChange={handleChange}
+                        />
+                        <span className="chip">Used</span>
+                    </label>
+                    <label >
+                        <input
+                            type="radio"
+                            name="item_condition"
+                            value="like_new"
+                            id="item_condition"
+                            checked={formData.item_condition === 'like_new'}
+                            onChange={handleChange}
+                        />
+                        <span className="chip">Like New</span>
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            name="item_condition"
+                            value="new"
+                            id="item_condition"
+                            checked={formData.item_condition === 'new'}
+                            onChange={handleChange}
+                        />
+                        <span className="chip">New</span>
+                    </label>
+                </div>
                 <select id="category"  className="prevent-zoom"  value={formData.category} onChange={handleChange}>
                     <option value="">Select Category</option>
                     <option value="960732137074130945">Tech</option>

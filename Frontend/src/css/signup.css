@@ -2,11 +2,15 @@
     font-family: 'Outfit';
 }
 
+
+
 .signup-form, .login-form{
     display: flex;
     flex-direction: column;
     padding: 2rem;
     gap: 30px;
+    align-self:center;
+    
 }
 
 input{
@@ -50,7 +54,7 @@ input{
 }
 
 .prevent-zoom {
-    max-height: 100px;
+    max-height: 100%;
     max-width: 100%;
     -webkit-text-size-adjust: none;
     text-size-adjust: none; 
