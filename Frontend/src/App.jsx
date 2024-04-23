@@ -67,7 +67,8 @@ function App() {
              <h3 >{item.item_name}</h3>
              <div className="item-info">
               
-                <p className='item-card-price'>R {item.item_price}</p>
+             <p className='item-card-price'>R {parseInt(item.item_price).toFixed(0)}</p>
+
                 <p className='item-card-condition'>{item.item_condition}</p>
           
           
