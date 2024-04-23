@@ -75,9 +75,10 @@ export default function SignUp() {
 
     return (
         <>
+            
+            <form className='signup-form' onSubmit={handleSubmit}>
             <h1 className='signup-header'> Sign Up</h1>
             {message && <div className="signup-message"><h3 className='error-message'>{message}</h3></div>}
-            <form className='signup-form' onSubmit={handleSubmit}>
                 <input type="text" name="username" className={`${errors.username ? 'errorb' : ''}`} value={formData.username} onChange={handleChange} placeholder='Enter User Name' />
                 <input type="email" name="email" className={`${errors.email ? 'errorb' : ''}`} value={formData.email} onChange={handleChange} placeholder='Enter Email' />
                 <input type="password" name="password" className={`${errors.password ? 'errorb' : ''}`} value={formData.password} onChange={handleChange} placeholder='Enter Password' />

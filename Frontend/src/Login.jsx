@@ -21,12 +21,22 @@ export default function Login() {
                 setMessage('Login failed, check username or credentials');
                 setError(true);
             } else {
-                
-                  setMessage('Login successful'); 
+                setMessage('Login successful'); 
             }
         } catch (error) {
-            setMessage('Login failed. Please check your credentials.');
-            setError(true); 
+            if (error.response) {
+                
+                setMessage('Login failed. Please check your credentials.');
+                setError(true); 
+            } else if (error.request) {
+            
+                setMessage('Network error occurred. Please check your internet connection.');
+                setError(true);
+            } else {
+                
+                setMessage('An unexpected error occurred. Please try again later.');
+                setError(true);
+            }
         }
     };
 
@@ -41,9 +51,10 @@ export default function Login() {
                     </div>
                 ) : (
                     <>
-                        <h1 className='login-header'>Login</h1>
-                        {message && <div className={`login-message ${error ? 'errorb' : ''}`}><h3>{message}</h3></div>} {/* Apply errorb class if error */}
+                        
                         <form className='login-form' onSubmit={handleSubmit}>
+                        <h1 className='login-header'>Login</h1>
+                        {message && <div className={`login-message ${error ? 'errorb' : ''}`}><h3>{message}</h3></div>}
                             <input type="text" name="username" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="username" placeholder='Enter User Name' />
                             <input type="password" name="password" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="password" placeholder='Enter Password' />
                             <input type="submit" className='login-submit shd-press-eff' value="Login" />

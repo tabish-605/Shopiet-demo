@@ -34,7 +34,7 @@
 .items{
     width: 100%;
     display: flex;
-    gap: 10px;
+    gap: 3%;
    
     justify-content: flex-end;
 }
