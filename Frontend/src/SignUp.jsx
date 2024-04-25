@@ -27,6 +27,7 @@ export default function SignUp() {
     const handleSubmit = async (e) => {
         setMessage(null);
         e.preventDefault();
+        console.log(JSON.stringify(formData))
         try {
             if (formData.password !== formData.password2) {
                 setMessage('Passwords do not match');
@@ -53,23 +54,32 @@ export default function SignUp() {
                 setErrors({ ...errors, email: true });
                 return;
             }
-
-            const response = await axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', formData, {
+            console.log('Attempting to make POST request...');
+            const response = await axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', JSON.stringify(formData), {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            });
+                
+            });    console.log('Response:', response);
+            
 
-            if (response.status === 200) {
+
+            if (response.status === 201) {
                 await loginUser(formData);
                 setMessage('Sign-up successful');
+                return;
+            } else if (response.status === 409) {
+                setMessage('A user with that username or email already exists');
+                return;
             } else if (response.status === 400 && response.data.message === 'A user with that username already exists') {
                 setMessage('A user with that username already exists');
+                return;
             } else {
                 setMessage('Sign-up failed');
+                return;
             }
         } catch (error) {
-            setMessage('Error occurred during sign-up');
+            setMessage(response.status);
         }
     };
 

@@ -1,5 +1,7 @@
 
-
+.signup-message{
+    color: #8dc572;
+}
 
 .signup-form, .login-form{
     display: flex;
@@ -32,7 +34,7 @@ input{
 }
 
 .error-message{
-    color: #be5454;
+    color: #8dc572;
     margin: 0px;
 }
 
