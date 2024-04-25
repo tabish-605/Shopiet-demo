@@ -60,7 +60,7 @@ export default function SignUp() {
                 }
             });
 
-            if (response.status === 201) {
+            if (response.status === 200) {
                 await loginUser(formData);
                 setMessage('Sign-up successful');
             } else if (response.status === 400 && response.data.message === 'A user with that username already exists') {

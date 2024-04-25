@@ -32,12 +32,13 @@ input{
 }
 
 .error-message{
-    color: #8dc572;
+    color: #be5454;
+    margin: 0px;
 }
 
 .errorb{
     border-color: #be5454;
-    color: #be5454;
+    color: #be5454 ;
 }
 
 .btn-logout{
