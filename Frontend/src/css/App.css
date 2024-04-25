@@ -75,7 +75,7 @@
   font-weight: 500 !important;
 }
 .cta-image{
- 
+ max-height:100%;
   max-width: 100%;
   display: flex;
   flex: 1;
