@@ -2,8 +2,10 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import AuthContext from './context/AuthContext';
 import './css/signup.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
+    const navigate = useNavigate();
     let { loginUser } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         username: '',
@@ -60,26 +62,40 @@ export default function SignUp() {
                     'Content-Type': 'application/json'
                 }
                 
-            });    console.log('Response:', response);
-            
+            });   
+            console.log('Response:', response);
 
-
-            if (response.status === 201) {
-                await loginUser(formData);
-                setMessage('Sign-up successful');
-                return;
-            } else if (response.status === 409) {
-                setMessage('A user with that username or email already exists');
-                return;
-            } else if (response.status === 400 && response.data.message === 'A user with that username already exists') {
-                setMessage('A user with that username already exists');
-                return;
-            } else {
-                setMessage('Sign-up failed');
-                return;
-            }
+        if (response.status === 201) {
+            await loginUser(formData);
+            navigate('/login');
+            setMessage('Sign-up successful');
+        } else if (response.status === 409) {
+            setMessage('A user with that username or email already exists');
+            setErrors({ ...errors, username: true });
+            setErrors({ ...errors, email: true });
+        } else {
+            setMessage('Sign-up failed');
+        }
         } catch (error) {
-            setMessage(response.status);
+            if (error.response) {
+                const responseData = error.response.data;
+                if (responseData.message === 'A user with that username already exists') {
+                    setMessage('A user with that username or email already exists');
+                    setErrors({ ...errors, username: true });
+                    setErrors({ ...errors, email: true });
+                } else if (responseData.message === 'A user with that email already exists') {
+                    setMessage('A user with that email already exists');
+                    setErrors({ ...errors, email: true });
+                } else if (error.response.status === 400) {
+                    setMessage('A user with that username already exsits');  
+                    setErrors({ ...errors, username: true });  
+                } else {
+                    setMessage('Sign-up failed');
+                }
+            } else {
+                // Generic error handling
+                setMessage('Error occurred during sign-up');
+            }
         }
     };
 

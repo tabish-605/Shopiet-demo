@@ -1,6 +1,6 @@
 
 .signup-message{
-    color: #8dc572;
+    color:#be5454;
 }
 
 .signup-form, .login-form{
@@ -10,6 +10,7 @@
     gap: 30px;
     align-self:center;
     justify-content: center;
+    font-size:16px !important;
    
     height: 72svh;
     
@@ -18,6 +19,7 @@
 input{
     border-radius: 22px;
     padding: 16px;
+    font-size:16px;
     border: 1px solid ;
 }
 
@@ -34,7 +36,7 @@ input{
 }
 
 .error-message{
-    color: #8dc572;
+    color: #be5454;
     margin: 0px;
 }
 
