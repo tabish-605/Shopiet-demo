@@ -11,6 +11,7 @@ function App() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
+    setIsLoading(true)
     const fetchData = async () => {
       try {
         const response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/');
@@ -26,6 +27,7 @@ function App() {
         console.log(jsonData)
       } catch (error) {
         console.error('Error fetching data:', error);
+        setIsLoading(true)
       } finally {
         setIsLoading(false); 
       }
@@ -35,11 +37,11 @@ function App() {
   }, []);
 
   const latestItems = data
- 
   .slice(0, 10).reverse(); 
 
   return (
     <>
+     
      <section className="section-items">
       <div className="cta-scroller">
       <div className="cta">
@@ -74,32 +76,36 @@ function App() {
         <h3 className='section-item-sub-header'>All the newest stuff</h3>
         <hr align='left' className='section-divider'/>
         </div>
-        <section className="items-container">
-        {latestItems.map((item, index) => <div className='item-card' key={index}>
-          <div className="item-card-img-cnt">
-            <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
-          </div>
-          <div className="item-card-desc">
-             <h3 >{item.item_name}</h3>
-             <div className="item-info">
-              
-             <p className='item-card-price'>R {parseInt(item.item_price).toFixed(0)}</p>
-
-                <p className='item-card-condition'>{item.item_condition}</p>
-          
-          
-         
-          
-             </div>
-         
-          </div>
-         
-        </div>)}
-        </section> 
+{isLoading ? (
+  <div className="skeleton">
+    <div className="skel skel-1"></div>
+    <div className="skel skel-2"></div>
+    <div className="skel skel-3"></div>
+    <div className="skel skel-4"></div>
+  </div>
+) : (
+  <section className="items-container">
+    {latestItems.map((item, index) => (
+      <div className='item-card' key={index}>
+        <div className="item-card-img-cnt">
+          <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
         </div>
+        <div className="item-card-desc">
+          <h3>{item.item_name}</h3>
+          <div className="item-info">
+            <p className='item-card-price'>R {parseInt(item.item_price).toFixed(0)}</p>
+            <p className='item-card-condition'>{item.item_condition}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </section>
+)}
+</div>
+
         
       
-    </section>   
+    </section> 
     
     </>
   )
