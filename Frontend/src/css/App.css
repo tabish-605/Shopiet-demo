@@ -229,6 +229,24 @@ gap: 3%;
  object-fit: cover;
  border-radius: 16px;
 }
+
+@media screen and (min-width: 1024px) {
+  .items-container{
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+  }
+  .cta-scroller{
+    padding: 2rem;
+    flex: 2;
+  }
+
+  .signup-form, .login-form, .upload-form{
+    padding:2rem 20rem !important;
+  }
+  
+
+}
+
+
 @media screen and (max-width: 726px) {
   .section-items{
     flex-direction: column;
