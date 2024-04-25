@@ -14,6 +14,7 @@ export default function SignUp() {
         password2: ''
     });
     const [message, setMessage] = useState(null);
+    const [signStatus, setSignStatus] = useState('Sign In')
     const [errors, setErrors] = useState({
         username: false,
         email: false,
@@ -56,7 +57,7 @@ export default function SignUp() {
                 setErrors({ ...errors, email: true });
                 return;
             }
-            console.log('Attempting to make POST request...');
+           setSignStatus('Signing In...')
             const response = await axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', JSON.stringify(formData), {
                 headers: {
                     'Content-Type': 'application/json'
@@ -96,6 +97,8 @@ export default function SignUp() {
                 // Generic error handling
                 setMessage('Error occurred during sign-up');
             }
+        } finally{
+            setSignStatus('Sign In')
         }
     };
 
@@ -109,7 +112,7 @@ export default function SignUp() {
                 <input type="email" name="email" className={`${errors.email ? 'errorb' : ''}`} value={formData.email} onChange={handleChange} placeholder='Enter Email' />
                 <input type="password" name="password" className={`${errors.password ? 'errorb' : ''}`} value={formData.password} onChange={handleChange} placeholder='Enter Password' />
                 <input type="password" name="password2" className={`${errors.password2 ? 'errorb' : ''}`} value={formData.password2} onChange={handleChange} placeholder='Enter Password Again' />
-                <input type="submit" className="signup-submit shd-press-eff" name='signup-submit' value="Sign Up" />
+                <input type="submit" className="signup-submit shd-press-eff" name='signup-submit' value={signStatus} />
             </form>
         </>
     );

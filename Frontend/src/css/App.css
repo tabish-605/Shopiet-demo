@@ -249,6 +249,15 @@ gap: 3%;
     border-color: #fff;
   }
 
+  .btn-sell{
+    border-color: #fff !important;
+  }
+
+  .btn-sell button{
+    color: #fff !important;
+    
+  }
+
   .item-card,.item-info, .item-card-desc{
     background-color: #414040;
   }
