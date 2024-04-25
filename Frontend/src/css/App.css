@@ -250,6 +250,10 @@ gap: 3%;
   .cta-text-btn{
     color: #fff;
   }
+
+  .quicknav{
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  }
   .cta-text-btn button{
     color: #fff;
     border-color: #fff;
