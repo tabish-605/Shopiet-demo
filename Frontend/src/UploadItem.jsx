@@ -133,11 +133,17 @@ const UploadItem = () => {
                     </label>
                 </div>
                 <select id="category"  className={`prevent-zoom ${errorBorder}`} value={formData.category} onChange={handleChange}>
-                    <option value="">Select Category</option>
+                <option value="">Select Category</option>
                     <option value="960732137074130945">Tech</option>
                     <option value="960807240398831617">Furniture</option>
                     <option value="960807346087755777">Car Parts</option>
                     <option value="960807528684290049">Gardening</option>
+                    <option value="963308098083192833">Books</option>
+                    <option value="963308226167734273">Gym Equipment</option>
+                    <option value="963308337627725825">Toys</option>
+                    <option value="963308422799785985">Kids</option>
+                    <option value="963308587154767873">Car Accessories</option>
+                    
                 </select>
                 <input type="file" className={`input-thumb ${errorBorder}`} id="item_thumbnail" onChange={handleFileChange} accept="image/*" required />
                 {loading ? (
