@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react'
 import exchangeImg from './assets/exchange.webp'
+import ctaBussinesImg from './assets/cta-bussiness.webp'
 import { Link } from 'react-router-dom'
 
 
@@ -34,13 +35,14 @@ function App() {
   }, []);
 
   const latestItems = data
-   // Sort items in descending order based on timestamp
+ 
   .slice(0, 10).reverse(); 
 
   return (
     <>
      <section className="section-items">
-        <div className="cta">
+      <div className="cta-scroller">
+      <div className="cta">
           <div className="cta-text">
             <div className="cta-text-head"> <h2>Give Your Preloved Items a New Home</h2></div>
            <div className="cta-text-btn">
@@ -52,6 +54,20 @@ function App() {
             <img src={exchangeImg} alt="couple-exchanging-items" />
           </div>
         </div>
+        <div className="cta">
+          <div className="cta-text">
+            <div className="cta-text-head"> <h2>Or Run Your Business Right on Here</h2></div>
+           <div className="cta-text-btn">
+           <Link to ={'/upload'}> <button>Business Page</button></Link>
+           </div>
+           
+          </div>
+          <div className="cta-image">
+            <img src={ctaBussinesImg} alt="couple-exchanging-items" />
+          </div>
+        </div>
+      </div>
+        
         <div className="items-section">
           <div className="section-header-cnt">
           <h1 className='section-item-header'>Latest </h1>

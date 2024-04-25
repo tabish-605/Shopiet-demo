@@ -6,6 +6,8 @@
 .upload-form{
  
     padding: 2rem;
+    height:90svh;
+    justify-content: center;
     
 }
 .upload-form select{
