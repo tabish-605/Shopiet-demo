@@ -231,8 +231,11 @@ gap: 3%;
 }
 
 @media screen and (min-width: 1024px) {
-  .items-container{
+  .items-container, .skeleton{
     grid-template-columns: 1fr 1fr 1fr 1fr ;
+  }
+  .items-section{
+    flex:5;
   }
   .cta-scroller{
     padding: 2rem;
