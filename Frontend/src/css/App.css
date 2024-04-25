@@ -198,7 +198,7 @@ gap: 3%;
 }
 .item-info{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 5%;
 
   border-radius: 12px;
@@ -238,4 +238,20 @@ gap: 3%;
     min-width:80svw;
 
   }
+}
+
+@media (prefers-color-scheme: dark) {
+  .cta-text-btn{
+    color: #fff;
+  }
+  .cta-text-btn button{
+    color: #fff;
+    border-color: #fff;
+  }
+
+  .item-card,.item-info, .item-card-desc{
+    background-color: #414040;
+  }
+  
+
 }
