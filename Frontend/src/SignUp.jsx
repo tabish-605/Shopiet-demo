@@ -70,7 +70,7 @@ export default function SignUp() {
             navigate('/login');
             setMessage('Sign-up successful');
         } else if (response.status === 409) {
-            setMessage('A user with that username or email already exists');
+            setMessage('A user with that email already exists');
             setErrors({ ...errors, username: true });
             setErrors({ ...errors, email: true });
         } else {

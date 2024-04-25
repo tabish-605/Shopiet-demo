@@ -6,7 +6,7 @@
 .upload-form{
  
     padding: 2rem;
-    height:90svh;
+    height:100svh;
     justify-content: center;
     
 }
@@ -16,7 +16,7 @@
 }
 
 .input-thumb{
-    height: 16px;
+    height: 13%;
     padding: 4px;
     border: none;
 }
@@ -51,6 +51,7 @@
     min-height:100px;
     border-radius:18px;
     font-size: 16px;
+    border: 1px solid;
     padding: 12px;
 }
 /* Hide the default radio button */
