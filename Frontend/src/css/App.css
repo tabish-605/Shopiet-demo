@@ -240,7 +240,8 @@ gap: 3%;
   .cta-scroller{
     padding: 2rem;
     flex: 2;
-  }
+    overflow: hidden;
+    }
 
   .signup-form, .login-form, .upload-form{
     padding:2rem 20rem !important;
