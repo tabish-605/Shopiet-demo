@@ -174,8 +174,14 @@ gap: 3%;
   margin-bottom: 4px;
   font-weight: bold;
   line-height: 1em;
-  font-size: 1.5rem;
+  max-height:2.6rem;
+  font-size: 1.4rem;
   border: 2px solid;
+  display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
   
   
     padding: 10px;
