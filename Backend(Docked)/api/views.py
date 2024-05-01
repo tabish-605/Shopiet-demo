@@ -34,6 +34,16 @@ def getData(request):
 
     return Response(serializer.data)
 
+@api_view(['GET'])
+def getItem(request, slug):
+    try:
+        item = Item.objects.get(slug=slug)
+        serializer = ItemSerializer(item)
+        return Response(serializer.data)
+    except Item.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
 @api_view(['POST'])
 def addUser(request):
     if request.method == 'POST':
@@ -42,9 +52,13 @@ def addUser(request):
             # Check if user already exists
             username = serializer.validated_data["username"]
             email = serializer.validated_data["email"]
-            if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+            if User.objects.filter(username=username).exists():
                 return Response({'message': 'A user with that username already exists'}, status=status.HTTP_409_CONFLICT)
-            
+            elif User.objects.filter(email=email).exists():
+                return Response({'message': 'A user with that email already exists'}, status=status.HTTP_409_CONFLICT)
+
+
+
             user = serializer.save()
             response_data = {
                 'message': 'User registered successfully',
@@ -55,6 +69,15 @@ def addUser(request):
             }
             return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def getCatItems(request, item_category_name):
+    try:
+        category_items = Item.objects.filter(item_category_name=item_category_name)
+        serializer = ItemSerializer(category_items, many=True)
+        return Response(serializer.data)
+    except Item.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 

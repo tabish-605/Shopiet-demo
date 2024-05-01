@@ -95,8 +95,8 @@ const UploadItem = () => {
                         <input
                             type="radio"
                             name="item_condition"
-                            value="love"
-                            checked={formData.item_condition === 'love'}
+                            value="Love"
+                            checked={formData.item_condition === 'Love'}
                             onChange={handleChange}
                         />
                         <span className="chip">Needs Love</span>
@@ -105,8 +105,8 @@ const UploadItem = () => {
                         <input
                             type="radio"
                             name="item_condition"
-                            value="used"
-                            checked={formData.item_condition === 'used'}
+                            value="Used"
+                            checked={formData.item_condition === 'Used'}
                             onChange={handleChange}
                         />
                         <span className="chip">Used</span>
@@ -115,8 +115,8 @@ const UploadItem = () => {
                         <input
                             type="radio"
                             name="item_condition"
-                            value="like_new"
-                            checked={formData.item_condition === 'like_new'}
+                            value="L-New"
+                            checked={formData.item_condition === 'L-New'}
                             onChange={handleChange}
                         />
                         <span className="chip">Like New</span>
@@ -125,8 +125,8 @@ const UploadItem = () => {
                         <input
                             type="radio"
                             name="item_condition"
-                            value="new"
-                            checked={formData.item_condition === 'new'}
+                            value="New"
+                            checked={formData.item_condition === 'New'}
                             onChange={handleChange}
                         />
                         <span className="chip">New</span>

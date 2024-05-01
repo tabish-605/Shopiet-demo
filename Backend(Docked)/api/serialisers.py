@@ -14,7 +14,8 @@ class CategorySerializer:
 class ImagesSerializer:
     class Meta:
         model = Images
-        fields = '__all__'      
+        fields = '__all__'  
+
 
 
 class AddUserSerializer(serializers.ModelSerializer):

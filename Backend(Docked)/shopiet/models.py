@@ -20,10 +20,10 @@ class Category(models.Model):
     
 class Item(models.Model):
     CONDITION_CHOICES = [
-        ('love', 'Needs Love'),
-        ('used', 'Used'),
-        ('like_new', 'Like New'),
-        ('new', 'New'),
+        ('Love', 'Needs Love'),
+        ('Used', 'Used'),
+        ('L-New', 'Like New'),
+        ('New', 'New'),
     ]
     item_name = models.CharField( max_length=50, blank=False)
     item_price = models.DecimalField(max_digits=10, decimal_places=2,  blank=False)

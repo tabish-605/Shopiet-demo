@@ -9,7 +9,7 @@ import AuthContext from "./context/AuthContext";
 export default function Navbar() {
     let { name } = useContext(AuthContext);
     const location = useLocation();
-    const isAuthPage = location.pathname === '/login' || location.pathname === '/signup' ||  location.pathname === '/upload';
+    const isAuthPage = location.pathname === '/login' || location.pathname === '/item/:slug' || location.pathname === '/signup' ||  location.pathname === '/upload';
 
     return (
         <>
@@ -40,18 +40,19 @@ export default function Navbar() {
             {!isAuthPage && (
                 <nav className="quicknav">
                     <ul>
-                        <li>TECH</li>
-                        <li>Furniture</li>
-                        <li>Car Parts</li>
-                        <li>Jewelery</li>
-                        <li>Books</li>
-                        <li>Sports</li>
-                        <li>Electronics</li>
-                        <li>Gardening</li>
-                        <li>Gym Equipment</li>
-                        <li>Toys</li>
-                        <li>Kids</li>
-                        <li>Car Accesories</li>
+                    <Link to={'category/Tech'}> <li>TECH</li>   </Link>
+                    <Link to={'category/Furniture'}>    <li>Furniture</li> </Link>
+                    <Link to={'category/Car Parts'}>    <li>Car Parts</li> </Link>
+                    <Link to={'category/Jewelery'}>    <li>Jewelery</li></Link>
+                    <Link to={'category/Books'}>   <li>Books</li></Link>
+                    <Link to={'category/Sports'}>    <li>Sports</li></Link>
+                    <Link to={'category/Electronics'}>    <li>Electronics</li></Link>
+                    <Link to={'category/Gardening'}>    <li>Gardening</li></Link>
+                    <Link to={'category/Gym equipment'}>    <li>Gym Equipment</li></Link>
+                    <Link to={'category/Toys'}>    <li>Toys</li></Link>
+                    <Link to={'category/Kids'}>    <li>Kids</li></Link>
+                    <Link to={'category/Car accesories'}>    <li>Car Accesories</li></Link>
+                    <Link to={'category/Audio'}>    <li>Audio</li></Link>
                     </ul>
                 </nav>
             )}

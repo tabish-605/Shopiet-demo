@@ -21,10 +21,26 @@
     border: none;
 }
 
-.input-thumb button{
-    
+.no-item-disp{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 50svh;
+    font-size: 1.5rem;
+    gap: 5%;
 }
-
+.cat-cta-up{
+    color: #fff;
+    background-color: #8dc572;
+    align-self: center;
+    border-radius: 16px;
+    padding: 8px;
+}
+.cat-cta-up:hover{
+    color: #8dc572;
+    background-color: #fff;
+    border: 2px solid #8dc572;
+}
 .file-upload-button{
    background-color: #8dc572; 
 }

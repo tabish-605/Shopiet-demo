@@ -78,14 +78,15 @@ function App() {
         </div>
 {isLoading ? (
   <div className="skeleton">
-    <div className="skel skel-1"></div>
-    <div className="skel skel-2"></div>
-    <div className="skel skel-3"></div>
-    <div className="skel skel-4"></div>
+    <div className="skel skel-1 grad-animation"></div>
+    <div className="skel skel-2 grad-animation"></div>
+    <div className="skel skel-3 grad-animation"></div>
+    <div className="skel skel-4 grad-animation"></div>
   </div>
 ) : (
   <section className="items-container">
     {latestItems.map((item, index) => (
+      <Link to={`/item/${item.slug}`}>
       <div className='item-card' key={index}>
         <div className="item-card-img-cnt">
           <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
@@ -98,6 +99,7 @@ function App() {
           </div>
         </div>
       </div>
+      </Link>
     ))}
   </section>
 )}

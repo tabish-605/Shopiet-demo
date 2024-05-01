@@ -9,6 +9,8 @@ import PrivateRoutes from './utils/PrivateRoute.jsx';
 import { AuthProvider } from './context/AuthContext'
 import SignUp from './SignUp.jsx';
 import UploadItem from './UploadItem.jsx';
+import ItemDetail from './ItemDetail.jsx';
+import CategoryPage from './CategoryPage.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -16,10 +18,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Navbar />
       <Routes>
-        
+        <Route path="/" element={<App />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/" element={<App />} />
+        <Route path="/item/:slug" element={<ItemDetail />} />
+        <Route path="/category/:item_category_name" element={<CategoryPage />} />
         
        <Route element={<PrivateRoutes/>}>
         <Route path="/upload" element={<UploadItem/>} />
