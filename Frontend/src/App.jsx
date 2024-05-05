@@ -48,7 +48,7 @@ function App() {
           <div className="cta-text">
             <div className="cta-text-head"> <h2>Give Your Preloved Items a New Home</h2></div>
            <div className="cta-text-btn">
-           <Link to ={'/upload'}> <button>Sell an Item</button></Link>
+           <Link to ={'/upload'}> <button>Sell an Item</button> </Link>
            </div>
            
           </div>
@@ -58,7 +58,7 @@ function App() {
         </div>
         <div className="cta">
           <div className="cta-text">
-            <div className="cta-text-head"> <h2>Or Run Your Business Right on Here</h2></div>
+            <div className="cta-text-head"> <h2>Or Run Your Business Right Here</h2></div>
            <div className="cta-text-btn">
            <Link to ={'/upload'}> <button>Business Page</button></Link>
            </div>
@@ -87,7 +87,7 @@ function App() {
   <section className="items-container">
     {latestItems.map((item, index) => (
       <Link to={`/item/${item.slug}`}>
-      <div className='item-card' key={index}>
+      <div className='item-card' key={item.id}>
         <div className="item-card-img-cnt">
           <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
         </div>

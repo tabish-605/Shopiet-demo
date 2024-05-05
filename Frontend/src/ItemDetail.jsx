@@ -63,7 +63,7 @@ function ItemDetail() {
       <div className="cat-price-cnt">
         
         <h2 className='item-detail-user'>{data.item_username}</h2>
-        <h2 className='item-detail-price'>{data.item_price}</h2>
+        <h2 className='item-detail-price'>R {data.item_price}</h2>
       </div>
       
       
