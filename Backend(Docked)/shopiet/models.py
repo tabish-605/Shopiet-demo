@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 import random
 import time
 # Create your models here.
@@ -59,6 +60,14 @@ class Item(models.Model):
     def __str__(self):
      return self.item_name
     
+class SavedItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    saved_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.item.item_name}"
+
 
 class Images(models.Model):
   
@@ -70,3 +79,14 @@ class Images(models.Model):
 
     def __str__(self):
         return self.item.item_name
+    
+class Profile(models.Model):
+    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    bio = models.TextField(blank=True)
+    number = PhoneNumberField(blank=True)
+    whatsapp_number = PhoneNumberField(blank=True)
+    other =  models.URLField(blank=True, max_length=200)
+    profile_pic = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
+
+    def __str__(self):
+        return str(self.user)

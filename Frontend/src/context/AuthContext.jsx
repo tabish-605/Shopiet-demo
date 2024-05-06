@@ -9,6 +9,8 @@ export const AuthProvider = ({ children }) => {
     let [authTokens, setAuthTokens] = useState(() => JSON.parse(localStorage.getItem('authTokens')) || null);
     let [user, setUser] = useState(() => authTokens ? jwtDecode(authTokens.access) : null);
     let [loading, setLoading] = useState(true);
+    let [profilePic, setProfilePic] = useState(null)
+
 
     const loginUser = async (e) => {
 
@@ -30,7 +32,7 @@ export const AuthProvider = ({ children }) => {
             if (!response.ok) {
                 throw new Error('Failed to login');
             }
-         
+           
             let data = await response.json();
             console.log(JSON.stringify(data))
             
@@ -38,6 +40,9 @@ export const AuthProvider = ({ children }) => {
             
             setAuthTokens(data);
             setUser(jwtDecode(data.access));
+            const decodedToken = jwtDecode(data.access);
+            const profilePict = decodedToken.profile_pic;
+            setProfilePic(profilePict)
             localStorage.setItem('authTokens', JSON.stringify(data));
             
             console.log(JSON.stringify(data))
@@ -96,6 +101,7 @@ export const AuthProvider = ({ children }) => {
         authTokens,
         loginUser,
         logoutUser,
+        profilePic,
         loading
     };
 

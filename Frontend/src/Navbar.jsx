@@ -7,9 +7,9 @@ import AuthContext from "./context/AuthContext";
 
 
 export default function Navbar() {
-    let { name } = useContext(AuthContext);
+    let { profilePic } = useContext(AuthContext);
     const location = useLocation();
-    const isAuthPage = location.pathname === '/login' || location.pathname === '/item/:slug' || location.pathname === '/signup' ||  location.pathname === '/upload';
+    const isAuthPage = location.pathname === '/login' || location.pathname === '/update-profile' || location.pathname === '/item/:slug' || location.pathname === '/signup' ||  location.pathname === '/upload';
 
     return (
         <>

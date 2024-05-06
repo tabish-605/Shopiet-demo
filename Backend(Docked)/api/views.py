@@ -3,9 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
-from shopiet.models import Item, Category, Images, User
+from shopiet.models import Item, Category, Images, User, Profile
 from .serialisers import ItemSerializer
-from .serialisers import AddUserSerializer, AddItemSerializer
+from .serialisers import AddUserSerializer, AddItemSerializer, ProfileSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -19,6 +19,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['username'] = user.username
         token['password'] = user.password
         token['id'] = user.id
+            
+        if hasattr(user, 'profile') and hasattr(user.profile, 'profile_pic'):
+            token['profile_pic'] = user.profile.profile_pic.url 
+   
         # ...
 
         return token
@@ -79,7 +83,28 @@ def getCatItems(request, item_category_name):
     except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['POST'])
+def update_profile(request):
 
+    if request.method == 'POST':
+        username = request.data.get('username') 
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+    try:
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile = Profile(user=user)
+    
+  
+    serializer = ProfileSerializer(profile, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
 
 @api_view(['POST'])
 def addItem(request):

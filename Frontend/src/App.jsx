@@ -85,10 +85,10 @@ function App() {
   </div>
 ) : (
   <section className="items-container">
-    {latestItems.map((item, index) => (
+    {latestItems.map((item) => (
       <Link to={`/item/${item.slug}`}>
       <div className='item-card' key={item.id}>
-        <div className="item-card-img-cnt">
+        <div className="item-card-img-cnt" >
           <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
         </div>
         <div className="item-card-desc">

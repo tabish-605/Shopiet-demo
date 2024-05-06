@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from shopiet.models import  Item, Images, Category, User
+from shopiet.models import  Item, Images, Category, User, Profile
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,3 +49,7 @@ class AddItemSerializer(serializers.ModelSerializer):
 
    
    
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['bio', 'number', 'whatsapp_number', 'other', 'profile_pic']

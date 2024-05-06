@@ -47,6 +47,7 @@ export default function Login() {
                     <div className="welcome-login flex-col">
                         <h1>Hello, {user.username}</h1>
                         <button className='btn-logout' onClick={logoutUser}>Logout</button>
+                        <Link to='/update-profile' className='btn-sell'><button>Complete Profile</button></Link>
                         <Link to='/upload' className='btn-sell'><button>Sell an Item</button></Link>
                     </div>
                 ) : (

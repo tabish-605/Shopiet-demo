@@ -15,7 +15,7 @@ const { item_category_name } = useParams();
     setIsLoading(true)
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://shopietbackend-wlzwbcznba-bq.a.run.app/api/category/${item_category_name}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/category/${item_category_name}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -66,7 +66,7 @@ const { item_category_name } = useParams();
           ) : (
             <section className="items-container">
               {latestItems.map((item, index) => (
-                <Link to={`/item/${item.slug}`} key={index}>
+                <Link to={`/item/${item.slug}`} key={item.id}>
                   <div className='item-card'>
                     <div className="item-card-img-cnt">
                       <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
