@@ -19,7 +19,7 @@ export default function Navbar() {
     const fetchSearchResults = async (query) => {
         try {
             setIsLoading(true)
-            const response = await fetch(`https://shopietbackend-wlzwbcznba-bq.a.run.app/api/search/${query}`);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/search/${query}`);
             const data = await response.json();
             
             setSearchResults(data); setIsLoading(false)

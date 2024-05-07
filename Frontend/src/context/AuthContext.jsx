@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         console.log(e.password)
     
         try {
-            let response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/token/', {
+            let response = await fetch(`${import.meta.env.VITE_API_URL}/api/token/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,8 +41,9 @@ export const AuthProvider = ({ children }) => {
             setAuthTokens(data);
             setUser(jwtDecode(data.access));
             const decodedToken = jwtDecode(data.access);
-            const profilePict = decodedToken.profile_pic;
-            setProfilePic(profilePict)
+            if (decodedToken.profile_pic) {
+                setProfilePic(decodedToken.profile_pic);
+            }
             localStorage.setItem('authTokens', JSON.stringify(data));
             
             console.log(JSON.stringify(data))
@@ -61,7 +62,7 @@ export const AuthProvider = ({ children }) => {
 
     const updateToken = async () => {
         try {
-            let response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/token/refresh/', {
+            let response = await fetch(`${import.meta.env.VITE_API_URL}/api/token/refresh/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

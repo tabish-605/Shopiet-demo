@@ -51,7 +51,7 @@ const UploadItem = () => {
         for (let key in formData) {
             form_data.append(key, formData[key]);
         }
-        let url = 'https://shopietbackend-wlzwbcznba-bq.a.run.app/api/upload/';
+        let url = `${import.meta.env.VITE_API_URL}/api/upload/`;
         const response = axios.post(url, form_data, {
                 headers: {
                     'content-type': 'multipart/form-data',

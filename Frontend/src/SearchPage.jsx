@@ -15,7 +15,7 @@ const { item_name } = useParams();
     setIsLoading(true)
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://shopietbackend-wlzwbcznba-bq.a.run.app/api/searchq/${item_name}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/searchq/${item_name}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');

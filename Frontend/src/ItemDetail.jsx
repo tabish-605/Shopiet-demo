@@ -11,7 +11,7 @@ function ItemDetail() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`https://shopietbackend-wlzwbcznba-bq.a.run.app/api/item/${slug}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/item/${slug}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
