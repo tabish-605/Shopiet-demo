@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
 from shopiet.models import Item, Category, Images, User, Profile
-from .serialisers import ItemSerializer
+from .serialisers import ItemSerializer, ItemSearchSerializer
 from .serialisers import AddUserSerializer, AddItemSerializer, ProfileSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -79,6 +79,29 @@ def getCatItems(request, item_category_name):
     try:
         category_items = Item.objects.filter(item_category_name=item_category_name)
         serializer = ItemSerializer(category_items, many=True)
+        return Response(serializer.data)
+    except Item.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+@api_view(['GET'])
+def getSearchItems(request, search_query):
+    try:
+        items = Item.objects.filter(item_name__icontains=search_query)  
+        serializer = ItemSearchSerializer(items, many=True)
+        if serializer.data.__len__() == 0:
+            return Response([{"item_name":"no results match that query"}])
+        else:
+
+            return Response(serializer.data)
+    except Item.DoesNotExist:
+        return Response({"item_name":"no results match that query"})
+    
+@api_view(['GET'])
+def getSearchqItems(request, search_query):
+    try:
+        items = Item.objects.filter(item_name__icontains=search_query)  
+        serializer = ItemSerializer(items, many=True)
         return Response(serializer.data)
     except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
