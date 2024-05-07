@@ -109,7 +109,7 @@ const UpdateProfile = () => {
                 <h1>{user.username}</h1>
             {message && <div className={`upload-message ${errorBorder}`}>{message}</div>} 
                 <input type="tel"  pattern="[+]{1}[0-9]{11,14}" id="number" className={`prevent-zoom ${errorBorder}`} value={formData.number} onChange={handleChange} placeholder={currentProfile.number === "" ? "Enter your contact number":currentProfile.number} />
-                <input type="tel" pattern="[+]{1}[0-9]{11,14}" id="whatsapp_number" className={`prevent-zoom ${errorBorder}`} value={formData.whatsapp_number} onChange={handleChange} placeholder={currentProfile.number === "" ? "Enter your Whatsapp number (leave blank if same as contact number)":currentProfile.whatsapp_number} />
+                <input type="tel" pattern="[+]{1}[0-9]{11,14}" id="whatsapp_number" className={`prevent-zoom ${errorBorder}`} value={formData.whatsapp_number} onChange={handleChange} placeholder={currentProfile.number === "" ? "Enter your Whatsapp number":currentProfile.whatsapp_number} />
                 <input type="url"  id="other" className={`prevent-zoom ${errorBorder}`} value={formData.other} onChange={handleChange} placeholder={currentProfile.other === "" ? "Link, any useful link about your products, or how to contact you":currentProfile.other} />
                 
                 <textarea name="description" id="bio" className={`input-desc prevent-zoom ${errorBorder}`} value={formData.bio} onChange={handleChange} placeholder={currentProfile.bio === "" ? "Enter a bio":currentProfile.bio}></textarea> {/* Description textarea */}

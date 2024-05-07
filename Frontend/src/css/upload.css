@@ -1,12 +1,12 @@
 .upload-cnt{
-    height: 90vh;
+
     justify-content: center;
 }
 
 .upload-form{
  
     padding: 2rem;
-    height:100svh;
+    padding-top: 0px;
     justify-content: center;
     
 }
