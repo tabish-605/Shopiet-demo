@@ -82,3 +82,11 @@ input{
 
 }
 
+.btn-sell.profile{
+    border-color: #8dc572;
+    
+}
+.btn-sell.profile button{
+    color: #8dc572;
+    
+}

@@ -58,7 +58,7 @@ export default function SignUp() {
                 return;
             }
            setSignStatus('Signing In...')
-            const response = await axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', JSON.stringify(formData), {
+            const response = await axios.post('http://127.0.0.1:8000/api/signup/', JSON.stringify(formData), {
                 headers: {
                     'Content-Type': 'application/json'
                 }

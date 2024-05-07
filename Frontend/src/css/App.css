@@ -116,7 +116,11 @@
     background-position: 0 50%;
   }
 }
-
+.section-item-header.search-head{
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 1rem;
+}
 
 .item-card, .skel{
   max-width: 100%;
@@ -145,7 +149,9 @@
  
 }
 
-
+.cat-cta-up{
+  border-radius: 22px !important;
+}
 .cta-scroller{
   display: flex;
  flex-direction: column;

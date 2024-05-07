@@ -15,7 +15,7 @@ const { item_category_name } = useParams();
     setIsLoading(true)
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://shopietbackend-wlzwbcznba-bq.a.run.app/api/category/${item_category_name}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/category/${item_category_name}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -58,7 +58,7 @@ const { item_category_name } = useParams();
           ) : latestItems.length === 0 ? (
             <div className='no-item-disp'>
 
-              <p>No {item_category_name} has been uploaded yet... Be the first! </p>
+              <h5>No {item_category_name} has been uploaded yet... Be the first! </h5>
               <Link to ={'/upload'}>
                 <button className='cat-cta-up'>Sell an Item</button>
               </Link>
@@ -66,10 +66,10 @@ const { item_category_name } = useParams();
           ) : (
             <section className="items-container">
               {latestItems.map((item) => (
-                <Link to={`/item/${item.slug}`} key={item.id}>
-                  <div className='item-card'>
+                <Link to={`/item/${item.slug}`}>
+                  <div className='item-card' key={item.id}>
                     <div className="item-card-img-cnt">
-                      <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
+                      <img loading="lazy" alt={item.item_name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
                     </div>
                     <div className="item-card-desc">
                       <h3 className='item-card-name'>{item.item_name}</h3>

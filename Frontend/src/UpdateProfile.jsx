@@ -18,7 +18,7 @@ const UpdateProfile = () => {
     });
     
     useEffect(() => {
-    const response = axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/update-profile/', {"username":`${user.username}`}
+    const response = axios.post('http://127.0.0.1:8000/api/update-profile/', {"username":`${user.username}`}
     )
     .then((response) => {
       setProfile(response.data)
@@ -77,7 +77,7 @@ const UpdateProfile = () => {
             return;
         }
     
-        const response = axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/update-profile/', form_data, {
+        const response = axios.post('http://127.0.0.1:8000/api/update-profile/', form_data, {
             headers: {
                 'content-type': 'multipart/form-data',
             }})

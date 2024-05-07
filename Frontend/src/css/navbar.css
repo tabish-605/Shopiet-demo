@@ -60,7 +60,7 @@
 .search-div{
    width: 70%;
     min-height: 100%;
-    margin-right: 10px;
+
     
     
 }
@@ -123,7 +123,27 @@
 
 }
 
+.search-hints{
+   
+    margin-top: 3px;
+    border: 3px solid;
+    border-radius: 22px;
+    color: #222;
+    background: #fff;
+    padding-left: 0px;
+    box-sizing: border-box;
+    padding: 1rem;
+    outline: auto;
+}
 
+.search-hints li{
+    color: #2222229a;
+    text-align: left;
+}
+
+.invisible{
+    display: none;
+}
 
 @media screen and (max-width: 900px) {
     .navbar{

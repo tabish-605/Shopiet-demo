@@ -17,6 +17,12 @@
 html{
   overflow-x: hidden;
   max-width: 100svw;
+  
+    
+
+}
+h5{
+  margin-bottom: 0px;
 }
 
 ul{
@@ -42,6 +48,7 @@ body {
   overflow-x: hidden;
  
 }
+
 
 h1 {
   font-size: 3.2em;
