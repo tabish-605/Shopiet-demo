@@ -11,7 +11,7 @@ function ItemDetail() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/item/${slug}`);
+        const response = await fetch(`https://shopietbackend-wlzwbcznba-bq.a.run.app/api/item/${slug}`);
 
         if (!response.ok) {
           throw new Error('Network response was not ok');

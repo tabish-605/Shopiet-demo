@@ -19,7 +19,7 @@ export default function Navbar() {
     const fetchSearchResults = async (query) => {
         try {
             setIsLoading(true)
-            const response = await fetch(`http://127.0.0.1:8000/api/search/${query}`);
+            const response = await fetch(`https://shopietbackend-wlzwbcznba-bq.a.run.app/api/search/${query}`);
             const data = await response.json();
             
             setSearchResults(data); setIsLoading(false)

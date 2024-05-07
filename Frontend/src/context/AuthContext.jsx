@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         console.log(e.password)
     
         try {
-            let response = await fetch('http://127.0.0.1:8000/api/token/', {
+            let response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/token/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
 
     const updateToken = async () => {
         try {
-            let response = await fetch('http://127.0.0.1:8000/api/token/refresh/', {
+            let response = await fetch('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/token/refresh/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
