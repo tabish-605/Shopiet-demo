@@ -101,7 +101,9 @@ label {
 
     
 }
-
+input[type="submit"]{
+    cursor: pointer;
+}
 
 input[type="radio"]:checked + .chip {
     background-color: #333; 

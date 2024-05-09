@@ -267,6 +267,10 @@ gap: 3%;
     margin-top: 1.5rem;
   }
 
+  .serach{
+    min-height: 100%;
+  }
+
   .cta-scroller{
     flex-direction: row;
   }

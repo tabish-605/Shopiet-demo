@@ -66,7 +66,7 @@
 }
 .search{
     width: 100%;
-    min-height: 100%;
+ 
     border-radius: 22px;
     font-family:  'outfit', sans-serif;
     font-size: 18px;
@@ -134,15 +134,31 @@
     box-sizing: border-box;
     padding: 1rem;
     outline: auto;
+    z-index: 3;
 }
 
 .search-hints li{
     color: #2222229a;
     text-align: left;
+    z-index: 3;
 }
 
 .invisible{
     display: none;
+}
+@media screen and (min-width: 1024px) {
+    .search-hints{
+        position: absolute;
+        min-width: 50%;
+    }
+    .welcome-login{
+        align-items: center;
+    }
+    .welcome-login button, .welcome-login a{
+      
+        width: 40%;
+        
+    }
 }
 
 @media screen and (max-width: 900px) {

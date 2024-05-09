@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import AuthContext from './context/AuthContext';
 import './css/signup.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -58,7 +58,7 @@ export default function SignUp() {
                 return;
             }
            setSignStatus('Signing In...')
-            const response = await axios.post('https://shopietbackend-wlzwbcznba-bq.a.run.app/api/signup/', JSON.stringify(formData), {
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/signup/`, JSON.stringify(formData), {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -113,7 +113,8 @@ export default function SignUp() {
                 <input type="password" name="password" className={`${errors.password ? 'errorb' : ''}`} value={formData.password} onChange={handleChange} placeholder='Enter Password' />
                 <input type="password" name="password2" className={`${errors.password2 ? 'errorb' : ''}`} value={formData.password2} onChange={handleChange} placeholder='Enter Password Again' />
                 <input type="submit" className="signup-submit shd-press-eff" name='signup-submit' value={signStatus} />
-            </form>
+            <h3>Already Have an Account? <Link to='/login'>Log in</Link></h3></form>
+            
         </>
     );
 }

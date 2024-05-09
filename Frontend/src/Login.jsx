@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import AuthContext from './context/AuthContext';
 
 export default function Login() {
+   
     let { loginUser, user, logoutUser } = useContext(AuthContext);
-    const [message, setMessage] = useState(null); // State variable for displaying messages
-    const [error, setError] = useState(false); // State variable for tracking errors
+    const [message, setMessage] = useState(null); 
+    const [error, setError] = useState(false); 
 
     const handleSubmit = async (e) => {
         setMessage(null);   
@@ -45,6 +46,7 @@ export default function Login() {
             {
                 user ? (
                     <div className="welcome-login flex-col">
+                      
                         <h1>Hello, {user.username}</h1>
                        
                         <Link to='/update-profile' className='btn-sell profile'><button>Complete Profile</button></Link>
