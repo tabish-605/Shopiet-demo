@@ -20,8 +20,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['password'] = user.password
         token['id'] = user.id
             
-        if hasattr(user, 'profile') and hasattr(user.profile, 'profile_pic'):
-            token['profile_pic'] = user.profile.profile_pic.url 
+    
    
         # ...
 
@@ -37,6 +36,30 @@ def getData(request):
     serializer = ItemSerializer(items, many=True)
 
     return Response(serializer.data)
+
+@api_view(['GET'])
+def getProfile(request, username):
+    username = username
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+
+    
+    try:
+        profile = Profile.objects.get(user=user)
+    except Profile.DoesNotExist:
+        profile = Profile(user=user)
+        
+    user_items = Item.objects.filter(item_username=username)  
+    profile_data = {
+        'profile': ProfileSerializer(profile).data,
+        'items': ItemSerializer(user_items, many=True).data
+    }
+    return Response(profile_data)
+    
+    
+
 
 @api_view(['GET'])
 def getItem(request, slug):
@@ -132,13 +155,13 @@ def update_profile(request):
 @api_view(['POST'])
 def addItem(request):
     if request.method == 'POST':
-        item_username = request.data.get('item_username')  # Assuming 'username' is passed in the request data
+        item_username = request.data.get('item_username')  
         try:
             user = User.objects.get(username=item_username)
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        # Add the user object to the request data
+
         request.data['user'] = user.id
         serializer = AddItemSerializer(data=request.data)
         if serializer.is_valid():

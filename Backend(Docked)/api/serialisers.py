@@ -6,6 +6,10 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields ='__all__'
 
+class ItemSearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Item
+        fields =('item_name', 'slug')
 class CategorySerializer:
     class Meta:
         model = Category
@@ -53,3 +57,6 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['bio', 'number', 'whatsapp_number', 'other', 'profile_pic']
+
+
+    
