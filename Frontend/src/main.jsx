@@ -13,6 +13,7 @@ import ItemDetail from './ItemDetail.jsx';
 import CategoryPage from './CategoryPage.jsx';
 import UpdateProfile from './UpdateProfile.jsx';
 import SearchPage from './SearchPage.jsx';
+import ProfileDetail from './ProfileDetail.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/item/:slug" element={<ItemDetail />} />
         <Route path="/category/:item_category_name" element={<CategoryPage />} />
         <Route path="/search/:item_name" element={<SearchPage/>} />
+        <Route path="/profile/:username" element={<ProfileDetail/>} />
        <Route element={<PrivateRoutes/>}>
         <Route path="/upload" element={<UploadItem/>} />
         <Route path="/update-profile" element={<UpdateProfile/>} />

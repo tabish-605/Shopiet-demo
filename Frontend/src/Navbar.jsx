@@ -13,8 +13,8 @@ export default function Navbar() {
     const navigate = useNavigate();
     let { profilePic } = useContext(AuthContext);
     const location = useLocation();
-    const isAuthPage = location.pathname === '/login' || location.pathname === '/update-profile' || location.pathname === '/item/:slug' || location.pathname === '/signup' || location.pathname === '/upload';
-
+    const isAuthPage = location.pathname === '/login' || location.pathname === '/update-profile' || location.pathname === '/item/:slug' || location.pathname === '/signup' || location.pathname === '/upload' || location.pathname === '/profile/:username';
+    const noNavPage = location.pathname === '/update-profile' ;
     // Function to fetch search results
     const fetchSearchResults = async (query) => {
         try {
@@ -51,7 +51,7 @@ export default function Navbar() {
         }
     };
     return (
-        <>
+        <> {!noNavPage && (
             <nav className="navbar">
                 <div className="nav-items">
                     <div className="header-div">
@@ -91,7 +91,7 @@ export default function Navbar() {
                         </div>
                     </div>
                 </div>
-            </nav>
+            </nav>)}
             {!isAuthPage && (
                 <nav className="quicknav">
                     <ul>

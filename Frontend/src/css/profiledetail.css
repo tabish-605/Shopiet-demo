@@ -1,0 +1,17 @@
+.prof-img{
+    align-items: center;
+    align-self: center;
+}
+.numbers{
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    
+}
+
+.numbers h3{
+    border-radius: 12px;
+    border: 2px solid #1f1f1f;
+   
+    padding: 4px;
+}

@@ -1,5 +1,5 @@
 import { useState, useEffect} from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import './css/itemdetail.css'
 function ItemDetail() {
   const [data, setData] = useState(null);
@@ -62,7 +62,9 @@ function ItemDetail() {
       <p className="item-detail-cat pd-1-al-l">/{data.item_category_name}</p>
       <div className="cat-price-cnt">
         
-        <h2 className='item-detail-user'>{data.item_username}</h2>
+      <Link to={`/profile/${data.item_username}`}>
+  <h2 className='item-detail-user'>{data.item_username}</h2>
+</Link>
         <h2 className='item-detail-price'>R {data.item_price}</h2>
       </div>
       

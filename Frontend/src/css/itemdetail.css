@@ -82,6 +82,7 @@ h3{
 
 .item-detail-user{
     font-size: 2rem;
+    text-decoration: underline 4px #222;
     
 }
 
