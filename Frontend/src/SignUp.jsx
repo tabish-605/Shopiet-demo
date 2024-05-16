@@ -3,6 +3,7 @@ import axios from 'axios';
 import AuthContext from './context/AuthContext';
 import './css/signup.css';
 import { useNavigate, Link } from 'react-router-dom';
+import PhoneInput from 'react-phone-number-input';
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -11,7 +12,8 @@ export default function SignUp() {
         username: '',
         email: '',
         password: '',
-        password2: ''
+        password2: '',
+        number: ''
     });
     const [message, setMessage] = useState(null);
     const [signStatus, setSignStatus] = useState('Sign In')
@@ -19,14 +21,25 @@ export default function SignUp() {
         username: false,
         email: false,
         password: false,
-        password2: false
+        password2: false,
+        number:false
     });
+
+    const handleNumChange = (value, id) => {
+        setFormData({ ...formData, [id]: value });
+        setErrors({ ...errors, number: false });
+       
+    };
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
         setErrors({ ...errors, [e.target.name]: false });
     };
 
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^\+[0-9]{11,14}$/;
+        return phoneRegex.test(phoneNumber);
+    };
     const handleSubmit = async (e) => {
         setMessage(null);
         e.preventDefault();
@@ -45,6 +58,13 @@ export default function SignUp() {
                 setErrors({ ...errors, password: true });
                 return;
             }
+
+            if (!validatePhoneNumber(formData.number)) {
+                setMessage(`Incorrect phone number format.`);
+                setErrors({ ...errors, number: true });
+                return;
+            }
+          
 
             if (/\s/.test(formData.username)) {
                 setMessage(`Username can't contain spaces`);
@@ -112,6 +132,13 @@ export default function SignUp() {
                 <input type="email" name="email" className={`${errors.email ? 'errorb' : ''}`} value={formData.email} onChange={handleChange} placeholder='Enter Email' />
                 <input type="password" name="password" className={`${errors.password ? 'errorb' : ''}`} value={formData.password} onChange={handleChange} placeholder='Enter Password' />
                 <input type="password" name="password2" className={`${errors.password2 ? 'errorb' : ''}`} value={formData.password2} onChange={handleChange} placeholder='Enter Password Again' />
+                <PhoneInput
+                    placeholder="Enter your contact number"
+                    value={formData.number}
+                    className={`${errors.number ? 'errorb' : ''}`}
+                    defaultCountry="ZA"
+                    onChange={(value) => handleNumChange(value, 'number')}
+                />
                 <input type="submit" className="signup-submit shd-press-eff" name='signup-submit' value={signStatus} />
             <h3>Already Have an Account? <Link to='/login'>Log in</Link></h3></form>
             

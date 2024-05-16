@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import './css/itemdetail.css'
 function ItemDetail() {
   const [data, setData] = useState(null);
+  const [profile, setProfile] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   
   const { slug } = useParams();
@@ -19,6 +20,16 @@ function ItemDetail() {
 
         const jsonData = await response.json();
         setData(jsonData);
+        if (jsonData && jsonData.item_username) {
+          const profileResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/profile/${jsonData.item_username}`);
+  
+          if (!profileResponse.ok) {
+            throw new Error('Network response was not ok');
+          }
+          
+          const profileData = await profileResponse.json();
+          setProfile(profileData.profile);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -82,9 +93,10 @@ function ItemDetail() {
     </div> <div className="detail-contact">
         <h2>How to Contact Me:</h2>
         <div className="contact-details">
-            <h3>Phone:</h3>
-            <h3>Whatsapp:</h3>
-            <h3>Other:</h3>
+            <h3>Phone: {profile.number}</h3>
+            { profile.whatsapp_number ?
+            <h3>Whatsapp: {profile.whatsapp_number}</h3>:<></>}
+           
         </div>
       </div>
     </>
