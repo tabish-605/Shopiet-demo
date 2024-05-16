@@ -108,11 +108,12 @@ const UpdateProfile = () => {
         }
         setLoading(false);
     };
-
     const validatePhoneNumber = (phoneNumber) => {
-        const phoneRegex = /^\+[0-9]{11,14}$/;
+        
+        const phoneRegex = /^(?:\+27|0)(?:\d(?:[ -]?\d{2}){4})$/;
         return phoneRegex.test(phoneNumber);
     };
+    
 
     return (
         <div className="edit-cnt flex-col ">
