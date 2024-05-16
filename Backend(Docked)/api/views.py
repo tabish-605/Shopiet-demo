@@ -76,7 +76,6 @@ def addUser(request):
     if request.method == 'POST':
         serializer = AddUserSerializer(data=request.data)
         if serializer.is_valid():
-            # Check if user already exists
             username = serializer.validated_data["username"]
             email = serializer.validated_data["email"]
             if User.objects.filter(username=username).exists():
@@ -84,13 +83,20 @@ def addUser(request):
             elif User.objects.filter(email=email).exists():
                 return Response({'message': 'A user with that email already exists'}, status=status.HTTP_409_CONFLICT)
 
-
-
             user = serializer.save()
+
+            number = request.data.get('number')
+            if number:
+                try:
+                    profile = Profile.objects.get(user=user)
+                    profile.number = number
+                except Profile.DoesNotExist:
+                    profile = Profile(user=user, number=number)
+                profile.save()
+
             response_data = {
                 'message': 'User registered successfully',
                 'user_id': user.id,
-                'password':user.password,
                 'username': user.username,
                 'email': user.email,
             }
