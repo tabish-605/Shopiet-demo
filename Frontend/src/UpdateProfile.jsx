@@ -61,8 +61,6 @@ const UpdateProfile = () => {
             setLoading(false);
             return;
         }
-
-        // Validation
         if (!validatePhoneNumber(formData.number) && isModified) {
             setPhoneError({ ...phoneError, number: 'Invalid phone number format' });
             setErrorBorder('errorb');
@@ -70,6 +68,8 @@ const UpdateProfile = () => {
             return;
         }
         if (!validatePhoneNumber(formData.whatsapp_number) && isModified) {
+            
+            formData.whatsapp_number = formData.number;
             setPhoneError({ ...phoneError, whatsapp_number: 'Invalid phone number format' });
             setErrorBorder('errorb');
             setLoading(false);
@@ -127,6 +127,7 @@ const UpdateProfile = () => {
                 </div>
                 <h1>{user.username}</h1>
                 {message && <div className={`upload-message`}>{message}</div>}
+                {phoneError.number && <div className="error-message">{phoneError.number}</div>}
                 <PhoneInput
                     placeholder="Enter your contact number"
                     value={formData.number}
@@ -134,7 +135,7 @@ const UpdateProfile = () => {
                     defaultCountry="ZA"
                     onChange={(value) => handleChange(value, 'number')}
                 />
-                {phoneError.number && <div className="error-message">{phoneError.number}</div>}
+                
                 <PhoneInput
                 className={`${errorBorder}`}
                     placeholder="Enter your Whatsapp number"
@@ -143,8 +144,8 @@ const UpdateProfile = () => {
                     onChange={(value) => handleChange(value, 'whatsapp_number')}
                 />
                 {phoneError.whatsapp_number && <div className="error-message">{phoneError.whatsapp_number}</div>}
-                <input type="url" id="other" className={`prevent-zoom ${errorBorder}`} value={formData.other} onChange={(e) => handleChange(e.target.value, 'other')} placeholder={currentProfile.other === '' ? 'Link, any useful link about your details or products' : currentProfile.other} />
-                <textarea name="description" id="bio" className={`input-desc prevent-zoom ${errorBorder}`} value={formData.bio} onChange={(e) => handleChange(e.target.value, 'bio')} placeholder={currentProfile.bio === '' ? 'Enter a bio' : currentProfile.bio}></textarea>
+                <input type="url" id="other" className={`prevent-zoom `} value={formData.other} onChange={(e) => handleChange(e.target.value, 'other')} placeholder={currentProfile.other === '' ? 'Link, any useful link about your details or products' : currentProfile.other} />
+                <textarea name="description" id="bio" className={`input-desc prevent-zoom`} value={formData.bio} onChange={(e) => handleChange(e.target.value, 'bio')} placeholder={currentProfile.bio === '' ? 'Enter a bio' : currentProfile.bio}></textarea>
                 {loading ? (
                     <p>
                         Saving Changes{Array(Math.floor((Date.now() / 1000) % 4) + 1).join('.')}
