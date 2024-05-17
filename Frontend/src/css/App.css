@@ -125,7 +125,7 @@
 
 .item-card, .skel{
   max-width: 100%;
-  border-radius: 18px;
+  border-radius: 16px;
   background-color: rgb(243, 243, 243);
   height: 300px;
   display: flex;
@@ -218,7 +218,7 @@ gap: 3%;
   padding: 0.3rem;
   align-items: center;
   background-color: rgb(243, 243, 243);
-  border-radius: 16px;
+  border-radius: 14px;
 }
 .item-info{
   display: flex;
