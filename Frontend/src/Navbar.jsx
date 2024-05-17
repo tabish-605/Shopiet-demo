@@ -104,7 +104,7 @@ export default function Navbar() {
                         <Link to={'category/Sports'}>    <li>Sports</li></Link>
                         <Link to={'category/Electronics'}>    <li>Electronics</li></Link>
                         <Link to={'category/Gardening'}>    <li>Gardening</li></Link>
-                        <Link to={'category/Gym equipment'}>    <li>Gym Equipment</li></Link>
+                        <Link to={'category/Gym Equipment'}>    <li>Gym Equipment</li></Link>
                         <Link to={'category/Toys'}>    <li>Toys</li></Link>
                         <Link to={'category/Kids'}>    <li>Kids</li></Link>
                         <Link to={'category/Car accesories'}>    <li>Car Accesories</li></Link>
