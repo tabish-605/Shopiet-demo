@@ -37,7 +37,7 @@ function App() {
   }, []);
 
   const latestItems = data
-  .slice(0, 10).reverse(); 
+  .slice(0, 20).reverse(); 
 
   return (
     <>
