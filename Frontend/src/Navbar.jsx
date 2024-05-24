@@ -80,7 +80,7 @@ export default function Navbar() {
                         </div>)}
                         <div className="account-actions">
                             <div className="save-div">
-                            <Link to={`saved-items/${user ? user.username : ''}`}>
+                            <Link to={`saved-items/${user ? user.username : 'login'}`}>
                                 <button className="save"><img className="book-icon" src={bookicon} alt="" /></button>
                             </Link> </div>
                             <div className="sign-div">
