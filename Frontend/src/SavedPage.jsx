@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext} from 'react'
-import { useParams, Link } from 'react-router-dom'
+import {  Link } from 'react-router-dom'
 import AuthContext from './context/AuthContext';
 import './css/profiledetail.css'
 
@@ -30,7 +30,7 @@ function SavedItems() {
     };
 
     fetchData();
-  }, [user.username]);
+  }, []);
 
   if (isLoading) {
     return <div className="skeleton">
