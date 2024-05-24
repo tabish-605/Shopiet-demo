@@ -120,7 +120,7 @@ export default function SignUp() {
                 setMessage('Error occurred during sign-up');
             }
         } finally{
-            setSignStatus('Sign In')
+            setSignStatus('Sign Up')
         }
     };
 

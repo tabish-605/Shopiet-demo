@@ -92,7 +92,7 @@ function App() {
           <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
         </div>
         <div className="item-card-desc">
-          <h3 className='item-card-name'>{item.item_name.substring(0,22)}</h3>
+          <h3 className='item-card-name'>{item.item_name.substring(0,26)}</h3>
           <div className="item-info">
             <p className='item-card-price'>R {parseInt(item.item_price).toFixed(0)}</p>
             <p className='item-card-condition'>{item.item_condition}</p>

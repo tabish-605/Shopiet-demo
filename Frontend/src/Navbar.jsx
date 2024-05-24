@@ -11,11 +11,11 @@ export default function Navbar() {
     const [searchResults, setSearchResults] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
-    let { profilePic } = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const location = useLocation();
     const isAuthPage = location.pathname === '/login' || location.pathname === '/update-profile' || location.pathname === '/item/:slug' || location.pathname === '/signup' || location.pathname === '/upload' || location.pathname === '/profile/:username';
     
-    // Function to fetch search results
+
     const fetchSearchResults = async (query) => {
         try {
             setIsLoading(true)
@@ -29,7 +29,6 @@ export default function Navbar() {
         }
     };
 
-    // Function to handle search input change
     const handleSearchChange = (event) => {
         const { value } = event.target; setSearchQuery(value);
         
@@ -81,8 +80,9 @@ export default function Navbar() {
                         </div>)}
                         <div className="account-actions">
                             <div className="save-div">
+                            <Link to={`saved-items/${user.username}`}>
                                 <button className="save"><img className="book-icon" src={bookicon} alt="" /></button>
-                            </div>
+                            </Link> </div>
                             <div className="sign-div">
                                 <Link to={'/login'}>
                                     <button className="sign-in"><img className="user-icon" src={usericon} alt="" /></button>

@@ -14,6 +14,7 @@ import CategoryPage from './CategoryPage.jsx';
 import UpdateProfile from './UpdateProfile.jsx';
 import SearchPage from './SearchPage.jsx';
 import ProfileDetail from './ProfileDetail.jsx';
+import SavedItems from './SavedPage.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -30,6 +31,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/profile/:username" element={<ProfileDetail/>} />
        <Route element={<PrivateRoutes/>}>
         <Route path="/upload" element={<UploadItem/>} />
+        <Route path="/save/:username/:slug" />
+        <Route path="/saved-items/:username" element={<SavedItems/>}/>
         <Route path="/update-profile" element={<UpdateProfile/>} />
        </Route>
         
