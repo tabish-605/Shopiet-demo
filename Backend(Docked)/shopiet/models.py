@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from phonenumber_field.modelfields import PhoneNumberField
 import random
 import time
+import tinify
+import tempfile
+import os
 # Create your models here.
 
 
@@ -41,6 +44,28 @@ class Item(models.Model):
             self.item_username = self.user.username
         if self.category:
             self.item_category_name = self.category.name
+
+        if self.item_thumbnail:
+  
+            with self.item_thumbnail.open('rb') as source:
+                source_data = source.read()
+                result_data = tinify.from_buffer(source_data).to_buffer()
+
+                with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                    try:
+                        temp_file.write(result_data)
+
+                 
+                        temp_file.seek(0)
+
+              
+                        self.item_thumbnail.save(os.path.basename(self.item_thumbnail.name), temp_file, save=False)
+                    except Exception as e:
+                       
+                        print(f"An error occurred: {e}")
+
+        super().save(*args, **kwargs)
+
         super().save(*args, **kwargs)
 
     def generate_unique_slug(self):

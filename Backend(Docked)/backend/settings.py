@@ -16,6 +16,7 @@ import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
 from google.cloud import storage
+import tinify
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,7 +36,7 @@ DEBUG = True
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-
+tinify.key = os.getenv('TINYPNG_API_KEY')
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 CORS_ORIGIN_WHITELIST = os.getenv('CORS_ORIGIN_WHITELIST', '').split(',')

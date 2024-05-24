@@ -1,10 +1,11 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 
-from shopiet.models import Item, Category, Images, User, Profile
-from .serialisers import ItemSerializer, ItemSearchSerializer
+from shopiet.models import Item, Category, Images, User, Profile, SavedItem
+from .serialisers import ItemSerializer, ItemSearchSerializer, ImagesSerializer, SavedItemsSerializer
 from .serialisers import AddUserSerializer, AddItemSerializer, ProfileSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -59,8 +60,6 @@ def getProfile(request, username):
     return Response(profile_data)
     
     
-
-
 @api_view(['GET'])
 def getItem(request, slug):
     try:
@@ -70,7 +69,50 @@ def getItem(request, slug):
     except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['GET'])
+def getItemAdditionalImages(request, slug):
+    item = get_object_or_404(Item, slug=slug)
+    images = Images.objects.filter(item=item)
+    serializer = ImagesSerializer(images, many=True)
+    return Response(serializer.data)
 
+@api_view(['POST'])
+def save_item(request, username, slug):
+    if request.method == 'POST':
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        try:
+            item = Item.objects.get(slug=slug)
+        except Item.DoesNotExist:
+            return Response({'error': 'Item not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        if SavedItem.objects.filter(user=user, item=item).exists():
+            return Response({'error': 'Item already saved'}, status=status.HTTP_400_BAD_REQUEST)
+
+        saved_item = SavedItem(user=user, item=item)
+        saved_item.save()
+
+        serializer = SavedItemsSerializer(saved_item)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+def getSavedItems(request, username):
+    try:
+        user = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    saved_items = SavedItem.objects.filter(user=user)
+    saved_item_ids = saved_items.values_list('item', flat=True)
+    
+    items = Item.objects.filter(pk__in=saved_item_ids)
+    
+    serializer = ItemSerializer(items, many=True)
+    return Response(serializer.data)
+   
 @api_view(['POST'])
 def addUser(request):
     if request.method == 'POST':
@@ -91,7 +133,8 @@ def addUser(request):
                     profile = Profile.objects.get(user=user)
                     profile.number = number
                 except Profile.DoesNotExist:
-                    profile = Profile(user=user, number=number)
+                    profile = Profile(user=user)
+                    profile.number = number
                 profile.save()
 
             response_data = {
@@ -101,6 +144,7 @@ def addUser(request):
                 'email': user.email,
             }
             return Response(response_data, status=status.HTTP_201_CREATED)
+      
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
@@ -167,11 +211,9 @@ def addItem(request):
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-
-        request.data['user'] = user.id
         serializer = AddItemSerializer(data=request.data)
         if serializer.is_valid():
-            item = serializer.save()
+            serializer.save()  
             response_data = {
                 'message': 'Item uploaded',
                 'data': serializer.data

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from shopiet.models import  Item, Images, Category, User, Profile
+from shopiet.models import  Item, Images, Category, User, Profile, SavedItem
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,12 +10,17 @@ class ItemSearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         fields =('item_name', 'slug')
+
+class SavedItemsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SavedItem
+        fields = '__all__'      
 class CategorySerializer:
     class Meta:
         model = Category
         fields = '__all__'
 
-class ImagesSerializer:
+class ImagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Images
         fields = '__all__'  
@@ -48,7 +53,7 @@ class AddUserSerializer(serializers.ModelSerializer):
 class AddItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ('__all__')
+        fields = ('__all__')        
     
 
    
@@ -57,6 +62,9 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ['bio', 'number', 'whatsapp_number', 'other', 'profile_pic']
+
+    
+        
 
 
     
