@@ -10,7 +10,7 @@ const UpdateProfile = () => {
     const { user } = useContext(AuthContext);
     const [currentProfile, setProfile] = useState({});
     const [userPfp, setPfp] = useState(currentProfile.profile_pic === null || currentProfile.profile_pic === undefined ? usericon : currentProfile.profile_pic);
-    console.log(currentProfile.profile_pic);
+    
     const [formData, setFormData] = useState({
         bio: '',
         number: '',
