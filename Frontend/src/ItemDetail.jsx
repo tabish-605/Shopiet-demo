@@ -75,7 +75,8 @@ function ItemDetail() {
   }
 
   const handleSave = async () => {
-    setIsSaveLoading(true);  
+    setIsSaveLoading(true); 
+    if (user){ 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/save/${user.username}/${slug}/`, {
         method: 'POST',  // Use POST method
@@ -99,9 +100,14 @@ function ItemDetail() {
     } catch (error) {
       console.error('Error saving item:', error.message);
       setAddText('Item Already Saved');
+      if (error.status === 500){
+        setAddText('Login to Save');
+      }
     } finally {
       setIsSaveLoading(false);
-    }
+    } } else {
+      setIsSaveLoading(false)
+      setAddText("Login To Save")}
   };
 
   

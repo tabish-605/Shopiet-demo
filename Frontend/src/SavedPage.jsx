@@ -45,12 +45,13 @@ function SavedItems() {
     return <p>Couldn't Get to Your Saved Items :-\</p>;
   }
   if (data.length ===0) {
-    return <><p>You Haven't Saved an Item Yet!</p>;  <Link to ='/' className='btn-sell' > <button >Continue Browsing</button></Link></>
+    return <><p>You Haven't Saved an Item Yet!</p>
+      <Link to ='/' className='btn-sell' > <button >Continue Browsing</button></Link></>
   }
 
   return (
-    <section className='user-profile flex-col'>
-    <h2> Your {data.length} Saved Items:</h2>
+    <section className='user-profile saved flex-col'>
+    <h2 className='saved-header'> You Have {data.length} Saved Items</h2>
     <section className="items-container">
         
     {data.map((item) => (
@@ -60,7 +61,7 @@ function SavedItems() {
           <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
         </div>
         <div className="item-card-desc">
-          <h3 className='item-card-name'>{item.item_name.substring(0,22)}</h3>
+          <h3 className='item-card-name'>{item.item_name.substring(0,24)}</h3>
           <div className="item-info">
             <p className='item-card-price'>R {parseInt(item.item_price).toFixed(0)}</p>
             <p className='item-card-condition'>{item.item_condition}</p>
