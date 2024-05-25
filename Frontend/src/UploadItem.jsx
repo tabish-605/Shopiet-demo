@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from './context/AuthContext';
 import './css/upload.css';
-
+import photoupload from './assets/photo-upload.svg';
+import photomulti from './assets/photo-multi.svg';
 const UploadItem = () => {
     const { user } = useContext(AuthContext);
     const [formData, setFormData] = useState({
@@ -13,8 +14,10 @@ const UploadItem = () => {
         category: 960732137074130945,
         item_username: user.username,
         item_thumbnail: null,
+        additional_images: []
     });
-
+    const [imagePreview, setImagePreview] = useState(null);
+    const [additionalPreviews, setAdditionalPreviews] = useState([]); 
     const [loading, setLoading] = useState(false); // State to track loading status
     const [message, setMessage] = useState(null); // State to track messages
     const [errorBorder, setErrorBorder] = useState(''); // State to track border color for error
@@ -30,6 +33,37 @@ const UploadItem = () => {
 
     const handleFileChange = (e) => {
         setFormData({ ...formData, item_thumbnail: e.target.files[0] });
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setImagePreview(reader.result);
+        };
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            setImagePreview(null);
+        }
+    };
+
+    const handleAdditionalFileChange = (e) => {
+        const files = Array.from(e.target.files);
+        const newFiles = [...formData.additional_images, ...files]; // Combine new and existing files
+    
+        // Process previews
+        let previews = [];
+        newFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                previews.push(reader.result);
+                if (previews.length === newFiles.length) {
+                    setAdditionalPreviews(previews);
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+    
+        // Update form data
+        setFormData({ ...formData, additional_images: newFiles });
     };
 
     const handleSubmit = (e) => {
@@ -48,9 +82,16 @@ const UploadItem = () => {
         }
         setLoading(true);
         let form_data = new FormData();
+  
+        const additionalImages = formData.additional_images.flat();
         for (let key in formData) {
             form_data.append(key, formData[key]);
         }
+        
+        additionalImages.forEach(file => {
+            form_data.append('additional_images', file);
+        });
+        
         let url = `${import.meta.env.VITE_API_URL}/api/upload/`;
         const response = axios.post(url, form_data, {
                 headers: {
@@ -70,6 +111,8 @@ const UploadItem = () => {
                     item_username: user.username,
                     item_thumbnail: null,
                 });
+                setImagePreview(null);
+                setAdditionalPreviews([]);
             })
             .catch((err) => {
                 setLoading(false); 
@@ -145,7 +188,29 @@ const UploadItem = () => {
                     <option value="963308587154767873">Car Accessories</option>
                     
                 </select>
-                <input type="file" className={`input-thumb ${errorBorder}`} id="item_thumbnail" onChange={handleFileChange} accept="image/*" required />
+                <input type="file" className={`input-thumb ${errorBorder}`} id="item_thumbnail" onChange={handleFileChange} accept="image/webp,image/jpeg,image/png" required />
+                <label htmlFor="item_thumbnail" className="lbl-add-photo">
+                        Add Item Image <img src={photoupload} alt="" />
+                </label>
+                {imagePreview && (
+                    <div className="image-preview">
+                        <img src={imagePreview} alt="Selected" />
+                    </div>
+                )}
+
+                <input type="file" multiple className={`input-thumb ${errorBorder}`} id="additional_images" onChange={handleAdditionalFileChange} accept="image/webp,image/jpeg,image/png" />
+                <label htmlFor="additional_images" className="lbl-add-photo">Add Additional Images  <img src={photomulti} alt="" /></label>
+
+                {additionalPreviews.length > 0 && (
+                    <div className="additional-previews">
+                        {additionalPreviews.map((preview, index) => (
+                            <div key={index} className="image-preview">
+                                <img src={preview} alt={`Selected ${index}`} />
+                            </div>
+                        ))}
+                    </div>
+                )}
+               
                 {loading ? (
                     <p>Uploading{Array(Math.floor((Date.now() / 1000) % 4) + 1).join('.')}</p>
                 ) : (<>

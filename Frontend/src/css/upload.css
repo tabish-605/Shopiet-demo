@@ -17,9 +17,9 @@
 
 .input-thumb{
 
-    padding: 4px;
-    border: none;
+    display: none;
 }
+
 
 .no-item-disp{
     display: flex;
@@ -28,6 +28,23 @@
     height: 50svh;
     font-size: 1.5rem;
     gap: 5%;
+}
+
+.image-preview{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.additional-previews .image-preview img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+.image-preview img{
+    width: 50%;
+    border-radius: 12px;
+    align-self: center;
 }
 .cat-cta-up{
     color: #fff;
@@ -70,7 +87,7 @@
     border: 1px solid;
     padding: 12px;
 }
-/* Hide the default radio button */
+
 input[type="radio"] {
     display: none;
 }
@@ -87,9 +104,9 @@ label:first-child .chip {
 
 }
 
-/* Style for the last chip */
+
 label:last-child .chip {
-    /* Your styles for the last chip */
+  
     border-top-right-radius: 18px;
     border-bottom-right-radius: 18px;
 
@@ -111,7 +128,28 @@ input[type="radio"]:checked + .chip {
     color: #fff; 
 }
 
+.lbl-add-photo{
+    border-radius: 12px;
+    text-align: center;
+    height: 20px;
+    padding: 20px;
+    border: 3px dotted gray;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 
+}
+
+.additional-previews {
+    display: flex;
+}
+
+
+.lbl-add-photo img{
+    height: 30px;
+    width: 30px;
+   
+}
 
 .prevent-zoom {
     max-height: 100px;
