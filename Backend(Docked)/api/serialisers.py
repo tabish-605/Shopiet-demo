@@ -1,7 +1,13 @@
 from rest_framework import serializers
 from shopiet.models import  Item, Images, Category, User, Profile, SavedItem
 
+class ImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Images
+        fields = '__all__'  
+
 class ItemSerializer(serializers.ModelSerializer):
+    images = ImagesSerializer(many=True, read_only=True)
     class Meta:
         model = Item
         fields ='__all__'
@@ -20,10 +26,7 @@ class CategorySerializer:
         model = Category
         fields = '__all__'
 
-class ImagesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Images
-        fields = '__all__'  
+
 
 
 

@@ -7,6 +7,7 @@ import time
 import tinify
 import tempfile
 import os
+from django.core.files import File
 # Create your models here.
 
 
@@ -45,8 +46,7 @@ class Item(models.Model):
         if self.category:
             self.item_category_name = self.category.name
 
-        if self.item_thumbnail:
-  
+        if self.item_thumbnail and hasattr(self.item_thumbnail, 'file'):
             with self.item_thumbnail.open('rb') as source:
                 source_data = source.read()
                 result_data = tinify.from_buffer(source_data).to_buffer()
@@ -54,17 +54,13 @@ class Item(models.Model):
                 with tempfile.NamedTemporaryFile(delete=False) as temp_file:
                     try:
                         temp_file.write(result_data)
-
-                 
                         temp_file.seek(0)
-
-              
                         self.item_thumbnail.save(os.path.basename(self.item_thumbnail.name), temp_file, save=False)
                     except Exception as e:
-                       
                         print(f"An error occurred: {e}")
-
-        super().save(*args, **kwargs)
+                    finally:
+                        temp_file.close()
+                        os.remove(temp_file.name)
 
         super().save(*args, **kwargs)
 
@@ -104,6 +100,25 @@ class Images(models.Model):
 
     def __str__(self):
         return self.item.item_name
+
+    def save(self, *args, **kwargs):
+        if self.image and hasattr(self.image, 'file'):
+            with self.image.open('rb') as source:
+                source_data = source.read()
+                result_data = tinify.from_buffer(source_data).to_buffer()
+
+                with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                    try:
+                        temp_file.write(result_data)
+                        temp_file.seek(0)
+                        self.image.save(os.path.basename(self.image.name), temp_file, save=False)
+                    except Exception as e:
+                        print(f"An error occurred: {e}")
+                    finally:
+                        temp_file.close()
+                        os.remove(temp_file.name)
+
+        super().save(*args, **kwargs)
     
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)

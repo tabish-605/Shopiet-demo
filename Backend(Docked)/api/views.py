@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 
-from shopiet.models import Item, Category, Images, User, Profile, SavedItem
+from shopiet.models import Item, Images, User, Profile, SavedItem
 from .serialisers import ItemSerializer, ItemSearchSerializer, ImagesSerializer, SavedItemsSerializer
 from .serialisers import AddUserSerializer, AddItemSerializer, ProfileSerializer
 
@@ -213,10 +213,14 @@ def addItem(request):
 
         serializer = AddItemSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()  
+            item = serializer.save()
+
+            if 'additional_images' in request.FILES:
+                additional_images = request.FILES.getlist('additional_images')
+                for image in additional_images:
+                    Images.objects.create(item=item, image=image)
             response_data = {
-                'message': 'Item uploaded',
-                'data': serializer.data
+                'message': 'Item uploaded'
             }
             return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
