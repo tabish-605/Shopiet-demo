@@ -13,6 +13,7 @@
 .upload-form select{
     height: 40px;
     padding: 10px;
+    border-radius: 12px;
 }
 
 .input-thumb{
@@ -50,12 +51,13 @@
     padding: 1rem;
     padding-bottom: 0px;
     font-family: 'Outfit';
-    width: 145%;
+    width: 140%;
 }
 
 .local{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+   
 }
 
 .local-cnt{
@@ -176,4 +178,51 @@ input[type="radio"]:checked + .chip {
     max-width: 100%;
     -webkit-text-size-adjust: none;
     text-size-adjust: none; 
+}
+.slider-container{
+   display: flex;
+   flex-direction: column;
+   justify-items: center;
+   gap: 2%;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+
+
+input:checked + .slider {
+    background-color: #8dc572;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
 }

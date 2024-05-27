@@ -225,7 +225,12 @@ const UploadItem = () => {
                     <option value="963308226167734273">Gym Equipment</option>
                     <option value="963308337627725825">Toys</option>
                     <option value="963308422799785985">Kids</option>
-                    <option value="963308587154767873">Car Accessories</option>
+                    <option value="964962577645404161">Audio</option>
+                    <option value="972393953879326721">Clothing</option>
+                    <option value="972394645469528065">Entertainment</option>
+                    <option value="972395005943316481">Office Supplies</option>
+                    <option value="972395196896116737">Kitchen</option>
+                    <option value="972395352387420161">Crafts</option>
                     
                 </select>
                
