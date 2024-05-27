@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import Map from './utils/Map';
 import './css/itemdetail.css';
 import delivery from './assets/delivery.svg'
+import linkExt from './assets/link-ext.svg'
 
 function ItemDetail() {
   const [data, setData] = useState(null);
@@ -154,7 +155,7 @@ function ItemDetail() {
         <p className="item-detail-cat pd-1-al-l">/{data.item_category_name}</p>
         <div className="cat-price-cnt">
           <Link to={`/profile/${data.item_username}`}>
-            <h2 className="item-detail-user">{data.item_username}</h2>
+            <h2 className="item-detail-user">{data.item_username} <img className='delivery-img'src={linkExt}></img></h2>
           </Link>
           <h2 className="item-detail-price">R {data.item_price}</h2>
         </div>
@@ -182,8 +183,8 @@ function ItemDetail() {
       </div>}
       {profile && (
         <div className="detail-contact">
-          <h2>How to Contact Me:</h2>
-          <div className="contact-details">
+          
+          <div className="contact-details"><h2>How to Contact Me:</h2>
             <h3>Phone: {profile.number}</h3>
             {profile.whatsapp_number && <h3>Whatsapp: {profile.whatsapp_number}</h3>}
           </div>

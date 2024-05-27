@@ -6,6 +6,7 @@ import photoupload from './assets/photo-upload.svg';
 import photomulti from './assets/photo-multi.svg';
 import LocationAutocomplete from './utils/LocationAutoComplete';
 import { Link } from 'react-router-dom';
+import linkExt from './assets/link-ext.svg'
 const UploadItem = () => {
     const { user } = useContext(AuthContext);
     const [formData, setFormData] = useState({
@@ -125,7 +126,7 @@ const UploadItem = () => {
                 console.log(response.data)
                 setMessage( <span>
                     Upload Successful! View your{' '}
-                    <Link style={{textDecoration:'underline 2px #8dc572'}}to={'/item/'+response.data.slug}>Item</Link>
+                    <Link style={{textDecoration:'underline 2px #8dc572'}}to={'/item/'+response.data.slug}>Item <img className='delivery-img'src={linkExt}></img></Link>
                 </span>);
                 setFormData({
                     item_name: '',
