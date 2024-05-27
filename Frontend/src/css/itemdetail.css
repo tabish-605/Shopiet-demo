@@ -87,6 +87,11 @@ h3{
     
 }
 
+.location-map h1{
+    font-size: 2em;
+    margin-bottom: 2rem;
+}
+
 .additional-images{
     display: grid;
     grid-template-columns: repeat(5, calc(18.6666% - 10px));
@@ -140,4 +145,80 @@ h3{
 .item-desc-cnt{
     border: 2px solid #fff;
 }
+}
+
+/* Add these styles to your CSS file */
+
+.slider-container {
+    margin: 10px 0;
+}
+
+.slider-label {
+    margin-right: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.map{
+    border-radius: 12px;
+}
+
+.delivery{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.delivery-img{
+    width: 30px;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #8dc572;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
 }

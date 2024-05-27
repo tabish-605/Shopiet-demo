@@ -46,6 +46,26 @@
     border-radius: 12px;
     align-self: center;
 }
+.autocomplete-dropdown-container {
+    padding: 1rem;
+    padding-bottom: 0px;
+    font-family: 'Outfit';
+    width: 145%;
+}
+
+.local{
+    display: flex;
+    justify-content: center;
+}
+
+.local-cnt{
+    display: flex;
+    align-items: center;
+}
+.location-map{
+    padding: 1rem;
+}
+
 .cat-cta-up{
     color: #fff;
     background-color: #8dc572;

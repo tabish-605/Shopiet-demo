@@ -1,7 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import AuthContext from './context/AuthContext';
 import { useParams, Link } from 'react-router-dom';
+import Map from './utils/Map';
 import './css/itemdetail.css';
+import delivery from './assets/delivery.svg'
 
 function ItemDetail() {
   const [data, setData] = useState(null);
@@ -169,7 +171,15 @@ function ItemDetail() {
         {isSaveLoading ? "ADDING..." : addText}
       </button>
       </div>
-      
+      {data.address && (
+      <div className="location-map">
+        <h1>{data.address}</h1>
+        {<Map latitude={parseFloat(data.latitude)} longitude={parseFloat(data.longitude)} />}
+      </div>)}
+      {<div className="delivery">
+      <img className='delivery-img'src={delivery}></img><h2> Delivery: </h2>
+      <h2>{data.delivery===true ? "  Available":"  Collection"}</h2>
+      </div>}
       {profile && (
         <div className="detail-contact">
           <h2>How to Contact Me:</h2>

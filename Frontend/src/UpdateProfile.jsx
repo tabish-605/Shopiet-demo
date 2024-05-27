@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import AuthContext from './context/AuthContext';
 import usericon from './assets/user-solid.svg';
@@ -146,6 +147,7 @@ const UpdateProfile = () => {
                 {phoneError.whatsapp_number && <div className="error-message">{phoneError.whatsapp_number}</div>}
                 <input type="url" id="other" className={`prevent-zoom `} value={formData.other} onChange={(e) => handleChange(e.target.value, 'other')} placeholder={currentProfile.other === '' ? 'Link, any useful link about your details or products' : currentProfile.other} />
                 <textarea name="description" id="bio" className={`input-desc prevent-zoom`} value={formData.bio} onChange={(e) => handleChange(e.target.value, 'bio')} placeholder={currentProfile.bio === '' ? 'Enter a bio' : currentProfile.bio}></textarea>
+               
                 {loading ? (
                     <p>
                         Saving Changes{Array(Math.floor((Date.now() / 1000) % 4) + 1).join('.')}
@@ -155,6 +157,7 @@ const UpdateProfile = () => {
                         <input type="submit" className="input-sub shd-press-eff" value="Save" />
                     </>
                 )}
+                 <Link to={`/profile/${user.username}`} className='btn-sell profile'><button>View Profile</button></Link>
             </form>
         </div>
     );

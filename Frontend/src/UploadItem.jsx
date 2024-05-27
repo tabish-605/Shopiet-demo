@@ -4,6 +4,8 @@ import AuthContext from './context/AuthContext';
 import './css/upload.css';
 import photoupload from './assets/photo-upload.svg';
 import photomulti from './assets/photo-multi.svg';
+import LocationAutocomplete from './utils/LocationAutoComplete';
+import { Link } from 'react-router-dom';
 const UploadItem = () => {
     const { user } = useContext(AuthContext);
     const [formData, setFormData] = useState({
@@ -13,19 +15,34 @@ const UploadItem = () => {
         item_condition: 'used',
         category: 960732137074130945,
         item_username: user.username,
+        delivery: false,
         item_thumbnail: null,
-        additional_images: []
+        additional_images: [],
+        address: '',
+        
+
     });
     const [imagePreview, setImagePreview] = useState(null);
     const [additionalPreviews, setAdditionalPreviews] = useState([]); 
     const [loading, setLoading] = useState(false); // State to track loading status
     const [message, setMessage] = useState(null); // State to track messages
     const [errorBorder, setErrorBorder] = useState(''); // State to track border color for error
+    const handleLocationSelected = (location) => {
+        setFormData({
+            ...formData,
+            address: location.address,
+            latitude: location.lat,
+            longitude: location.lng
+        });
+      
+    };
 
     const handleChange = (e) => {
-        const { id, value } = e.target;
-        if (e.target.type === 'radio') {
+        const { id, value, type, checked } = e.target;
+        if (type === 'radio') {
             setFormData({ ...formData, item_condition: value });
+        } else if (type === 'checkbox') {
+            setFormData({ ...formData, [id]: checked });
         } else {
             setFormData({ ...formData, [id]: value });
         }
@@ -70,7 +87,7 @@ const UploadItem = () => {
         e.preventDefault();
         setMessage(null);
         setErrorBorder('');
-        if (!formData.item_name || !formData.item_price || !formData.item_description || !formData.item_thumbnail) {
+        if (!formData.item_name || !formData.item_price || !formData.item_description || !formData.item_thumbnail || !formData.address) {
             setMessage('Please fill in all required fields.'); 
             setErrorBorder('errorb');
             return;
@@ -91,7 +108,12 @@ const UploadItem = () => {
         additionalImages.forEach(file => {
             form_data.append('additional_images', file);
         });
+        let formDataObject = {};
+        form_data.forEach((value, key) => {
+            formDataObject[key] = value;
+        });
         
+        console.log(formDataObject);
         let url = `${import.meta.env.VITE_API_URL}/api/upload/`;
         const response = axios.post(url, form_data, {
                 headers: {
@@ -101,7 +123,10 @@ const UploadItem = () => {
             .then((response) => {
                 setLoading(false);
                 console.log(response.data)
-                setMessage('Upload successful');
+                setMessage( <span>
+                    Upload Successful! View your{' '}
+                    <Link style={{textDecoration:'underline 2px #8dc572'}}to={'/item/'+response.data.slug}>Item</Link>
+                </span>);
                 setFormData({
                     item_name: '',
                     item_price: '',
@@ -110,16 +135,18 @@ const UploadItem = () => {
                     category: 960732137074130945,
                     item_username: user.username,
                     item_thumbnail: null,
+                    address: '',
+                    
                 });
                 setImagePreview(null);
                 setAdditionalPreviews([]);
             })
             .catch((err) => {
                 setLoading(false); 
-                if (err.response) {
+                if (err.response && err.response.data) {
                     setMessage(`Upload failed: ${err.response.data}`); 
                 } else {
-                    setMessage('Upload failed: Network error');
+                    setMessage('Upload failed: Network error'); 
                 }
                 setErrorBorder('errorb'); 
             });
@@ -175,6 +202,19 @@ const UploadItem = () => {
                         <span className="chip">New</span>
                     </label>
                 </div>
+                <div className="local">
+                <LocationAutocomplete onLocationSelected={handleLocationSelected} /> <div className="slider-container">
+                    <label htmlFor="delivery" className="slider-label">Delivery:</label>
+                    <label className="switch">
+                        <input
+                            type="checkbox"
+                            id="delivery"
+                            checked={formData.delivery}
+                            onChange={handleChange}
+                        />
+                        <span className="slider round"></span>
+                    </label>
+                </div></div>
                 <select id="category"  className={`prevent-zoom ${errorBorder}`} value={formData.category} onChange={handleChange}>
                 <option value="">Select Category</option>
                     <option value="960732137074130945">Tech</option>
@@ -188,6 +228,7 @@ const UploadItem = () => {
                     <option value="963308587154767873">Car Accessories</option>
                     
                 </select>
+               
                 <input type="file" className={`input-thumb ${errorBorder}`} id="item_thumbnail" onChange={handleFileChange} accept="image/webp,image/jpeg,image/png" required />
                 <label htmlFor="item_thumbnail" className="lbl-add-photo">
                         Add Item Image <img src={photoupload} alt="" />
