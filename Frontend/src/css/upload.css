@@ -51,12 +51,13 @@
     padding: 1rem;
     padding-bottom: 0px;
     font-family: 'Outfit';
-    width: 140%;
+    width: 130%;
 }
 
 .local{
     display: flex;
     justify-content: space-between;
+    gap: 4%;
    
 }
 
