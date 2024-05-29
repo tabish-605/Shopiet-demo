@@ -31,6 +31,10 @@ input{
     align-self: center;
   
 }
+
+.login-header{
+    margin-top: 0px;
+}
 .flex-col{
     display: flex;
     flex-direction: column;
@@ -69,8 +73,8 @@ input{
     background-color: transparent;
     color: black ;
 }
-.welcome-login{
-    padding: 2rem;
+.welcome-login h1{
+    margin-top: 0px;
 }
 
 .prevent-zoom {
@@ -81,7 +85,7 @@ input{
 }
 
 .welcome-login{
-    height: 72vh;
+ padding: 2rem;
     justify-content: center;
 
 }

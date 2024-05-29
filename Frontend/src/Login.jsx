@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from './context/AuthContext';
 import authimg from './assets/login.svg'
+import logimg from './assets/logged.svg'
 
 export default function Login() {
    
@@ -47,6 +48,8 @@ export default function Login() {
             {
                 user ? (
                     <div className="welcome-login flex-col">
+                        <div className="eimg-cnt">
+                        <img loading='lazy' src={logimg} className="auth-image" /></div>
                       
                         <h1>Hello, {user.username}</h1>
                        
@@ -58,10 +61,10 @@ export default function Login() {
                 ) : (
                     <>
                         
-                        <form className='login-form' onSubmit={handleSubmit}><h1 className='login-header'>Login</h1>
+                        <form className='login-form' onSubmit={handleSubmit}>
                         <div className="eimg-cnt">
                         <img loading='lazy' src={authimg} className="auth-image" /></div>
-                        
+                        <h1 className='login-header'>Login</h1>
                         {message && <div className={`login-message ${error ? 'errorb' : ''}`}><h3>{message}</h3></div>}
                             <input type="text" name="username" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="username" placeholder='Enter User Name' />
                             <input type="password" name="password" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="password" placeholder='Enter Password' />

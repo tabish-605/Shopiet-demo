@@ -23,8 +23,12 @@ right: 2%;
 }
 .edit-form{
     padding: 1rem;
-   
     justify-content: center
+}
+
+.edit-form h1{
+    margin-top: 0px;
+    margin-bottom: 1rem;
 }
  
 .profile-pic-img{

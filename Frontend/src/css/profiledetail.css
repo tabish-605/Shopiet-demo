@@ -8,8 +8,19 @@
     gap: 10%;
     
 }
+
+.user-profile{
+    padding: 1rem;
+}
+.user-profile h1{
+    margin-top: 0px;
+}
 .saved-header{
     margin-bottom: 6px;
+    margin-top: 0px;
+}
+.user-profile .items-container{
+    margin-top: 0px;
 }
 .numbers h3{
     border-radius: 12px;

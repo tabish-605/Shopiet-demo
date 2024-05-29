@@ -2,6 +2,7 @@ import { useState, useEffect, useContext} from 'react'
 import {  Link } from 'react-router-dom'
 import AuthContext from './context/AuthContext';
 import './css/profiledetail.css'
+import saveimg from './assets/saved.svg'
 
 
 function SavedItems() {
@@ -51,12 +52,14 @@ function SavedItems() {
 
   return (
     <section className='user-profile saved flex-col'>
+      <div className="eimg-cnt">
+                        <img loading='lazy' src={saveimg} className="auth-image" /></div>
     <h2 className='saved-header'> You Have {data.length} Saved Items</h2>
     <section className="items-container">
         
     {data.map((item) => (
-      <Link to={`/item/${item.slug}`}>
-      <div className='item-card' key={item.id}>
+      <Link to={`/item/${item.slug}`}key={item.id}>
+      <div className='item-card' >
         <div className="item-card-img-cnt" >
           <img loading="lazy" alt={item.item_thumbnail.name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
         </div>
