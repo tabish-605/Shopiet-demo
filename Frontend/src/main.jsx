@@ -16,7 +16,7 @@ import SearchPage from './SearchPage.jsx';
 import ProfileDetail from './ProfileDetail.jsx';
 import SavedItems from './SavedPage.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
-import pnf from './assets/404-pnf.svg'
+import pnf from './assets/pnf-404.svg'
 
 const NotFound = () => {
   return (

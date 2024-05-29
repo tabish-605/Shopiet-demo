@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react'
 import {useParams, Link } from 'react-router-dom'
-import errorPage from './assets/t.svg'
+import errorPage from './assets/no-cat.svg'
 import './css/App.css'
 
 
