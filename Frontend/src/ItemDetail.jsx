@@ -5,6 +5,7 @@ import Map from './utils/Map';
 import './css/itemdetail.css';
 import delivery from './assets/delivery.svg'
 import linkExt from './assets/link-ext.svg'
+import errorPage from './assets/error-404-img.webp'
 
 function ItemDetail() {
   const [data, setData] = useState(null);
@@ -82,7 +83,7 @@ function ItemDetail() {
     if (user){ 
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/save/${user.username}/${slug}/`, {
-        method: 'POST',  // Use POST method
+        method: 'POST', 
         headers: {
           'Content-Type': 'application/json',
         },
@@ -127,7 +128,7 @@ function ItemDetail() {
 
 
   if (!data) {
-    return <p>Couldn't Find This Item :-/</p>;
+    return <div className='error-div flex-col'> <img loading="lazy"  src={errorPage} id='error-404' className="item-detail-image" /><p>Couldn't Find This Item :-/</p></div>;
   }
 
   return (

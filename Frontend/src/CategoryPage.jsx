@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react'
 import {useParams, Link } from 'react-router-dom'
+import errorPage from './assets/no-cat.png'
 import './css/App.css'
 
 
@@ -55,14 +56,14 @@ const { item_category_name } = useParams();
               <div className="skel skel-3 grad-animation"></div>
               <div className="skel skel-4 grad-animation"></div>
             </div>
-          ) : latestItems.length === 0 ? (
-            <div className='no-item-disp'>
-
-              <h5>No {item_category_name} has been uploaded yet... Be the first! </h5>
+          ) : latestItems.length === 0 ? (<div className='error-div flex-col'> <img loading="lazy"  src={errorPage} id='error-cat' className="item-detail-image" />
+            
+<>
+              <p>No {item_category_name} has been uploaded yet... Be the first! </p>
               <Link to ={'/upload'}>
                 <button className='cat-cta-up'>Sell an Item</button>
-              </Link>
-            </div>
+              </Link></>
+           </div>
           ) : (
             <section className="items-container">
               {latestItems.map((item) => (

@@ -16,6 +16,15 @@ import SearchPage from './SearchPage.jsx';
 import ProfileDetail from './ProfileDetail.jsx';
 import SavedItems from './SavedPage.jsx';
 
+const NotFound = () => {
+  return (
+    <div>
+      <h2>Page Not Found</h2>
+      <p>Sorry, the page you are looking for does not exist.</p>
+    </div>
+  );
+};
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
@@ -29,13 +38,13 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/category/:item_category_name" element={<CategoryPage />} />
         <Route path="/search/:item_name" element={<SearchPage/>} />
         <Route path="/profile/:username" element={<ProfileDetail/>} />
-       <Route element={<PrivateRoutes/>}>
+        <Route element={<PrivateRoutes/>}>
         <Route path="/upload" element={<UploadItem/>} />
         <Route path="/save/:username/:slug" />
         <Route path="/saved-items/:username" element={<SavedItems/>}/>
         <Route path="/update-profile" element={<UpdateProfile/>} />
        </Route>
-        
+       <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter></AuthProvider>
   </React.StrictMode>

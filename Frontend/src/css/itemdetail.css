@@ -175,6 +175,25 @@ h3{
     box-shadow: 3px 3px 20px #8dc572;
    
 }
+.error-div{
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    height: 70svh;
+}
+.error-div p{
+    font-family: 'Outfit';
+    font-size: 1.4rem;
+}
+
+#error-404{
+    width:80%;
+ 
+}
+
+#error-cat{
+    width: 100%;
+}
 
 .delivery{
     display: flex;
