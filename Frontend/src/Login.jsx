@@ -9,6 +9,11 @@ export default function Login() {
     let { loginUser, user, logoutUser } = useContext(AuthContext);
     const [message, setMessage] = useState(null); 
     const [error, setError] = useState(false); 
+    const [imageLoaded, setImageLoaded] = useState(false);
+
+    const handleImageLoad = () => {
+        setImageLoaded(true);
+    };
 
     const handleSubmit = async (e) => {
         setMessage(null);   
@@ -49,27 +54,30 @@ export default function Login() {
                 user ? (
                     <div className="welcome-login flex-col">
                         <div className="eimg-cnt">
-                        <img loading='lazy' src={logimg} className="auth-image" /></div>
-                      
+                        <img loading='lazy' src={logimg} onLoad={handleImageLoad} className="auth-image" /></div>
+                        {imageLoaded && (
+                <>
                         <h1>Hello, {user.username}</h1>
                        
                         <Link to='/update-profile' className='btn-sell profile'><button>Complete Profile</button></Link>
                         <Link to='/upload' className='btn-sell'><button>Sell an Item</button></Link>
                        <Link to ='/' className='btn-sell' > <button >Continue Browsing</button></Link>
                         <button className='btn-logout' onClick={logoutUser} >Log Out</button>
-                    </div>
+                    </>)}</div>
                 ) : (
                     <>
                         
                         <form className='login-form' onSubmit={handleSubmit}>
                         <div className="eimg-cnt">
-                        <img loading='lazy' src={authimg} className="auth-image" /></div>
+                        <img loading='lazy' src={authimg} onLoad={handleImageLoad} className="auth-image" /></div>
+                        {imageLoaded && (
+                <>
                         <h1 className='login-header'>Login</h1>
                         {message && <div className={`login-message ${error ? 'errorb' : ''}`}><h3>{message}</h3></div>}
                             <input type="text" name="username" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="username" placeholder='Enter User Name' />
                             <input type="password" name="password" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="password" placeholder='Enter Password' />
                             <input type="submit" className='login-submit shd-press-eff' value="Login" />
-                            <h3>Don't Have an account? <Link to='/signup'>Sign Up</Link></h3>
+                            <h3>Don't Have an account? <Link to='/signup'>Sign Up</Link></h3></> )}
                         </form>
                     </>
                 )
