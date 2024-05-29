@@ -5,7 +5,7 @@ import Map from './utils/Map';
 import './css/itemdetail.css';
 import delivery from './assets/delivery.svg'
 import linkExt from './assets/link-ext.svg'
-
+import errorPage from './assets/error-404-img.svg'
 
 function ItemDetail() {
   const [data, setData] = useState(null);
@@ -129,7 +129,9 @@ function ItemDetail() {
 
   if (!data) {
     return <div className='error-div flex-col'>
-      <p>Couldn't Find This Item :-/</p></div>;
+       <div className="eimg-cnt">
+        <img loading='lazy' src={errorPage} id='error-404' className="item-detail-image" /> 
+        </div><p>Couldn't Find This Item :-/</p></div>;
   }
 
   return (

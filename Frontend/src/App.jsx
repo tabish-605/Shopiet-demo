@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react'
-
+import exchangeImg from './assets/exchange.webp'
+import ctaBussinesImg from './assets/cta-bussiness.webp'
 import { Link } from 'react-router-dom'
 
 
@@ -51,7 +52,9 @@ function App() {
            </div>
            
           </div>
-       
+          <div className="cta-image">
+            <img loading='lazy' src={exchangeImg} alt="couple-exchanging-items" />
+          </div>
         </div>
         <div className="cta">
           <div className="cta-text">
@@ -61,7 +64,9 @@ function App() {
            </div>
            
           </div>
-        
+          <div className="cta-image">
+            <img loading='lazy' src={ctaBussinesImg} alt="couple-exchanging-items" />
+          </div>
         </div>
       </div>
         
