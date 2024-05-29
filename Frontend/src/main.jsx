@@ -15,10 +15,12 @@ import UpdateProfile from './UpdateProfile.jsx';
 import SearchPage from './SearchPage.jsx';
 import ProfileDetail from './ProfileDetail.jsx';
 import SavedItems from './SavedPage.jsx';
+import pnf from './assets/404-pnf.svg'
 
 const NotFound = () => {
   return (
     <div>
+      <div className='error-div flex-col'> <img loading="lazy"  src={pnf} id='error-404' className="item-detail-image" /></div>
       <h2>Page Not Found</h2>
       <p>Sorry, the page you are looking for does not exist.</p>
     </div>

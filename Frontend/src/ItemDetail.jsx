@@ -5,7 +5,7 @@ import Map from './utils/Map';
 import './css/itemdetail.css';
 import delivery from './assets/delivery.svg'
 import linkExt from './assets/link-ext.svg'
-import errorPage from './assets/error-404-img.webp'
+import errorPage from './assets/error-404-img.svg'
 
 function ItemDetail() {
   const [data, setData] = useState(null);
