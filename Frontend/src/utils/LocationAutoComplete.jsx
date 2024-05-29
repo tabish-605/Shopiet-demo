@@ -15,8 +15,8 @@ const LocationAutocomplete = ({ onLocationSelected }) => {
                 console.log('Success', { lat, lng });
                 onLocationSelected({
                     address,
-                    lat: lat, // Ensure lat is passed as a number
-                    lng: lng, // Ensure lng is passed as a number
+                    lat: lat, 
+                    lng: lng, 
                 });
             })
             .catch(error => console.error('Error', error));
@@ -24,7 +24,7 @@ const LocationAutocomplete = ({ onLocationSelected }) => {
     };
 
     const searchOptions = {
-        types: ['(cities)'], // Restrict to cities
+        types: ['(cities)'], 
     
     };
 
@@ -43,7 +43,7 @@ const LocationAutocomplete = ({ onLocationSelected }) => {
                             className: 'location-search-input',
                         })}
                     />
-                    <div className="autocomplete-dropdown-container">
+                    <div className="autocomplete-dropdown-container" key={suggestions.id}>
                         {loading && <div>Loading...</div>}
                         {suggestions.map(suggestion => {
                             const className = suggestion.active

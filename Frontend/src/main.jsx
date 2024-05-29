@@ -15,6 +15,7 @@ import UpdateProfile from './UpdateProfile.jsx';
 import SearchPage from './SearchPage.jsx';
 import ProfileDetail from './ProfileDetail.jsx';
 import SavedItems from './SavedPage.jsx';
+import ErrorBoundary from './ErrorBoundary.jsx';
 import pnf from './assets/404-pnf.svg'
 
 const NotFound = () => {
@@ -30,6 +31,7 @@ const NotFound = () => {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
+    <ErrorBoundary>
     <BrowserRouter>
       <Navbar />
       <Routes>
@@ -48,6 +50,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
        </Route>
        <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter></AuthProvider>
+    </BrowserRouter>
+    </ErrorBoundary>
+    </AuthProvider>
   </React.StrictMode>
 );
