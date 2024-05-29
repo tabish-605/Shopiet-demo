@@ -53,7 +53,7 @@ function App() {
            
           </div>
           <div className="cta-image">
-            <img src={exchangeImg} alt="couple-exchanging-items" />
+            <img loading='lazy' src={exchangeImg} alt="couple-exchanging-items" />
           </div>
         </div>
         <div className="cta">
@@ -65,7 +65,7 @@ function App() {
            
           </div>
           <div className="cta-image">
-            <img  src={ctaBussinesImg} alt="couple-exchanging-items" />
+            <img loading='lazy' src={ctaBussinesImg} alt="couple-exchanging-items" />
           </div>
         </div>
       </div>
