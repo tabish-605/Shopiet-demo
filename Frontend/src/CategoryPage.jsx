@@ -1,6 +1,5 @@
 import { useState, useEffect} from 'react'
 import {useParams, Link } from 'react-router-dom'
-import CerrorPage from './assets/no-cat.svg'
 import './css/App.css'
 
 
@@ -57,9 +56,7 @@ const { item_category_name } = useParams();
               <div className="skel skel-4 grad-animation"></div>
             </div>
           ) : latestItems.length === 0 ? (<div className='error-div flex-col'> 
-          <div className="eimg-cnt">
-            <img loading='lazy' src={CerrorPage} id='error-cat' className="item-detail-image" />
-          </div>
+     
             
 <>
               <p>No {item_category_name} has been uploaded yet... Be the first! </p>
