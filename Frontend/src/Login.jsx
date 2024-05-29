@@ -59,7 +59,7 @@ export default function Login() {
                     <>
                         
                         <form className='login-form' onSubmit={handleSubmit}><h1 className='login-header'>Login</h1>
-                        <div className="eimg">
+                        <div className="eimg-cnt">
                         <img loading='lazy' src={authimg} className="auth-image" /></div>
                         
                         {message && <div className={`login-message ${error ? 'errorb' : ''}`}><h3>{message}</h3></div>}
