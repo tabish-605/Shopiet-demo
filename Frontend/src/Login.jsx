@@ -59,7 +59,7 @@ export default function Login() {
                     <>
                         
                         <form className='login-form' onSubmit={handleSubmit}><h1 className='login-header'>Login</h1>
-                        <img loading="lazy"  src={authimg} id='' className="auth-image" />
+                        <img src={authimg} className="auth-image" />
                         
                         {message && <div className={`login-message ${error ? 'errorb' : ''}`}><h3>{message}</h3></div>}
                             <input type="text" name="username" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="username" placeholder='Enter User Name' />

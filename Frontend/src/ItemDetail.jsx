@@ -128,7 +128,7 @@ function ItemDetail() {
 
 
   if (!data) {
-    return <div className='error-div flex-col'> <img loading="lazy"  src={errorPage} id='error-404' className="item-detail-image" /><p>Couldn't Find This Item :-/</p></div>;
+    return <div className='error-div flex-col'> <img src={errorPage} id='error-404' className="item-detail-image" /><p>Couldn't Find This Item :-/</p></div>;
   }
 
   return (
