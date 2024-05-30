@@ -8,11 +8,7 @@ function CategoryPage() {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { item_category_name } = useParams();
-  const [imageLoaded, setImageLoaded] = useState(false);
 
-  const handleImageLoad = () => {
-      setImageLoaded(true);
-  };
   useEffect(() => {
     
 
@@ -61,7 +57,7 @@ function CategoryPage() {
             </div>
           ) : latestItems.length === 0 ? (<div className='error-div flex-col'> 
           <div className="eimg-cnt">
-            <img loading='lazy' onLoad={handleImageLoad} src={CerrorPage} id='error-cat' className="item-detail-image" />
+            <img loading='eager'  src={CerrorPage} id='error-cat' className="item-detail-image" />
           </div>
                     
 <>
