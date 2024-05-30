@@ -63,10 +63,10 @@ function CategoryPage() {
           <div className="eimg-cnt">
             <img loading='lazy' onLoad={handleImageLoad} src={CerrorPage} id='error-cat' className="item-detail-image" />
           </div>
-          {imageLoaded && (           
+                    
 <>
               <p>No {item_category_name} has been uploaded yet... Be the first! </p>
-              <Link to='/upload' className='btn-sell'><button>Sell an Item</button></Link></>)}
+              <Link to='/upload' className='btn-sell'><button>Sell an Item</button></Link></>
            </div>
           ) : (
             <section className="items-container">
