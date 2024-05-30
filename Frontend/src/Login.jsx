@@ -10,6 +10,7 @@ export default function Login() {
     const [message, setMessage] = useState(null); 
     const [error, setError] = useState(false); 
     const [imageLoaded, setImageLoaded] = useState(false);
+    const [loading, setIsLoading] = useState(false);
 
     const handleImageLoad = () => {
         setImageLoaded(true);
@@ -17,21 +18,26 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         setMessage(null);   
-        setError(false); // Reset error state
+        setError(false); 
+        setIsLoading(true)
+
         e.preventDefault();
         const formData = {
             username: e.target.username.value,
             password: e.target.password.value
         };
         try {
+            
             await loginUser(formData);
-            if (user === null) { // Corrected the condition for user check
+            if (user === null) {
                 setMessage('Login failed, check username or credentials');
                 setError(true);
+                setIsLoading(false)
             } else {
                 setMessage('Login successful'); 
             }
         } catch (error) {
+            setIsLoading(false)
             if (error.response) {
                 
                 setMessage('Login failed. Please check your credentials.');
@@ -45,6 +51,8 @@ export default function Login() {
                 setMessage('An unexpected error occurred. Please try again later.');
                 setError(true);
             }
+        } finally{
+            setIsLoading(false)
         }
     };
 
@@ -76,7 +84,7 @@ export default function Login() {
                         {message && <div className={`login-message ${error ? 'errorb' : ''}`}><h3>{message}</h3></div>}
                             <input type="text" name="username" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="username" placeholder='Enter User Name' />
                             <input type="password" name="password" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="password" placeholder='Enter Password' />
-                            <input type="submit" className='login-submit shd-press-eff' value="Login" />
+                            <input type="submit" className='login-submit shd-press-eff' value={loading ? 'Logging In...':"Login In"} />
                             <h3>Don't Have an account? <Link to='/signup'>Sign Up</Link></h3></> )}
                         </form>
                     </>

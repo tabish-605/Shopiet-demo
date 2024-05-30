@@ -85,11 +85,13 @@
 }
 .file-upload-button{
    background-color: #8dc572; 
+   padding: 0.75rem;
 }
 
 .input-sub{
     background-color: #222;
     color: #fff;
+    padding: 0.75rem;
    
     
 }

@@ -7,8 +7,12 @@ function CategoryPage() {
 
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { item_category_name } = useParams();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
-const { item_category_name } = useParams();
+  const handleImageLoad = () => {
+      setImageLoaded(true);
+  };
   useEffect(() => {
     
 
@@ -57,14 +61,12 @@ const { item_category_name } = useParams();
             </div>
           ) : latestItems.length === 0 ? (<div className='error-div flex-col'> 
           <div className="eimg-cnt">
-            <img loading='lazy' src={CerrorPage} id='error-cat' className="item-detail-image" />
+            <img loading='lazy' onLoad={handleImageLoad} src={CerrorPage} id='error-cat' className="item-detail-image" />
           </div>
-            
+          {imageLoaded && (           
 <>
               <p>No {item_category_name} has been uploaded yet... Be the first! </p>
-              <Link to ={'/upload'}>
-                <button className='cat-cta-up'>Sell an Item</button>
-              </Link></>
+              <Link to='/upload' className='btn-sell'><button>Sell an Item</button></Link></>)}
            </div>
           ) : (
             <section className="items-container">

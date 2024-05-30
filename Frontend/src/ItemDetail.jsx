@@ -16,6 +16,11 @@ function ItemDetail() {
   const [isSaveLoading, setIsSaveLoading] = useState(false);
   const [addText, setAddText] = useState("ADD TO CART");
   const { user } = useContext(AuthContext);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+      setImageLoaded(true);
+  };
 
   const { slug } = useParams();
 
@@ -130,8 +135,8 @@ function ItemDetail() {
   if (!data) {
     return <div className='error-div flex-col'>
        <div className="eimg-cnt">
-        <img loading='lazy' src={errorPage} id='error-404' className="item-detail-image" /> 
-        </div><p>Couldn't Find This Item :-/</p></div>;
+        <img loading='lazy' onLoad={handleImageLoad} src={errorPage} id='error-404' className="item-detail-image" /> 
+        </div>{imageLoaded && (<p>Couldn't Find This Item :-/</p>)}</div>;
   }
 
   return (

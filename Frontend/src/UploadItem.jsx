@@ -39,6 +39,7 @@ const UploadItem = () => {
     };
 
     const handleChange = (e) => {
+        setErrorBorder('')
         const { id, value, type, checked } = e.target;
         if (type === 'radio') {
             setFormData({ ...formData, item_condition: value });
@@ -98,6 +99,13 @@ const UploadItem = () => {
             setErrorBorder('errorb');
             return;
         }
+
+        if (formData.address){
+            setMessage('Please select a City');
+            setErrorBorder('errorb');
+            return;
+        }
+
         setLoading(true);
         let form_data = new FormData();
   

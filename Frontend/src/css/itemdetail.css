@@ -184,7 +184,8 @@ h3{
 }
 .error-div p{
     font-family: 'Outfit';
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 #error-404{
