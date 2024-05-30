@@ -64,7 +64,7 @@ export default function Login() {
                     <div className="welcome-login flex-col">
                         <div className="eimg-cnt">
                         <img loading='lazy' src={logimg}  className="auth-image" /></div>
-                        {imageLoaded && (
+                       
                 <>
                         <h1>Hello, {user.username}</h1>
                        
@@ -72,7 +72,7 @@ export default function Login() {
                         <Link to='/upload' className='btn-sell'><button>Sell an Item</button></Link>
                        <Link to ='/' className='btn-sell' > <button >Continue Browsing</button></Link>
                         <button className='btn-logout' onClick={logoutUser} >Log Out</button>
-                    </>)}</div>
+                    </></div>
                 ) : (
                     <>
                         
