@@ -73,7 +73,7 @@ export default function Login() {
                         
                         <form className='login-form' onSubmit={handleSubmit}>
                         <div className="eimg-cnt">
-                        <img loading='eager' src={authimg} onLoad={handleImageLoad} className="auth-image" /></div>
+                        <img loading='eager' src={authimg} className="auth-image" /></div>
                      
                 <>
                         <h1 className='login-header'>Login</h1>
