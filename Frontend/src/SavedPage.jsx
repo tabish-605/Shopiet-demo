@@ -53,7 +53,7 @@ function SavedItems() {
   return (
     <section className='user-profile saved flex-col'>
       <div className="eimg-cnt">
-                        <img loading='lazy' src={saveimg} className="auth-image" /></div>
+                        <img loading='lazy' onLoad={jfk} src={saveimg} className="auth-image" /></div>
     <h2 className='saved-header'> You Have {data.length} Saved Items</h2>
     <section className="items-container">
         

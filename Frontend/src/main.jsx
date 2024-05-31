@@ -18,9 +18,6 @@ import SavedItems from './SavedPage.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
 import NotFound from './NotFound.jsx';
 
-
-
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>

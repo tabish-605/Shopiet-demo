@@ -30,6 +30,7 @@ export default function Login() {
                 setIsLoading(false)
             } else {
                 setMessage('Login successful'); 
+                setError(false);
             }
         } catch (error) {
             setIsLoading(false)
@@ -47,6 +48,7 @@ export default function Login() {
                 setError(true);
             }
         } finally{
+            
             setIsLoading(false)
             
         }
@@ -58,7 +60,7 @@ export default function Login() {
                 user ? (
                     <div className="welcome-login flex-col">
                         <div className="eimg-cnt">
-                        <img loading='eager' src={logimg}  className="auth-image" /></div>
+                        <img loading='eager'  src={logimg}  className="auth-image" /></div>
                        
                 <>
                         <h1>Hello, {user.username}</h1>
@@ -73,7 +75,7 @@ export default function Login() {
                         
                         <form className='login-form' onSubmit={handleSubmit}>
                         <div className="eimg-cnt">
-                        <img loading='eager' src={authimg} className="auth-image" /></div>
+                        <img loading='eager'  src={authimg}  className="auth-image" /></div>
                      
                 <>
                         <h1 className='login-header'>Login</h1>
