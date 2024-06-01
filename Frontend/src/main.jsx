@@ -1,47 +1,53 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Navbar from './Navbar.jsx';
-import App from './App.jsx';
-import './css/index.css';
-import Login from './Login.jsx';
-import PrivateRoutes from './utils/PrivateRoute.jsx';
 import { AuthProvider } from './context/AuthContext'
-import SignUp from './SignUp.jsx';
-import UploadItem from './UploadItem.jsx';
+import './css/index.css';
+
+import ErrorBoundary from './ErrorBoundary.jsx';
+
+import Navbar from './Navbar.jsx';
+import Login from './Login.jsx';
+import App from './App.jsx';
 import ItemDetail from './ItemDetail.jsx';
 import CategoryPage from './CategoryPage.jsx';
-import UpdateProfile from './UpdateProfile.jsx';
-import SearchPage from './SearchPage.jsx';
-import ProfileDetail from './ProfileDetail.jsx';
-import SavedItems from './SavedPage.jsx';
-import ErrorBoundary from './ErrorBoundary.jsx';
-import NotFound from './NotFound.jsx';
+
+const SignUp = lazy(()=>import('./SignUp.jsx'))
+const PrivateRoutes = lazy(() => import( './utils/PrivateRoute.jsx'));
+const SearchPage = lazy(() => import('./SearchPage.jsx'));
+const ProfileDetail = lazy(() => import('./ProfileDetail.jsx'));
+const SavedItems = lazy(() => import('./SavedPage.jsx'));
+const UpdateProfile = lazy(() => import('./UpdateProfile.jsx'));
+const UploadItem = lazy(() => import('./UploadItem.jsx'));
+const NotFound = lazy(() => import('./NotFound.jsx'));
+
+const suspenseLoad = () =>{
+  return ( <div style={{height:'100svh', justifyContent:'center'}} className='flex-col'><span className="cssload-loader"><span className="cssload-loader-inner"></span></span></div>);
+}
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-    <ErrorBoundary>
-    <BrowserRouter>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/item/:slug" element={<ItemDetail />} />
-        <Route path="/category/:item_category_name" element={<CategoryPage />} />
-        <Route path="/search/:item_name" element={<SearchPage/>} />
-        <Route path="/profile/:username" element={<ProfileDetail/>} />
-        <Route element={<PrivateRoutes/>}>
-        <Route path="/upload" element={<UploadItem/>} />
-        <Route path="/save/:username/:slug" />
-        <Route path="/saved-items/:username" element={<SavedItems/>}/>
-        <Route path="/update-profile" element={<UpdateProfile/>} />
-       </Route>
-       <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-    </ErrorBoundary>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/item/:slug" element={<ItemDetail />} />
+            <Route path="/category/:item_category_name" element={<CategoryPage />} />
+            <Route path="/signup" element={<Suspense fallback={suspenseLoad()}><SignUp /></Suspense>} />
+            <Route path="/search/:item_name" element={<Suspense fallback={suspenseLoad()}><SearchPage /></Suspense>} />
+            <Route path="/profile/:username" element={<Suspense fallback={suspenseLoad()}><ProfileDetail /></Suspense>} />
+            <Route element={<Suspense fallback={suspenseLoad()}><PrivateRoutes /></Suspense>}>
+              <Route path="/upload" element={<Suspense fallback={suspenseLoad()}><UploadItem /></Suspense>} />
+              <Route path="/saved-items/:username" element={<Suspense fallback={suspenseLoad()}><SavedItems /></Suspense>} />
+              <Route path="/update-profile" element={<Suspense fallback={suspenseLoad()}><UpdateProfile /></Suspense>} />
+            </Route>
+            <Route path="*" element={<Suspense fallback={suspenseLoad()}><NotFound /></Suspense>} />
+          </Routes>
+        </BrowserRouter>
+      </ErrorBoundary>
     </AuthProvider>
   </React.StrictMode>
 );

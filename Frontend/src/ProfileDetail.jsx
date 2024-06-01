@@ -1,6 +1,7 @@
 import { useState, useEffect} from 'react'
 import { useParams, Link } from 'react-router-dom'
 import './css/profiledetail.css'
+import './css/upload.css'
 import usericon from './assets/user-solid.svg';
 
 function ProfileDetail() {

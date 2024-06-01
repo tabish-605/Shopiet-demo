@@ -2,6 +2,7 @@ import { useState, useEffect, useContext} from 'react'
 import {  Link } from 'react-router-dom'
 import AuthContext from './context/AuthContext';
 import './css/profiledetail.css'
+import './css/App.css'
 import saveimg from './assets/saved.svg'
 
 

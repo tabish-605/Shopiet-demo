@@ -67,8 +67,8 @@ const { item_name } = useParams();
           ) : (
             <section className="items-container">
               {latestItems.map((item) => (
-                <Link to={`/item/${item.slug}`}>
-                  <div className='item-card' key={item.id}>
+                <Link to={`/item/${item.slug}`} key={item.id}>
+                  <div className='item-card' >
                   <div className="item-card-img-cnt">
                       <img loading="lazy" alt={item.item_name} src={`${item.item_thumbnail}`} className="item-image" srcSet="" />
                     </div>

@@ -18,7 +18,7 @@ class ErrorBoundary extends React.Component {
 
     render() {
         if (this.state.hasError) {
-            return <div style={{height:'100vh',height:'100svh', justifyContent:'center'}} className='flex-col'>
+            return <div style={{height:'100svh', justifyContent:'center'}} className='flex-col'>
             <div className='error-div flex-col'> <div className="eimg-cnt">
               <img loading="lazy" src={pnf} id='error-404' className="item-detail-image" />
               </div></div>

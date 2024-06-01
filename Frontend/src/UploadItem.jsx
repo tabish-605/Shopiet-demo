@@ -160,6 +160,10 @@ const UploadItem = () => {
                 setErrorBorder('errorb'); 
             });
     };
+
+    const suspenseLoad = () =>{
+        return ( <div style={{height:'100svh', justifyContent:'center'}} className='flex-col'><span className="cssload-loader"><span className="cssload-loader-inner"></span></span></div>);
+      }
     
     return (
         <div className='upload-cnt flex-col '>
@@ -267,7 +271,7 @@ const UploadItem = () => {
                 )}
                
                 {loading ? (
-                    <p>Uploading{Array(Math.floor((Date.now() / 1000) % 4) + 1).join('.')}</p>
+                    suspenseLoad()
                 ) : (<>
                   
                     <input type="submit" className="input-sub shd-press-eff" value="Post" /></>

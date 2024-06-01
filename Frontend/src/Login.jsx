@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from './context/AuthContext';
+import './css/signup.css'
 import authimg from './assets/login.svg'
 import logimg from './assets/logged.svg'
 
