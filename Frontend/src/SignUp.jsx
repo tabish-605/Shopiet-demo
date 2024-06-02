@@ -4,6 +4,8 @@ import AuthContext from './context/AuthContext';
 import './css/signup.css';
 import { useNavigate, Link } from 'react-router-dom';
 import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+
 
 export default function SignUp() {
     const navigate = useNavigate();
