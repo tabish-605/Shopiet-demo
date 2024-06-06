@@ -6,6 +6,7 @@ import './css/itemdetail.css';
 import delivery from './assets/delivery.svg'
 import linkExt from './assets/link-ext.svg'
 import errorPage from './assets/no-item-404.svg'
+import Chat from './Chat';
 
 function ItemDetail() {
   const [data, setData] = useState(null);
@@ -139,8 +140,11 @@ function ItemDetail() {
         </div>{imageLoaded && (<p>Couldn't Find This Item :-/</p>)}</div>;
   }
 
+  
+ 
   return (
     <>
+     
       <div className="item-detail-cnt">
         <div className="item-detail-img-cnt">
           <img loading="lazy" alt={data.item_name} src={thumbnail} className="item-detail-image" />
@@ -196,7 +200,13 @@ function ItemDetail() {
           <div className="contact-details"><h2>How to Contact Me:</h2>
             <h3>Phone: {profile.number}</h3>
             {profile.whatsapp_number && <h3>Whatsapp: {profile.whatsapp_number}</h3>}
+          
+            <button > <Link to={`/chat/${data.item_username}`}>CHAT</Link> 
+             </button>
+
           </div>
+         
+          
         </div>
       )}
     </>

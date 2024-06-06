@@ -54,11 +54,14 @@ export default function Login() {
             
         }
     };
+    
+
 
     return (
         <> 
             {
                 user ? (
+                
                     <div className="welcome-login flex-col">
                         <div className="eimg-cnt">
                         <img loading='eager'  src={logimg}  className="auth-image" /></div>
@@ -73,7 +76,7 @@ export default function Login() {
                     </></div>
                 ) : (
                     <>
-                        
+                       
                         <form className='login-form' onSubmit={handleSubmit}>
                         <div className="eimg-cnt">
                         <img loading='eager'  src={authimg}  className="auth-image" /></div>

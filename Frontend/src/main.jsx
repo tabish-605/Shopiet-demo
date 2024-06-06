@@ -20,7 +20,7 @@ const SavedItems = lazy(() => import('./SavedPage.jsx'));
 const UpdateProfile = lazy(() => import('./UpdateProfile.jsx'));
 const UploadItem = lazy(() => import('./UploadItem.jsx'));
 const NotFound = lazy(() => import('./NotFound.jsx'));
-
+const Chat = lazy(() => import('./Chat.jsx'));
 const suspenseLoad = () =>{
   return ( <div style={{height:'100svh', justifyContent:'center'}} className='flex-col'><span className="cssload-loader"><span className="cssload-loader-inner"></span></span></div>);
 }
@@ -39,10 +39,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/signup" element={<Suspense fallback={suspenseLoad()}><SignUp /></Suspense>} />
             <Route path="/search/:item_name" element={<Suspense fallback={suspenseLoad()}><SearchPage /></Suspense>} />
             <Route path="/profile/:username" element={<Suspense fallback={suspenseLoad()}><ProfileDetail /></Suspense>} />
+           
             <Route element={<Suspense fallback={suspenseLoad()}><PrivateRoutes /></Suspense>}>
               <Route path="/upload" element={<Suspense fallback={suspenseLoad()}><UploadItem /></Suspense>} />
               <Route path="/saved-items/:username" element={<Suspense fallback={suspenseLoad()}><SavedItems /></Suspense>} />
               <Route path="/update-profile" element={<Suspense fallback={suspenseLoad()}><UpdateProfile /></Suspense>} />
+              <Route path="/chat/:recipient" element={<Suspense fallback={suspenseLoad()}><Chat /></Suspense>} />
             </Route>
             <Route path="*" element={<Suspense fallback={suspenseLoad()}><NotFound /></Suspense>} />
           </Routes>
