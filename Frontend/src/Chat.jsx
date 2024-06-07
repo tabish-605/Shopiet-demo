@@ -34,6 +34,12 @@ const Chat = () => {
         fetchData();
     }, [roomName]);
 
+    useEffect(() => {
+        if (!isLoading && prevMessages !== null) {
+            initializeSocket();
+        }
+    }, [isLoading, prevMessages]);
+
     const initializeSocket = () => {
         const wsURL = `${import.meta.env.VITE_API_URL}/ws/socket-server/${roomName}/`;
         console.log("Connecting to WebSocket at:", wsURL); // Debugging line
@@ -60,19 +66,7 @@ const Chat = () => {
         };
 
         setSocket(chatSocket);
-        return chatSocket;
     };
-
-    useEffect(() => {
-        if (!socket) {
-            initializeSocket();
-        }
-        return () => {
-            if (socket) {
-                socket.close();
-            }
-        };
-    }, [socket]);
 
     const sendMessage = () => {
         if (socket && socket.readyState === WebSocket.OPEN) {
