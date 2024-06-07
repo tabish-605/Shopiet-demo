@@ -35,8 +35,9 @@ const Chat = () => {
     }, [roomName]);
 
     const initializeSocket = () => {
-        const chatSocket = new WebSocket(`${import.meta.env.VITE_API_URL}/ws/socket-server/${roomName}/`);
-        setSocket(chatSocket);
+        const wsURL = `${import.meta.env.VITE_API_URL}/ws/socket-server/${roomName}/`;
+        console.log("Connecting to WebSocket at:", wsURL); // Debugging line
+        const chatSocket = new WebSocket(wsURL);
 
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
@@ -50,29 +51,39 @@ const Chat = () => {
 
         chatSocket.onclose = function (e) {
             console.error('Chat socket closed unexpectedly');
+            // Attempt to reconnect after a delay
+            setTimeout(initializeSocket, 5000);
         };
 
+        chatSocket.onerror = function (e) {
+            console.error('WebSocket error:', e);
+        };
+
+        setSocket(chatSocket);
         return chatSocket;
     };
 
-    const sendMessage = () => {
+    useEffect(() => {
         if (!socket) {
-            const newSocket = initializeSocket();
-            newSocket.onopen = () => {
-                newSocket.send(JSON.stringify({
-                    'message': messageInput,
-                    'sender': user.username,
-                    'recipient': recipient
-                }));
-                setMessageInput('');
-            };
-        } else {
+            initializeSocket();
+        }
+        return () => {
+            if (socket) {
+                socket.close();
+            }
+        };
+    }, [socket]);
+
+    const sendMessage = () => {
+        if (socket && socket.readyState === WebSocket.OPEN) {
             socket.send(JSON.stringify({
                 'message': messageInput,
                 'sender': user.username,
                 'recipient': recipient
             }));
             setMessageInput('');
+        } else {
+            console.error('WebSocket is not open');
         }
     };
 
