@@ -35,10 +35,8 @@ const Chat = () => {
     }, [roomName]);
 
     const initializeSocket = () => {
-      const protocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
-      const wsUrl = `${protocol}${import.meta.env.VITE_API_URL.replace(/^https?:\/\//, '')}/ws/socket-server/${roomName}/`;
-      const chatSocket = new WebSocket(wsUrl);
-      setSocket(chatSocket);
+        const chatSocket = new WebSocket(`${import.meta.env.VITE_API_URL}/ws/socket-server/${roomName}/`);
+        setSocket(chatSocket);
 
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
