@@ -44,7 +44,7 @@ const Chat = () => {
     }, [isLoading, prevMessages]);
 
     const initializeSocket = () => {
-        const wsURL = `${import.meta.env.VITE_API_URL}/ws/socket-server/${roomName}/`;
+        const wsURL = `${import.meta.env.VITE_API_URL.replace('http', 'ws')}/ws/socket-server/${roomName}/`;
         console.log("Connecting to WebSocket at:", wsURL);
         const chatSocket = new WebSocket(wsURL);
 
@@ -131,4 +131,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
