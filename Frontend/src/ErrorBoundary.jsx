@@ -23,11 +23,7 @@ class ErrorBoundary extends React.Component {
               <img loading="lazy" src={pnf} id='error-404' className="item-detail-image" />
               </div></div>
             <h2>Something Unexpected Happened...</h2>
-            <details>
-                        {this.state.error && this.state.error.toString()}
-                        <br />
-                        {this.state.errorInfo.componentStack}
-                    </details>
+        
 
             <p>Please try going back <a style={{textDecoration:'underline 2px #8dc572'}} href="https://shopiet.netlify.app">HOME</a></p>
           </div>;
