@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import AuthContext from './context/AuthContext';
 import { useParams } from 'react-router-dom';
 import './css/chat.css'
@@ -13,6 +13,7 @@ const Chat = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const roomName = [user.username, recipient].sort().join('_');
+    const isSocketInitialized = useRef(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,12 +35,15 @@ const Chat = () => {
     }, [roomName]);
 
     useEffect(() => {
-        const chatSocket = initializeSocket();
-        setSocket(chatSocket);
+        if (!isSocketInitialized.current) {
+            const chatSocket = initializeSocket();
+            setSocket(chatSocket);
+            isSocketInitialized.current = true;
+        }
 
         return () => {
-            if (chatSocket) {
-                chatSocket.close();
+            if (socket) {
+                socket.close();
             }
         };
     }, [roomName]);
@@ -48,8 +52,9 @@ const Chat = () => {
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
         const wsUrl = `${protocol}//${import.meta.env.VITE_API_URL.replace(/^https?:\/\//, '')}/ws/socket-server/${roomName}/`
         const chatSocket = new WebSocket(wsUrl);
+
         chatSocket.onopen = () => {
-            console.log('WebSocket connection opened')
+            console.log('WebSocket connection opened');
         };
 
         chatSocket.onmessage = (e) => {
@@ -68,16 +73,12 @@ const Chat = () => {
 
         chatSocket.onclose = (e) => {
             console.error('Chat socket closed unexpectedly', e);
+            isSocketInitialized.current = false; // Reset to allow reconnection
         };
 
         return chatSocket;
     };
-    const formatCurrentTime = () => {
-        const date = new Date();
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${hours}:${minutes}`;
-    };
+
     const sendMessage = () => {
         if (socket && socket.readyState === WebSocket.OPEN) {
             socket.send(JSON.stringify({
@@ -95,14 +96,23 @@ const Chat = () => {
                     'sender': user.username,
                     'recipient': recipient
                 }));
+                setSocket(newSocket); // Ensure new socket is used for future messages
                 setMessageInput('');
             };
         }
     };
+
     const formatTime = (timestamp) => {
         const date = new Date(timestamp);
         const hours = String(date.getUTCHours()).padStart(2, '0');
         const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
+
+    const formatCurrentTime = () => {
+        const date = new Date();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
         return `${hours}:${minutes}`;
     };
 
@@ -115,12 +125,10 @@ const Chat = () => {
                     <div className="chat flex-col">
                         {prevMessages.map((message) => (
                             <div className={`message ${message.sender_username === user.username ? 'Sender' : ''}`} key={message.id}>
-                                <div className="text"><b>{message.content}</b> 
-                                    </div> 
-                                    
-                                    <div className="ts-cnt">
-                                       <p className='time-stamp'>{formatTime(message.timestamp)}</p> 
-                                    </div>
+                                <div className="text"><b>{message.content}</b></div> 
+                                <div className="ts-cnt">
+                                    <p className='time-stamp'>{formatTime(message.timestamp)}</p> 
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -129,25 +137,24 @@ const Chat = () => {
             <div id="chat-log" className='chat flex-col'>
                 {messages.map((msg, index) => (
                     <div className={`message ${msg.sender === user.username ? 'Sender' : ''}`} key={index}>
-                        <div className="text"><b>{msg.message}</b>
-                            </div> <div className="ts-cnt">
-                                       <p className='time-stamp'>{formatCurrentTime()}</p> 
-                                    </div>
+                        <div className="text"><b>{msg.message}</b></div> 
+                        <div className="ts-cnt">
+                            <p className='time-stamp'>{formatCurrentTime()}</p> 
+                        </div>
                     </div>
                 ))}
             </div>
             <div className="write-msg">
                 <input
-                type="text"
-                value={messageInput}
-                className='send-msg-ipt'
-                onChange={(e) => setMessageInput(e.target.value)}
-                onKeyUp={(e) => e.key === 'Enter' && sendMessage()}
-                placeholder="Type a message..."
-            />
-            <button className='btn-send-msg' onClick={sendMessage}>Send</button>
+                    type="text"
+                    value={messageInput}
+                    className='send-msg-ipt'
+                    onChange={(e) => setMessageInput(e.target.value)}
+                    onKeyUp={(e) => e.key === 'Enter' && sendMessage()}
+                    placeholder="Type a message..."
+                />
+                <button className='btn-send-msg' onClick={sendMessage}>Send</button>
             </div>
-            
         </div>
     );
 };
