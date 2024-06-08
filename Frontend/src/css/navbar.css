@@ -105,6 +105,7 @@
    justify-content: center;
    gap: 16px;
    text-wrap: nowrap;
+   margin-bottom: 0px;
   
    padding: 0.8rem 1rem;
 

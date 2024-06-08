@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from './context/AuthContext';
 import { useParams } from 'react-router-dom';
+import './css/chat.css'
 
 const Chat = () => {
     const { user } = useContext(AuthContext);
@@ -93,37 +94,53 @@ const Chat = () => {
             };
         }
     };
+    const formatTime = (timestamp) => {
+        const date = new Date(timestamp);
+        const hours = String(date.getUTCHours()).padStart(2, '0');
+        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
 
     return (
-        <div>
+        <div className='chat-cnt'>
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
                 prevMessages && (
-                    <div className="chat">
+                    <div className="chat flex-col">
                         {prevMessages.map((message) => (
-                            <div className="message" key={message.id}>
-                                <b>{message.sender_username === user.username ? 'You' : message.sender_username}</b>: {message.content}
+                            <div className={`message ${message.sender_username === user.username ? 'Sender' : ''}`} key={message.id}>
+                                <div className="text"><b>{message.content}</b> 
+                                    </div> 
+                                    
+                                    <div className="ts-cnt">
+                                       <p className='time-stamp'>{formatTime(message.timestamp)}</p> 
+                                    </div>
                             </div>
                         ))}
                     </div>
                 )
             )}
-            <div id="chat-log">
+            <div id="chat-log" className='chat flex-col'>
                 {messages.map((msg, index) => (
-                    <div key={index}>
-                        <b>{msg.sender === user.username ? 'You' : msg.sender}</b>: {msg.message}
+                    <div className={`message ${message.sender_username === user.username ? 'Sender' : ''}`} key={index}>
+                        <div className="text"><b>{msg.message}</b>
+                            </div>
                     </div>
                 ))}
             </div>
-            <input
+            <div className="write-msg">
+                <input
                 type="text"
                 value={messageInput}
+                className='send-msg-ipt'
                 onChange={(e) => setMessageInput(e.target.value)}
                 onKeyUp={(e) => e.key === 'Enter' && sendMessage()}
                 placeholder="Type a message..."
             />
-            <button onClick={sendMessage}>Send</button>
+            <button className='btn-send-msg' onClick={sendMessage}>Send</button>
+            </div>
+            
         </div>
     );
 };

@@ -1,0 +1,66 @@
+.chat{
+  padding: 2rem;
+  
+}
+
+.chat-cnt{
+    background-color: #1f1f1f;
+}
+
+.message{
+    display: flex;
+  
+    justify-content: flex-start;
+    
+    align-items: center;
+    gap: 3%;
+    
+}
+.write-msg{
+  gap: 3%;  display: flex;
+  padding: 0.5rem;
+}
+.btn-send-msg{
+    background-color: #8dc572;
+    color: white;
+    min-height: 100%;
+    width: 27%;
+    
+}
+.send-msg-ipt{
+    width: 70%;
+}
+.text{
+    background-color: #8dc572;
+   color: white;
+   gap: 3%;
+ text-align: left;
+   border-radius: 22px;
+    padding: 0.5rem;
+    max-width: 70%;
+    min-width: 8%;
+}
+
+.message.Sender{
+    justify-content: flex-end;
+    
+}
+
+.Sender div{
+    background-color: #fff;
+    color: #1f1f1f;
+}
+
+.time-stamp{
+    color: #fff;
+    background-color: #1f1f1f;
+    font-size: 12px;
+  
+    
+}
+
+.ts-cnt{
+    background-color: #1f1f1f !important;
+
+
+}

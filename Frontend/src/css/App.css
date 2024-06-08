@@ -164,6 +164,7 @@
  flex-direction: column;
   overflow-x: scroll;
 gap: 3%;
+margin-top: 16px;
 }
 
 .cta:last-child{
