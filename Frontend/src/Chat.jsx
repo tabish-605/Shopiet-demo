@@ -123,7 +123,7 @@ const Chat = () => {
             )}
             <div id="chat-log" className='chat flex-col'>
                 {messages.map((msg, index) => (
-                    <div className={`message ${message.sender_username === user.username ? 'Sender' : ''}`} key={index}>
+                    <div className={`message ${msg.sender_username === user.username ? 'Sender' : ''}`} key={index}>
                         <div className="text"><b>{msg.message}</b>
                             </div>
                     </div>
