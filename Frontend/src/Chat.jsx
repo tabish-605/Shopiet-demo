@@ -8,8 +8,6 @@ const Chat = () => {
     const [prevMessages, setPrevMessages] = useState(null);
     const [messageInput, setMessageInput] = useState('');
     const [socket, setSocket] = useState(null);
-    const [connectionStatus, setConnectionStatus] = useState('Connecting...');
-    const [error, setError] = useState(null);
     const { recipient } = useParams();
     const [isLoading, setIsLoading] = useState(true);
 
@@ -28,7 +26,6 @@ const Chat = () => {
                 setPrevMessages(jsonData);
             } catch (error) {
                 console.error('Error fetching data:', error);
-                setError('Error fetching previous messages');
             } finally {
                 setIsLoading(false);
             }
@@ -37,22 +34,9 @@ const Chat = () => {
         fetchData();
     }, [roomName]);
 
-    useEffect(() => {
-        if (!isLoading && prevMessages !== null) {
-            initializeSocket();
-        }
-    }, [isLoading, prevMessages]);
-
     const initializeSocket = () => {
-        const wsURL = `${import.meta.env.VITE_API_URL}/ws/socket-server/${roomName}/`;
-        console.log("Connecting to WebSocket at:", wsURL);
-        const chatSocket = new WebSocket(wsURL);
-
-        chatSocket.onopen = function (e) {
-            console.log('WebSocket connection established');
-            setConnectionStatus('Connected');
-            setError(null);
-        };
+        const chatSocket = new WebSocket(`${import.meta.env.VITE_API_URL}/ws/socket-server/${roomName}/`);
+        setSocket(chatSocket);
 
         chatSocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
@@ -65,32 +49,30 @@ const Chat = () => {
         };
 
         chatSocket.onclose = function (e) {
-            console.error('Chat socket closed unexpectedly', e);
-            setConnectionStatus('Disconnected');
-            setError('Chat socket closed unexpectedly');
-            // Attempt to reconnect after a delay
-            setTimeout(initializeSocket, 5000);
+            console.error('Chat socket closed unexpectedly');
         };
 
-        chatSocket.onerror = function (e) {
-            console.error('WebSocket error:', e);
-            setError('WebSocket error');
-        };
-
-        setSocket(chatSocket);
+        return chatSocket;
     };
 
     const sendMessage = () => {
-        if (socket && socket.readyState === WebSocket.OPEN) {
+        if (!socket) {
+            const newSocket = initializeSocket();
+            newSocket.onopen = () => {
+                newSocket.send(JSON.stringify({
+                    'message': messageInput,
+                    'sender': user.username,
+                    'recipient': recipient
+                }));
+                setMessageInput('');
+            };
+        } else {
             socket.send(JSON.stringify({
                 'message': messageInput,
                 'sender': user.username,
                 'recipient': recipient
             }));
             setMessageInput('');
-        } else {
-            console.error('WebSocket is not open');
-            setError('WebSocket is not open');
         }
     };
 
@@ -124,8 +106,6 @@ const Chat = () => {
                 placeholder="Type a message..."
             />
             <button onClick={sendMessage}>Send</button>
-            <p>Status: {connectionStatus}</p>
-            {error && <p style={{ color: 'red' }}>Error: {error}</p>}
         </div>
     );
 };
