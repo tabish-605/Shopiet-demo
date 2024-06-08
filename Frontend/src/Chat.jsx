@@ -118,8 +118,20 @@ const Chat = () => {
 
     return (
         <div className='chat-cnt'>
+            <h2 className='chat-title'>{recipient}</h2>
             {isLoading ? (
-                <p>Loading...</p>
+                <div className="chat-loading-div flex-col">
+                     <div className='chat-skel chat-l grad-animation'><div className="text-load"></div> </div>
+                     <div className='chat-skel grad-animation'><div className="text-load"></div></div>
+                     <div className='chat-skel chat-l grad-animation'><div className="text-load"></div></div>
+                     <div className='chat-skel grad-animation'><div className="text-load"></div></div>
+                     <div className='chat-skel chat-l grad-animation'><div className="text-load"></div></div>
+                     <div className='chat-skel grad-animation'><div className="text-load"></div></div>
+                     <div className='chat-skel chat-l grad-animation'><div className="text-load"></div></div>
+                      <div className='chat-skel grad-animation'><div className="text-load"></div></div>
+                     <div className='chat-skel chat-l grad-animation'><div className="text-load"></div></div>
+                </div>
+               
             ) : (
                 prevMessages && (
                     <div className="chat flex-col">

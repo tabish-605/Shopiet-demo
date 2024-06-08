@@ -208,3 +208,11 @@ h3{
     width: 30px;
 }
 
+.btn-chat{
+    width:60%;
+    color:#222;
+    margin-top: 16px;
+    font-size: 1.3rem;
+    padding: 8px;
+    font-weight: bold;
+}

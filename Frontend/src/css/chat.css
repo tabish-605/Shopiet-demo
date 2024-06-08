@@ -7,7 +7,7 @@
     background-color: #1f1f1f;
 }
 
-.message{
+.message, .chat-skel{
     display: flex;
   
     justify-content: flex-start;
@@ -43,12 +43,14 @@
 
 .message.Sender{
     justify-content: flex-end;
+  
     
 }
 
 .Sender div{
     background-color: #fff;
     color: #1f1f1f;
+    
 }
 
 .time-stamp{
@@ -63,4 +65,27 @@
     background-color: #1f1f1f !important;
 
 
+}
+
+.chat-loading-div{
+    height: 62svh;
+    padding: 1rem;
+}
+
+.chat-title{
+    color: #fff;
+    margin: 0;
+    padding: 1rem;
+
+}
+
+.chat-skel.chat-l{
+    justify-content: flex-end;
+     max-width: 60%;
+}
+.chat-skel{
+    height: 40px;
+    border-radius: 22px;
+   
+    
 }
