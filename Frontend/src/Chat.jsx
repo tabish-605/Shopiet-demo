@@ -72,7 +72,12 @@ const Chat = () => {
 
         return chatSocket;
     };
-
+    const formatCurrentTime = () => {
+        const date = new Date();
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        return `${hours}:${minutes}`;
+    };
     const sendMessage = () => {
         if (socket && socket.readyState === WebSocket.OPEN) {
             socket.send(JSON.stringify({
@@ -123,9 +128,11 @@ const Chat = () => {
             )}
             <div id="chat-log" className='chat flex-col'>
                 {messages.map((msg, index) => (
-                    <div className={`message ${msg.sender_username === user.username ? '' : 'Sender'}`} key={index}>
+                    <div className={`message ${msg.sender === user.username ? 'Sender' : ''}`} key={index}>
                         <div className="text"><b>{msg.message}</b>
-                            </div>
+                            </div> <div className="ts-cnt">
+                                       <p className='time-stamp'>{formatCurrentTime()}</p> 
+                                    </div>
                     </div>
                 ))}
             </div>

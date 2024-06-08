@@ -201,7 +201,7 @@ function ItemDetail() {
             <h3>Phone: {profile.number}</h3>
             {profile.whatsapp_number && <h3>Whatsapp: {profile.whatsapp_number}</h3>}
           
-            <button > <Link to={`/chat/${data.item_username}`}>CHAT</Link> 
+            <button className='btn-send-msg' >CHAT <Link to={`/chat/${data.item_username}`}></Link> 
              </button>
 
           </div>
