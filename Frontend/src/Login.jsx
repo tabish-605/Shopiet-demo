@@ -81,13 +81,13 @@ export default function Login() {
                         <div className="eimg-cnt">
                         <img loading='eager'  src={authimg}  className="auth-image" /></div>
                      
-                <>
+                <> <div className='login-inputs'>
                         <h1 className='login-header'>Login</h1>
                         {message && <div className={`login-message ${error ? 'errorb' : ''}`}><h3>{message}</h3></div>}
                             <input type="text" name="username" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="username" placeholder='Enter User Name' />
                             <input type="password" name="password" className={`prevent-zoom ${error ? 'errorb' : ''}`} id="password" placeholder='Enter Password' />
                             <input type="submit" className='login-submit shd-press-eff' value={loading ? 'Loging In...':"Login"} />
-                            <h3>Don't Have an account? <Link to='/signup'>Sign Up</Link></h3></> 
+                            <h3>Don't Have an account? <Link to='/signup'>Sign Up</Link></h3></div></> 
                         </form>
                     </>
                 )

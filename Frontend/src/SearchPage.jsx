@@ -42,7 +42,7 @@ const { item_name } = useParams();
 
   return (
     <>
-      <section className="section-items">
+      <section className="section-items" id='category-items-section'>
         <div className="items-section">
           <div className="section-header-cnt">
             <h4>Showing All {latestItems.length} results for Search Query</h4>

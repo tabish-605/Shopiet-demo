@@ -55,7 +55,7 @@ function ProfileDetail() {
   }
 
   return (
-    <section className='user-profile flex-col'>
+    <section className='user-profile flex-col' id='profile-detail'>
      <div className="profile-pic-cnt prof-img">
                     <img className="profile-pic-img" src={data.profile.profile_pic ? data.profile.profile_pic :usericon} alt="Profile" />
     </div>

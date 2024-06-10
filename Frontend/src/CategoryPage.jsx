@@ -42,8 +42,8 @@ function CategoryPage() {
 
   return (
     <>
-      <section className="section-items">
-        <div className="items-section">
+      <section className="section-items" id='category-items-section'>
+        <div className="items-section" >
           <div className="section-header-cnt">
             <h1 className='section-item-header'>{item_category_name}</h1>
             <hr align='left' className='section-divider'/>

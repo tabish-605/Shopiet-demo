@@ -5,6 +5,7 @@
 
 .chat-cnt{
     background-color: #1f1f1f;
+    min-height: 80svh;
 }
 
 .message, .chat-skel{
@@ -42,9 +43,10 @@
 }
 
 .message.Sender{
-    justify-content: flex-end;
-  
-    
+    justify-content: flex-end;   
+}
+.date-heading{
+    color: #fff
 }
 
 .Sender div{

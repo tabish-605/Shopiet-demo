@@ -7,9 +7,11 @@ const Chat = () => {
     const { user } = useContext(AuthContext);
     const [messages, setMessages] = useState([]);
     const [prevMessages, setPrevMessages] = useState(null);
+    const [timeSent, setTimesent] = useState(null);
     const [messageInput, setMessageInput] = useState('');
     const [socket, setSocket] = useState(null);
     const { recipient } = useParams();
+    
     const [isLoading, setIsLoading] = useState(true);
 
     const roomName = [user.username, recipient].sort().join('_');
@@ -87,6 +89,7 @@ const Chat = () => {
                 'recipient': recipient
             }));
             setMessageInput('');
+            setTimesent(formatCurrentTime())
         } else {
             console.error('WebSocket is not open. Reconnecting...');
             const newSocket = initializeSocket();
@@ -116,6 +119,44 @@ const Chat = () => {
         return `${hours}:${minutes}`;
     };
 
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp);
+        const options = { weekday: 'long', day: 'numeric', month: 'long' };
+        return date.toLocaleDateString('en-US', options);
+    };
+
+    const renderMessagesWithDate = (messages) => {
+        const messageElements = [];
+        let lastDate = '';
+
+        messages.forEach((msg, index) => {
+            const currentDate = formatDate(msg.timestamp);
+
+            if (currentDate !== lastDate) {
+                messageElements.push(
+                    <p className="date-heading" key={`date-${index}`}>
+                        {currentDate}
+                    </p>
+                );
+                lastDate = currentDate;
+            }
+
+            messageElements.push(
+                <div className={`message ${msg.sender_username === user.username ? 'Sender' : ''}`} key={msg.id}>
+                <div className="text"><b>{msg.content}</b> 
+                    </div> 
+                    
+                    <div className="ts-cnt">
+                       <p className='time-stamp'>{formatTime(msg.timestamp)}</p> 
+                    </div>
+            </div>
+            );
+        });
+
+        return messageElements;
+    };
+    console.log(user)
+
     return (
         <div className='chat-cnt'>
             <h2 className='chat-title'>{recipient}</h2>
@@ -126,33 +167,23 @@ const Chat = () => {
                      <div className='chat-skel chat-l grad-animation'><div className="text-load"></div></div>
                      <div className='chat-skel grad-animation'><div className="text-load"></div></div>
                      <div className='chat-skel chat-l grad-animation'><div className="text-load"></div></div>
-                     <div className='chat-skel grad-animation'><div className="text-load"></div></div>
-                     <div className='chat-skel chat-l grad-animation'><div className="text-load"></div></div>
-                      <div className='chat-skel grad-animation'><div className="text-load"></div></div>
-                     <div className='chat-skel chat-l grad-animation'><div className="text-load"></div></div>
+                    
                 </div>
                
             ) : (
                 prevMessages && (
                     <div className="chat flex-col">
-                        {prevMessages.map((message) => (
-                            <div className={`message ${message.sender_username === user.username ? 'Sender' : ''}`} key={message.id}>
-                                <div className="text"><b>{message.content}</b></div> 
-                                <div className="ts-cnt">
-                                    <p className='time-stamp'>{formatTime(message.timestamp)}</p> 
-                                </div>
-                            </div>
-                        ))}
+                        {renderMessagesWithDate(prevMessages)}
                     </div>
                 )
             )}
             <div id="chat-log" className='chat flex-col'>
                 {messages.map((msg, index) => (
                     <div className={`message ${msg.sender === user.username ? 'Sender' : ''}`} key={index}>
-                        <div className="text"><b>{msg.message}</b></div> 
-                        <div className="ts-cnt">
-                            <p className='time-stamp'>{formatCurrentTime()}</p> 
-                        </div>
+                        <div className="text"><b>{msg.message}</b>
+                            </div> <div className="ts-cnt">
+                                       <p className='time-stamp'>{formatCurrentTime()}</p> 
+                                    </div>
                     </div>
                 ))}
             </div>

@@ -1,7 +1,7 @@
 #root {
   max-width: 100vw;
   margin: 0 auto;
-
+  min-height: 100svh;
   text-align: center;
 }
 
@@ -252,17 +252,45 @@ margin-top: 16px;
 
 @media screen and (min-width: 1024px) {
   .items-container, .skeleton{
-    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
+  .user-profile{
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  #profile-detail {
+    align-items: center;
+    flex-direction: column;
+  }
+  #profile-detail .items-container{
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .edit-form{
+ 
+    padding: 16rem!important;   padding-top: 1rem!important;padding-bottom: 1rem !important;
+  }
+  .user-profile .eimg-cnt{
+    display: flex;
+    flex-direction: column;
+  }
+  #category-items-section .items-container{
+ 
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr !important;
+  }
+
   .items-section{
     flex:5;
+    
   }
+  
   .cta-scroller{
-    padding: 2rem;
-    flex: 2;
-    overflow: hidden;
-    }
-
+  padding: 2rem;
+  flex: 2;
+  overflow: hidden;
+}  
+    
   .signup-form, .login-form, .upload-form{
     padding:2rem 20rem !important;
   }

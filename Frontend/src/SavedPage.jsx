@@ -54,8 +54,8 @@ function SavedItems() {
   return (
     <section className='user-profile saved flex-col'>
       <div className="eimg-cnt">
-                        <img loading='lazy' src={saveimg} className="auth-image" /></div>
-    <h2 className='saved-header'> You Have {data.length} Saved Items</h2>
+                        <img loading='lazy' src={saveimg} className="auth-image" /><h2 className='saved-header'> You Have {data.length} Saved Items</h2></div>
+    
     <section className="items-container">
         
     {data.map((item) => (
