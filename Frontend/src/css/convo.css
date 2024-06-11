@@ -1,0 +1,37 @@
+.conversations{
+    background-color: #1f1f1f;
+    color: #fff;
+    min-height: 80svh;
+    padding: 1rem;
+}
+
+.convo-titles, .convo-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.green{
+    color: #8dc572;
+}
+.unseen-msg{
+    background-color:#8dc572 ;
+    width:2rem;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.conversations h4{
+    margin: 0;
+}
+.conversations hr{
+    width: 100%
+}
+
+.convo-chat-cnt{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    justify-content: flex-start;
+   
+}
