@@ -77,7 +77,7 @@ function App() {
         <hr align='left' className='section-divider'/>
         </div>
 {isLoading ? (
-  <div className="skeleton">
+  <div className="skeleton" >
     <div className="skel skel-1 grad-animation"></div>
     <div className="skel skel-2 grad-animation"></div>
     <div className="skel skel-3 grad-animation"></div>

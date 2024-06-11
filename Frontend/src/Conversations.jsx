@@ -63,7 +63,7 @@ function Conversations() {
           </div>
           {isLoading ? (
             <div className="convo-skeleton">
-                <p>loading</p>
+                <p>loading your chats...</p>
               <div className="c-skel skel-1 grad-animation"></div>
               <div className="c-skel skel-2 grad-animation"></div>
               <div className="c-skel skel-3 grad-animation"></div>

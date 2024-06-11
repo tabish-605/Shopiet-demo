@@ -155,7 +155,6 @@ const Chat = () => {
 
         return messageElements;
     };
-    console.log(user)
 
     return (
         <div className='chat-cnt'>

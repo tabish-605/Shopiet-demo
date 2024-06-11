@@ -248,7 +248,12 @@ margin-top: 16px;
  align-self: center;
  object-fit: cover;
  border-radius: 16px;
-}
+} .skeleton{
+    padding: 0px;
+  }
+  #latest-skel{
+    padding: 1rem;
+  }
 
 @media screen and (min-width: 1024px) {
   .items-container, .skeleton{
@@ -266,6 +271,8 @@ margin-top: 16px;
   #profile-detail .items-container{
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   }
+
+ 
 
   .edit-form{
  
@@ -340,6 +347,39 @@ margin-top: 16px;
   .btn-sell button{
     color: #fff !important;
     
+  }
+
+  .search-hints{
+    background: #1f1f1f;
+    
+  }
+  .delivery-img, .delivery img, .lbl-add-photo img{
+    filter: invert(1);
+  }
+
+  .item-detail-user{
+    text-decoration: underline 4px #fff !important;
+  }
+
+  .btn-chat{
+    background: #fff !important;
+  }
+
+  .contact-details{
+    border-top: 2px solid #ffff;
+  }
+
+  .search-hints li{
+    color: #fff;
+  }
+
+  .profile-pic-img {
+    border: 2px solid #fff !important;
+  }
+
+
+  .numbers h3{
+    border: 2px solid #fff !important;
   }
 
   .item-card,.item-info, .item-card-desc{

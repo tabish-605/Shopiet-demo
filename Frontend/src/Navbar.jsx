@@ -12,8 +12,9 @@ export default function Navbar() {
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+    
     const location = useLocation();
-    const isAuthPage = location.pathname === '/login' || location.pathname === '/update-profile' || location.pathname === '/item/:slug' || location.pathname === '/signup' || location.pathname === '/upload' || location.pathname === '/profile/:username';
+    const isAuthPage = location.pathname === '/login' || location.pathname === '/chat/:username' || location.pathname === '/update-profile'|| location.pathname === '/conversations/:username' || location.pathname === '/item/:slug' || location.pathname === '/signup' || location.pathname === '/upload' || location.pathname === '/profile/:username';
     
 
     const fetchSearchResults = async (query) => {
@@ -73,7 +74,7 @@ export default function Navbar() {
                       {
     <ul className={`search-hints ${hintVisible}`}>
         {searchResults.map(item => (
-            <Link to={`search/${item.item_name}`} onClick={()=> { setSearchResults([]); setHintVisible('invisible'); }}><li key={item.id}>{isLoading  ? 'Looking...':item.item_name}</li></Link>
+            <Link to={`search/${item.item_name}`} key={item.id} onClick={()=> { setSearchResults([]); setHintVisible('invisible'); }}><li key={item.id}>{isLoading  ? 'Looking...':item.item_name}</li></Link>
         ))}
     </ul>
 }

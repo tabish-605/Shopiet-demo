@@ -33,5 +33,12 @@
     flex-direction: column;
     text-align: left;
     justify-content: flex-start;
-   
+ 
+  
+}
+
+.chat-container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }

@@ -35,7 +35,7 @@ function SavedItems() {
   }, []);
 
   if (isLoading) {
-    return <div className="skeleton">
+    return <div className="skeleton" id='latest-skel'>
     <div className="skel skel-1 grad-animation"></div>
     <div className="skel skel-2 grad-animation"></div>
     <div className="skel skel-3 grad-animation"></div>

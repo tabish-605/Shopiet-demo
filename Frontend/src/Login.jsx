@@ -71,8 +71,9 @@ export default function Login() {
                        
                         <Link to='/update-profile' className='btn-sell profile'><button>Complete Profile</button></Link>
                         <Link to='/upload' className='btn-sell'><button>Sell an Item</button></Link>
+                        <Link to ={`/conversations/${user.username}`} className='btn-sell' > <button >Messages</button></Link>
                        <Link to ='/' className='btn-sell' > <button >Continue Browsing</button></Link>
-                       <Link to ={`/conversations/${user.username}`} className='btn-sell' > <button >Messages</button></Link>
+                      
                        
                         <button className='btn-logout' onClick={logoutUser} >Log Out</button>
                     </></div>

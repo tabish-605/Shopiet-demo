@@ -203,6 +203,7 @@ h3{
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 3%;
 }
 .delivery-img{
     width: 30px;
