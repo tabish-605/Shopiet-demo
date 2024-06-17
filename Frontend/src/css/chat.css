@@ -1,11 +1,16 @@
 .chat{
   padding: 2rem;
-  
+  padding-top: 0px;
+ scroll-behavior: smooth;
 }
 
 .chat-cnt{
     background-color: #1f1f1f;
-    min-height: 85svh;
+    min-height: calc(100svh - 195.89px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    scroll-behavior: smooth;
 }
 .chat-header{
     display: flex;
@@ -15,6 +20,7 @@
 
 .chat-link{
     font-size: 2.5rem;
+    color: #fff;
 
 }
 .message, .chat-skel{
@@ -39,6 +45,11 @@
 }
 .send-msg-ipt{
     width: 70%;
+    font-family: 'Outfit';
+    border-radius: 22px;
+    padding: 14px;
+    font-size: 16px;
+    border: 1px solid;
 }
 .text{
     background-color: #8dc572;
@@ -79,7 +90,7 @@
 }
 
 .chat-loading-div{
-    height: 62svh;
+    height: calc(100svh - 195.89px);
     padding: 1rem;
 }
 
@@ -87,6 +98,7 @@
     color: #fff;
     margin: 0;
     padding: 1rem;
+    
 
 }
 

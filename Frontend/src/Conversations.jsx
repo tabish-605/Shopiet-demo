@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import './css/convo.css';
 
-// Utility function to format date
+
 const formatDate = (timestamp) => {
   const date = new Date(timestamp);
   const now = new Date();
@@ -51,14 +51,14 @@ function Conversations() {
     fetchData();
   }, [username]);
 
-  const latestItems = data.reverse();
+  const chats = data;
 
   return (
     <>
       <section className="conversations">
         <div className="items-section">
           <div className="section-header-cnt">
-            <h4>Showing All {latestItems.length} Chats</h4>
+            <h4>Showing All {chats.length} Chats</h4>
             <hr align="left" className="section-divider" />
           </div>
           {isLoading ? (
@@ -69,7 +69,7 @@ function Conversations() {
               <div className="c-skel skel-3 grad-animation"></div>
               <div className="c-skel skel-4 grad-animation"></div>
             </div>
-          ) : latestItems.length === 0 ? (
+          ) : chats.length === 0 ? (
             <div className="no-item-disp">
               <h5>You Have No Conversations</h5>
               <Link to={'/upload'}>
@@ -78,7 +78,7 @@ function Conversations() {
             </div>
           ) : (
             <section className="chat-container">
-              {latestItems.map((convo) => (
+              {chats.map((convo) => (
                 <Link
                   to={`/chat/${convo.sender_username === username ? convo.recipient_username : convo.sender_username}`}
                   key={convo.id}

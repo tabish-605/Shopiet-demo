@@ -18,6 +18,7 @@ const Chat = () => {
     const isSocketInitialized = useRef(false);
 
     useEffect(() => {
+        
         const fetchData = async () => {
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/api/chat/${roomName}`);
@@ -30,6 +31,7 @@ const Chat = () => {
                 console.error('Error fetching data:', error);
             } finally {
                 setIsLoading(false);
+                window.scrollTo(0, document.body.scrollHeight);
             }
         };
 
@@ -75,7 +77,7 @@ const Chat = () => {
 
         chatSocket.onclose = (e) => {
             console.error('Chat socket closed unexpectedly', e);
-            isSocketInitialized.current = false; // Reset to allow reconnection
+            isSocketInitialized.current = false; 
         };
 
         return chatSocket;
@@ -99,7 +101,7 @@ const Chat = () => {
                     'sender': user.username,
                     'recipient': recipient
                 }));
-                setSocket(newSocket); // Ensure new socket is used for future messages
+                setSocket(newSocket); 
                 setMessageInput('');
             };
         }
@@ -188,7 +190,7 @@ const Chat = () => {
                 ))}
             </div>
             <div className="write-msg">
-                <input
+                <textarea
                     type="text"
                     value={messageInput}
                     className='send-msg-ipt'
