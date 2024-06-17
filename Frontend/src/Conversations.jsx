@@ -92,8 +92,8 @@ function Conversations() {
                         <p>{formatDate(convo.timestamp)}</p>
                       </div>
                       <div className="convo-info">
-                        <p className={`convo-content ${convo.unseen_count > 0 ? 'green' : ''}`}>{convo.content}</p>
-                        {convo.unseen_count > 0 && <p className="unseen-msg">{convo.unseen_count}</p>}
+                        <p className={`convo-content ${convo.unseen_count > 0 && convo.sender_username != username  ? 'green' : ''}`}>{convo.content}</p>
+                        {convo.unseen_count > 0 && convo.sender_username != username ? <p className="unseen-msg">{convo.unseen_count}</p>:<p className={convo.viewed ? 'green':'msg-status'}>{convo.viewed ? 'seen':'sent'}</p>}
                       </div>
                     </div>
                   </div>

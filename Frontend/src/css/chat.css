@@ -7,7 +7,16 @@
     background-color: #1f1f1f;
     min-height: 85svh;
 }
+.chat-header{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
 
+.chat-link{
+    font-size: 2.5rem;
+
+}
 .message, .chat-skel{
     display: flex;
   

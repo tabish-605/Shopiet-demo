@@ -28,6 +28,10 @@
     width: 100%
 }
 
+.msg-status{
+    color: #ffffffb1;
+}
+
 .convo-chat-cnt{
     display: flex;
     flex-direction: column;

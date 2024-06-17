@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import AuthContext from './context/AuthContext';
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 import './css/chat.css'
 
 const Chat = () => {
@@ -158,7 +158,8 @@ const Chat = () => {
 
     return (
         <div className='chat-cnt'>
-            <h2 className='chat-title'>{recipient}</h2>
+            <div className="chat-header"> <Link to={`/conversations/${user.username}`}><p className='chat-link'>{'<'}</p></Link><h2 className='chat-title'>{recipient}</h2></div>
+           
             {isLoading ? (
                 <div className="chat-loading-div flex-col">
                      <div className='chat-skel chat-l grad-animation'><div className="text-load"></div> </div>
