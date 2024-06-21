@@ -1,15 +1,22 @@
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from django.contrib.auth.decorators import login_required
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from django.db.models import Q
+from django.core.cache import cache
+from django.db.models.signals import post_save,  post_delete
+from django.dispatch import receiver
 
-from shopiet.models import Item, Images, User, Profile, SavedItem
+from shopiet.models import Item, Images, User, Profile, SavedItem, Message
 from .serialisers import ItemSerializer, ItemSearchSerializer, ImagesSerializer, SavedItemsSerializer
-from .serialisers import AddUserSerializer, AddItemSerializer, ProfileSerializer
+from .serialisers import AddUserSerializer, AddItemSerializer, ProfileSerializer, MessageSerializer, ChatSerializer
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+from django.core.exceptions import ValidationError
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -21,8 +28,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['password'] = user.password
         token['id'] = user.id
             
-    
-   
         # ...
 
         return token
@@ -33,10 +38,22 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 @api_view(['GET'])
 def getData(request):
+    cache_key = 'all_items'
+    cached_data = cache.get(cache_key)
+    
+    if cached_data:
+        return Response(cached_data)
     items = Item.objects.all()
     serializer = ItemSerializer(items, many=True)
+    cache.set(cache_key, serializer.data, timeout=300)
 
     return Response(serializer.data)
+
+@receiver(post_save, sender=Item)
+@receiver(post_delete, sender=Item)
+def invalidate_cache(sender, instance, **kwargs):
+    cache_key = 'all_items'
+    cache.delete(cache_key)
 
 @api_view(['GET'])
 def getProfile(request, username):
@@ -58,17 +75,40 @@ def getProfile(request, username):
         'items': ItemSerializer(user_items, many=True).data
     }
     return Response(profile_data)
-    
-    
+
 @api_view(['GET'])
 def getItem(request, slug):
+    cache_key = f'item_{slug}'
+    cached_item = cache.get(cache_key)
+        
+    if cached_item:
+        return Response(cached_item)
+    
     try:
         item = Item.objects.get(slug=slug)
         serializer = ItemSerializer(item)
-        return Response(serializer.data)
+        data = serializer.data
+        cache.set(cache_key, data, timeout=360)  
+        return Response(data)
     except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
+    
+@receiver(post_save, sender=Item)
+@receiver(post_delete, sender=Item)
+def invalidate_cache(sender, instance, **kwargs):
+    cache_key = f'item_{instance.slug}'
+    cache.delete(cache_key)
+    
+@api_view(['GET'])
+def getConvos(request, username):
+    try:
+        user = User.objects.get(username=username) 
+        messages = Message.objects.get_user_conversations(user)
+        serializer = ChatSerializer(messages, many=True)
+        return Response(serializer.data)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
 @api_view(['GET'])
 def getItemAdditionalImages(request, slug):
     item = get_object_or_404(Item, slug=slug)
@@ -149,13 +189,67 @@ def addUser(request):
 
 @api_view(['GET'])
 def getCatItems(request, item_category_name):
+    cache_key = f'category_items_{item_category_name}'
+    cached_items = cache.get(cache_key)
+    
+    if cached_items:
+        return Response(cached_items)
+    
     try:
         category_items = Item.objects.filter(item_category_name=item_category_name)
         serializer = ItemSerializer(category_items, many=True)
-        return Response(serializer.data)
+        data = serializer.data
+        cache.set(cache_key, data, timeout=360)
+        return Response(data)
     except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+@receiver(post_save, sender=Item)
+@receiver(post_delete, sender=Item)
+def invalidate_category_cache(sender, instance, **kwargs):
+    cache_key = f'category_items_{instance.item_category_name}'
+    cache.delete(cache_key)
+
+
+
+@api_view(['GET'])
+def getMessages(request, roomname):
+    try:
+        cache_key = f'messages_{roomname}'
+        cached_messages = cache.get(cache_key)
+        
+        if cached_messages:
+            return Response(cached_messages)
+        
+        users = roomname.split('_')
+        if len(users) != 2:
+            return Response({"error": "Invalid room name"}, status=400)
+        
+        messages = Message.objects.filter(
+            (Q(sender__username=users[0]) & Q(recipient__username=users[1])) |
+            (Q(sender__username=users[1]) & Q(recipient__username=users[0]))
+        ).order_by('timestamp')
+        current_user = request.user.username
+        is_recipient = (current_user == users[0] or current_user == users[1])
+        if is_recipient:
+            messages.update(viewed=True)
+        
+
+        serializer = MessageSerializer(messages, many=True)
+        cache.set(cache_key, serializer.data, timeout=300)  
+        return Response(serializer.data)
+    except Exception as e:
+        return Response({"error": str(e)}, status=500)
+
+@receiver(post_save, sender=Message)
+def invalidate_cache(sender, instance, **kwargs):
+    roomname = f'{instance.sender.username}_{instance.recipient.username}'
+    cache_key = f'messages_{roomname}'
+    cache.delete(cache_key)
+ 
+    reverse_roomname = f'{instance.recipient.username}_{instance.sender.username}'
+    reverse_cache_key = f'messages_{reverse_roomname}'
+    cache.delete(reverse_cache_key)
 
 @api_view(['GET'])
 def getSearchItems(request, search_query):
@@ -165,8 +259,8 @@ def getSearchItems(request, search_query):
         if serializer.data.__len__() == 0:
             return Response([{"item_name":"no results match that query"}])
         else:
-
             return Response(serializer.data)
+        
     except Item.DoesNotExist:
         return Response({"item_name":"no results match that query"})
     
@@ -189,13 +283,11 @@ def update_profile(request):
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
     
-
     try:
         profile = Profile.objects.get(user=user)
     except Profile.DoesNotExist:
         profile = Profile(user=user)
     
-  
     serializer = ProfileSerializer(profile, data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -205,24 +297,29 @@ def update_profile(request):
 @api_view(['POST'])
 def addItem(request):
     if request.method == 'POST':
-        item_username = request.data.get('item_username')  
+        item_username = request.data.get('item_username')
         try:
             user = User.objects.get(username=item_username)
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = AddItemSerializer(data=request.data)
-        if serializer.is_valid():
-            item = serializer.save()
+        try:
+            serializer.is_valid(raise_exception=True)
+        except ValidationError as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-            if 'additional_images' in request.FILES:
-                additional_images = request.FILES.getlist('additional_images')
-                for image in additional_images:
-                    Images.objects.create(item=item, image=image)
-            response_data = {
-                'message': 'Item uploaded'
-            }
-            return Response(response_data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        item = serializer.save()
+
+        if 'additional_images' in request.FILES:
+            additional_images = request.FILES.getlist('additional_images')
+            for image in additional_images:
+                Images.objects.create(item=item, image=image)
+
+        response_data = {
+            'message': 'Item uploaded successfully',
+            'slug': item.slug 
+        }
+        return Response(response_data, status=status.HTTP_201_CREATED)
 
 

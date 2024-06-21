@@ -19,6 +19,7 @@ from google.cloud import storage
 import tinify
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -47,18 +48,43 @@ CORS_ORIGIN_WHITELIST = os.getenv('CORS_ORIGIN_WHITELIST', '').split(',')
 INSTALLED_APPS = [
     'corsheaders',
     'whitenoise.runserver_nostatic',
+    'channels',
+    'channels_redis',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'backend',
     'shopiet',
     'api',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist'
 ]
+
+ASGI_APPLICATION = 'backend.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [os.getenv('REDIS_URL', 'rediss://default:AVNS_c_ggreKP6CxKHCWkpxW@caching-1b09652b-munomaturure-4014.d.aivencloud.com:10153')],
+        },
+    },
+}
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'rediss://default:AVNS_c_ggreKP6CxKHCWkpxW@caching-1b09652b-munomaturure-4014.d.aivencloud.com:10153',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
 
 REST_FRAMEWORK = {
    

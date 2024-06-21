@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
@@ -13,8 +13,7 @@ urlpatterns = [
     path('searchq/<str:search_query>/', views.getSearchqItems),
     path('save/<str:username>/<slug:slug>/', views.save_item),
     path('saved-items/<str:username>/', views.getSavedItems),
-    path('profile/<str:username>/', views.getProfile)
-
-   
-    
+    path('profile/<str:username>/', views.getProfile),
+    path('chat/<str:roomname>/', views.getMessages),
+    path('conversations/<str:username>/', views.getConvos)
 ]
