@@ -197,6 +197,9 @@ function ItemDetail() {
         <h1>{data.address}</h1>
         {<Map latitude={parseFloat(data.latitude)} longitude={parseFloat(data.longitude)} />}
       </div>)}
+      <div className='contact'>
+
+     
       {<div className="delivery">
       <img className='delivery-img'src={delivery}></img><h2> Delivery: </h2>
       <h2>{data.delivery===true ? "  Available":"  Collection"}</h2>
@@ -215,7 +218,7 @@ function ItemDetail() {
          
           
         </div>
-      )}</div>
+      )} </div></div>
     </>
   );
 }
