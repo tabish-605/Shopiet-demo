@@ -20,6 +20,7 @@ function App() {
           throw new Error('Network response was not ok');
         }
         const jsonData = await response.json();
+        alert(jsonData)
         
         if (response.status === 200){
           setData(jsonData);

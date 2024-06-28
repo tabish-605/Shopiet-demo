@@ -146,6 +146,9 @@ function ItemDetail() {
     <>
      
       <div className="item-detail-cnt">
+        <div className="item-images">
+
+       
         <div className="item-detail-img-cnt">
           <img loading="lazy" alt={data.item_name} src={thumbnail} className="item-detail-image" />
         </div>
@@ -163,7 +166,10 @@ function ItemDetail() {
               </div>
             ))}
           </div>
-        )}
+        )} </div>
+         <div className="item-details flex-col">
+
+      
         <h1 className="item-detail-name pd-1-al-l">{data.item_name}</h1>
         <p className="item-detail-cat pd-1-al-l">/{data.item_category_name}</p>
         <div className="cat-price-cnt">
@@ -178,13 +184,14 @@ function ItemDetail() {
           <br />
           <h3>Description</h3>
           <p>{data.item_description}</p>
-        </div>
-      </div>
-      <div className="cart-btn-cnt">
+        </div><div className="cart-btn-cnt">
       <button className='cart-btn' onClick={handleSave} disabled={isSaveLoading}>
         {isSaveLoading ? "ADDING..." : addText}
       </button>
+      </div> 
       </div>
+       </div>
+       <div className="meta-details">
       {data.address && (
       <div className="location-map">
         <h1>{data.address}</h1>
@@ -208,7 +215,7 @@ function ItemDetail() {
          
           
         </div>
-      )}
+      )}</div>
     </>
   );
 }

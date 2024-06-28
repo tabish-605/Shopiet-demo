@@ -101,6 +101,7 @@ h3{
     align-content: center;
     justify-content: center;
     margin-top: 10%;
+    cursor: pointer;
     gap: 5%;
 }
  .cart-btn{
@@ -216,4 +217,56 @@ h3{
     font-size: 1.3rem;
     padding: 8px;
     font-weight: bold;
+}
+
+
+@media screen and (min-width: 1024px) {
+    .item-detail-cnt{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr ;
+     
+    }
+    .item-details{
+        gap: 10px;
+    }
+
+   
+
+    .cart-btn{
+        height: 100%;
+        width: 100%;
+    }
+    
+    .additional-images{
+        grid-template-rows: unset;
+        grid-template-columns: repeat(5,90px);
+    }
+
+    .location-map{
+        width: 50%;
+
+       justify-content: center;
+       padding: 2rem;
+       color: #fff;
+       background-color: #222;
+       min-height: 100%;
+    }
+
+    .meta-details{
+  
+        justify-content: center;
+        background-color: #222;
+ 
+        display: flex;
+        gap: 30px;
+    }
+    .detail-contact{display: flex;
+        flex-direction: column;
+        justify-content: center;
+       justify-items: center;
+     
+     
+
+    }
 }
