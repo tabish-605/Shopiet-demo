@@ -4,7 +4,7 @@
     background-color: #222;   
     color: #8dc572;
     align-items: center;
-    width: 100vw;
+    width: 100svw;
   
     
     
@@ -90,6 +90,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    justify-content: flex-end;
 }
 .quicknav{
     background-color: #222;
@@ -115,9 +116,13 @@
     cursor: pointer;
     color: rgba(255, 255, 255, 0.662);
     text-wrap: nowrap;
-
     width: auto;
 
+}
+
+.quicknav a{
+    text-wrap: nowrap;
+    width: auto;
 }
 .quicknav li:hover{
     color: #8dc572;
@@ -171,7 +176,7 @@
        grid-template-columns: 1fr 1fr;
        grid-template-rows: auto;
        justify-content: center;
-        gap: 10px;
+       gap: 10px;
     }
     .header{
         margin: 0px;
@@ -196,7 +201,8 @@
     .account-actions{
         grid-column: 2 / span 1;
         grid-row: 1 / span 1;
-        justify-content: flex-end;
+        justify-content: flex-end !important;
+       width: 100%;
     }
 
     .items{
@@ -207,5 +213,6 @@
     .header-div{
         grid-column: 1 / span 1; 
         grid-row: 1 / span 1;
+        justify-self: baseline;
     }
 }
