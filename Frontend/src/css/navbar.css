@@ -214,3 +214,17 @@
         justify-self: baseline;
     }
 }
+
+@media  screen and (max-width: 360px) {
+    .save-div{
+        display: none;
+    }
+    
+}
+
+@media  screen and (max-width: 320px) {
+   .header{
+    font-size: 2.2em;
+   }
+    
+}
