@@ -11,6 +11,7 @@ import Login from './Login.jsx';
 import App from './App.jsx';
 import ItemDetail from './ItemDetail.jsx';
 import CategoryPage from './CategoryPage.jsx';
+import Footer from './Footer.jsx';
 
 const SignUp = lazy(()=>import('./SignUp.jsx'))
 const PrivateRoutes = lazy(() => import( './utils/PrivateRoute.jsx'));
@@ -50,6 +51,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             </Route>
             <Route path="*" element={<Suspense fallback={suspenseLoad()}><NotFound /></Suspense>} />
           </Routes>
+          <Footer/>
         </BrowserRouter>
       </ErrorBoundary>
     </AuthProvider>

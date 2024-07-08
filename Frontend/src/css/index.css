@@ -44,7 +44,7 @@ p{
 body {
   margin: 0;
   display: flex;
-  max-width: 100svw;
+  min-width: 100svw;
   place-items: center;
   overflow-x: hidden;
  
@@ -109,6 +109,47 @@ button {
   border: 1px solid;
   padding: 12px;
 }
+
+footer{
+
+	background-color: #1c1c1c;
+	color: #f9f9f9;
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	text-align: left;
+	padding: 1rem;
+  }
+  
+  footer h1{
+	margin: 0;
+	text-decoration: underline 12px #8dc572;
+	font-size: 4em;
+  }
+  
+  footer h2{
+
+	margin: 0;
+
+	
+  }
+  
+
+  
+  footer p{
+	margin: 0;
+  }
+
+  .legal{
+	display: flex;
+	flex-direction: column;
+  }
+  @media  screen and (max-width:836px) {
+	footer{
+		flex-direction: column;
+		align-items: unset;
+	}
+  }
 
 .cssload-loader {
 	display: block;

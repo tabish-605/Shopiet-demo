@@ -4,9 +4,7 @@
     background-color: #222;   
     color: #8dc572;
     align-items: center;
-    width: 100svw;
   
-    
     
 }
 .user-icon, .book-icon{
@@ -24,7 +22,7 @@
     justify-items: center;
     width: 100%;
     padding: 1rem;
-    
+    padding-right: 2rem;
     justify-content: space-between;
 }
 
