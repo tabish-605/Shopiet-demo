@@ -131,11 +131,12 @@ h3{
 }
 
 .contact-details{
-    background-color: #222;
+    background-color: #1c1c1c;
     color: #fff;
     padding: 1rem;
     border-top-right-radius: 16px;
     border-top-left-radius: 16px;
+    border-bottom: 1px solid;
 
 }
 
@@ -237,6 +238,10 @@ h3{
         gap: 10px;
     }
 
+    .contact-details{
+        border-bottom: none;
+    }
+
    
     
     .additional-images{
@@ -254,23 +259,30 @@ h3{
        justify-content: center;
        padding: 2rem;
        color: #fff;
-       background-color: #222;
+       background-color: #1c1c1c;
        min-height: 100%;
     }
 
     .delivery{
-        color: #8dc572;
+     
+        background-color: #fff;
+        padding: 10px 20px;
+        border-radius: 12px;
     }
-
-    .delivery .delivery-img{
-        filter: invert(1);
+    .delivery h2{
+        margin: 0;
+    }
+    .contact{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .meta-details{
   
         justify-content: center;
-        background-color: #222;
- 
+        background-color: #1c1c1c;
+        border-bottom: 20px solid #1c1c1c;
         display: flex;
         gap: 30px;
     }
