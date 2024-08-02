@@ -2,13 +2,9 @@
   font-family:  'outfit', sans-serif, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   background-color: #1c1c1c;
- 
   max-width: 100svw;
-  
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,9 +14,6 @@
 html{
   overflow-x: hidden;
   max-width: 100svw;
-  
-    
-
 }
 h5{
   margin-bottom: 0px;
@@ -61,7 +54,6 @@ h1 {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
