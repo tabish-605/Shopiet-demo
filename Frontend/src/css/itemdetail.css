@@ -79,12 +79,12 @@ h3{
 }
 .item-detail-name{
 
-    text-decoration: underline 10px #8dc572 !important;
+    text-decoration: underline #8dc572 10px  !important;
 }
 
 .item-detail-user{
     font-size: 2rem;
-    text-decoration: underline 4px #222 !important;
+    text-decoration: underline #222 4px  !important;
     
 }
 

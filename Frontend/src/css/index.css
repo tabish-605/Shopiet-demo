@@ -33,7 +33,7 @@ ul{
 a {
   font-weight: 500;
   color: inherit;
-
+  text-decoration: none;
 }
 
 
@@ -124,7 +124,7 @@ footer{
   
   footer h1{
 	margin: 0;
-	text-decoration: underline 12px #8dc572 !important;
+	text-decoration: underline #8dc572 12px  !important;
 	font-size: 4em;
   }
   
