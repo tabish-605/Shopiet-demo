@@ -78,13 +78,14 @@ h3{
     margin-bottom: 0px;
 }
 .item-detail-name{
-    text-decoration: underline 10px #8dc572;
-   
+    -webkit-text-decoration: underline 10px #8dc572;
+    text-decoration: underline 10px #8dc572 !important;
 }
 
 .item-detail-user{
     font-size: 2rem;
-    text-decoration: underline 4px #222;
+    -webkit-text-decoration: underline 4px #222;
+    text-decoration: underline 4px #222 !important;
     
 }
 

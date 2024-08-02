@@ -26,6 +26,13 @@ function ItemDetail() {
   const { slug } = useParams();
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {

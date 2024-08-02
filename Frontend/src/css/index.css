@@ -124,7 +124,8 @@ footer{
   
   footer h1{
 	margin: 0;
-	text-decoration: underline 12px #8dc572;
+	-webkit-text-decoration: underline 12px #8dc572 !important;
+	text-decoration: underline 12px #8dc572 !important;
 	font-size: 4em;
   }
   

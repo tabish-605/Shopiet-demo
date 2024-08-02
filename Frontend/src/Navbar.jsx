@@ -52,7 +52,7 @@ export default function Navbar() {
     };
     return (
         <>
-            <nav className="navbar">
+            <header className="navbar">
                 <div className="nav-items">
                     <div className="header-div">
                         <Link to={'/'}><h1 className="header">SHOPIET</h1></Link>
@@ -92,7 +92,7 @@ export default function Navbar() {
                         </div>
                     </div>
                 </div>
-            </nav>
+            </header>
             {!isAuthPage && (
                 <nav className="quicknav">
                     <ul>

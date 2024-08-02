@@ -173,7 +173,7 @@ const UploadItem = () => {
                 <input type="text" id="item_name" className={`prevent-zoom ${errorBorder}`} value={formData.item_name} onChange={handleChange} placeholder="Enter Item Name" required />
                 <div >R <input type="number" id="item_price"  className={`prevent-zoom ${errorBorder}`} value={formData.item_price} onChange={handleChange} placeholder="Enter Item Price" required /></div>
                 <textarea name="description" id="item_description" className={`input-desc prevent-zoom ${errorBorder}`} value={formData.item_description} onChange={handleChange} placeholder='Enter Description'></textarea> {/* Description textarea */}
-                <div>
+                <div className='condition-picker'>
                     <label>
                         <input
                             type="radio"
