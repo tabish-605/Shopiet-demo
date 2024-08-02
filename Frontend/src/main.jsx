@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext'
 import './css/index.css';
-
+import { useEffect } from 'react';
 import ErrorBoundary from './ErrorBoundary.jsx';
 
 import Navbar from './Navbar.jsx';
@@ -26,7 +26,12 @@ const Conversations = lazy(()=>import('./Conversations.jsx'))
 const suspenseLoad = () =>{
   return ( <div style={{height:'100svh', justifyContent:'center'}} className='flex-col'><span className="cssload-loader"><span className="cssload-loader-inner"></span></span></div>);
 }
-
+useEffect(() => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
+}, []);
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>

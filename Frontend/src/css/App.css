@@ -41,7 +41,8 @@
 .section-item-sub-header{
   text-align: left;
   margin-top: 0px;
-  margin-bottom: 0px; font-weight: 500 !important;
+  margin-bottom: 0px; 
+  font-weight: 500 !important;
 }
 
 
@@ -382,6 +383,7 @@ margin-top: 16px;
 
   .item-detail-user{
     text-decoration: underline 4px #fff !important;
+
   }
 
   .btn-chat{
