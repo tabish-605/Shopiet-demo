@@ -177,13 +177,24 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=os.environ['DATABASE_URL'],
+#         engine='django_cockroachdb',
+#         ssl_require=True,  # Enable SSL certificate verification
+#         conn_max_age=600  # Adjust the connection age if needed
+#     )
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ['DATABASE_URL'],
-        engine='django_cockroachdb',
-        ssl_require=True,  # Enable SSL certificate verification
-        conn_max_age=600  # Adjust the connection age if needed
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'shopiet_db'),
+        'USER': os.getenv('POSTGRES_USER', 'shopiet_user'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'shopiet_password'),
+        'HOST': os.getenv('POSTGRES_HOST', 'db'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+    }
 }
 
 # Password validation
