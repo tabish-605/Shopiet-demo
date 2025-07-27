@@ -235,6 +235,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "ststicfiles"
 
 
 # os.environ['GOOGLE_APPLICATION_CREDENTIALS']='shopiet-420118-0c90e2301f32.json'
@@ -244,8 +245,8 @@ STATIC_URL = 'static/'
 # DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 # _PROJECT_ID = 'shopiet-420118'
 # _BUCKET_NAME = 'shopiet-media'
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = f"https://storage.googleapis.com/{_BUCKET_NAME}/"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / "media"
 
 
 
