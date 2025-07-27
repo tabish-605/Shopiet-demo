@@ -1,112 +1,144 @@
-# Shopiet Docker Compose Setup Instructions
+# 🚀 Shopiet E-commerce Docker Setup - Complete Installation Guide
 
-## 📁 File Placement Guide
+## 📋 Quick Setup Overview
 
-After extracting this zip file, place the files in your project as follows:
+This package contains everything you need to get your Shopiet e-commerce application running with **one command** instead of complex manual setup. The solution fixes Google Cloud credentials issues and provides a complete Docker Compose environment.
 
+## 📁 Package Contents
+
+- `docker-compose.yml` - Main orchestration file
+- `.env` - Environment variables 
+- `Backend(Docked)/Dockerfile` - Backend container configuration (replace existing)
+- `Frontend/Dockerfile` - Frontend container configuration (create new)
+- `Frontend/vite.config.js` - Vite configuration for Frontend (create new)
+- `fix-google-cloud-credentials.sh` - Linux/Mac automated setup script
+- `fix-google-cloud-credentials.bat` - Windows automated setup script
+- `requirements-additions.txt` - Additional Python packages needed
+- `django-settings-update.md` - Complete Django configuration guide
+
+## 🎯 What This Fixes
+
+✅ **Google Cloud credentials error**: `DefaultCredentialsError: File shopiet-420118-0c90e2301f32.json was not found`
+✅ **Complex setup process**: Reduces multi-step setup to one command
+✅ **Database configuration**: Switches from CockroachDB to PostgreSQL for Docker compatibility
+✅ **Frontend-Backend communication**: Proper networking and CORS setup
+✅ **Development workflow**: Hot reload for both frontend and backend
+
+## 🛠️ Prerequisites
+
+Before starting, ensure you have:
+
+1. **Docker Desktop** installed and running
+2. **Docker Compose** (usually included with Docker Desktop)
+3. **Google Cloud CLI** (gcloud) installed
+4. **Git** (to clone your repository)
+
+## 📂 File Placement Instructions
+
+### 1. Root Directory Files (place in `Shopiet-demo/`)
+- `docker-compose.yml`
+- `.env`
+- `fix-google-cloud-credentials.sh` (Linux/Mac)
+- `fix-google-cloud-credentials.bat` (Windows)
+
+### 2. Backend Files (place in `Backend(Docked)/`)
+- `Dockerfile` (replace existing file)
+
+### 3. Frontend Files (place in `Frontend/`)
+- `Dockerfile` (create new file)
+- `vite.config.js` (create new file)
+
+## 🚀 Installation Methods
+
+### Method 1: Automated Setup (Recommended)
+
+#### For Linux/Mac:
+```bash
+# 1. Make script executable
+chmod +x fix-google-cloud-credentials.sh
+
+# 2. Run the automated setup
+./fix-google-cloud-credentials.sh
 ```
-Shopiet-demo/                     ← Your project root
-├── docker-compose.yml           ← Place this file here (from zip)
-├── .env                         ← Place this file here (from zip)
-├── Backend(Docked)/
-│   ├── Dockerfile              ← Replace existing with this file (from zip)
-│   └── requirements.txt        ← ADD one line (see below)
-├── Frontend/
-│   ├── Dockerfile              ← Create this file here (from zip)
-│   └── vite.config.js          ← Create this file here (from zip)
+
+#### For Windows:
+```cmd
+# Simply double-click the file or run in Command Prompt
+fix-google-cloud-credentials.bat
 ```
 
-## 🛠️ Required Code Changes
+### Method 2: Manual Setup
 
-### 1. Update Backend Requirements
-In `Backend(Docked)/requirements.txt`, add this line:
-```
-psycopg2-binary==2.9.9
-```
-
-### 2. Update Django Settings
-In `Backend(Docked)/backend/settings.py`, make these changes:
-
-**Add imports at the top:**
-```python
-import os
-from dotenv import load_dotenv
-load_dotenv()
+#### Step 1: Authenticate with Google Cloud
+```bash
+gcloud auth application-default login
 ```
 
-**Replace DATABASES configuration:**
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'shopiet_db'),
-        'USER': os.getenv('POSTGRES_USER', 'shopiet_user'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'shopiet_password'),
-        'HOST': os.getenv('POSTGRES_HOST', 'db'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
-    }
-}
-```
+#### Step 2: Update Requirements
+Add the contents of `requirements-additions.txt` to your `Backend(Docked)/requirements.txt`
 
-**Add CORS settings:**
-```python
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000", 
-]
-CORS_ALLOW_ALL_ORIGINS = True  # For development only
-```
+#### Step 3: Update Django Settings
+Follow the complete guide in `django-settings-update.md`
 
-## 🚀 Start Your Application
-
-1. Open terminal in your project root directory
-2. Run this command:
+#### Step 4: Start the Application
 ```bash
 docker-compose up --build
 ```
 
-## 🎯 Access Your Application
+## 🌐 Access Your Application
+
+After successful setup:
 
 - **Frontend**: http://localhost:3000
-- **Backend**: http://localhost:8000  
-- **Admin Panel**: http://localhost:8000/admin
+- **Backend API**: http://localhost:8000
+- **Django Admin**: http://localhost:8000/admin
 
-## 📋 Useful Commands
+## 🐛 Troubleshooting
+
+### Common Issues:
+
+#### 1. "Permission denied" on Linux/Mac
+```bash
+chmod +x fix-google-cloud-credentials.sh
+```
+
+#### 2. Google Cloud credentials not found
+```bash
+gcloud auth application-default login
+```
+
+#### 3. Docker containers not starting
+```bash
+docker-compose logs backend
+docker-compose logs frontend
+```
+
+### Useful Commands:
 
 ```bash
-# Start services
-docker-compose up --build
-
-# Stop services
-docker-compose down
-
-# View logs
+# View all container logs
 docker-compose logs -f
 
 # Restart specific service
 docker-compose restart backend
 
-# Create Django superuser
+# Run Django management commands
+docker-compose exec backend python manage.py migrate
 docker-compose exec backend python manage.py createsuperuser
 
-# Access database
-docker-compose exec db psql -U shopiet_user -d shopiet_db
+# Stop all services
+docker-compose down
+
+# Rebuild and start
+docker-compose up --build
 ```
 
-## 🔧 Troubleshooting
+## 🎉 Success Indicators
 
-**If you get port conflicts:**
-- Change ports in docker-compose.yml
-- Make sure no other services are using ports 3000, 8000, 5432, 6379
+Your setup is successful when:
+- ✅ Both frontend and backend containers are running
+- ✅ Frontend loads at http://localhost:3000
+- ✅ Backend API responds at http://localhost:8000
+- ✅ No Google Cloud credentials errors in logs
 
-**If database connection fails:**
-- Wait for database to fully start (check logs)
-- Restart backend service: `docker-compose restart backend`
-
-**If frontend doesn't hot reload:**
-- Make sure volumes are properly mounted
-- Check that vite.config.js is in place
-
-## ✅ That's It!
-
-Your complex setup is now simplified to just one command: `docker-compose up --build`
+**Congratulations!** Your Shopiet e-commerce application is now running with Docker Compose!
