@@ -1,144 +1,242 @@
-# 🚀 Shopiet E-commerce Docker Setup - Complete Installation Guide
+# 🚀 Shopiet Docker Setup - Complete Instructions
 
-## 📋 Quick Setup Overview
+## 📋 What This Package Contains
 
-This package contains everything you need to get your Shopiet e-commerce application running with **one command** instead of complex manual setup. The solution fixes Google Cloud credentials issues and provides a complete Docker Compose environment.
+This zip file contains all the necessary files to fix your Django SECRET_KEY error and set up a complete local Docker development environment for your Shopiet e-commerce application.
 
-## 📁 Package Contents
+## 📁 Files Included
 
-- `docker-compose.yml` - Main orchestration file
-- `.env` - Environment variables 
-- `Backend(Docked)/Dockerfile` - Backend container configuration (replace existing)
-- `Frontend/Dockerfile` - Frontend container configuration (create new)
-- `Frontend/vite.config.js` - Vite configuration for Frontend (create new)
-- `fix-google-cloud-credentials.sh` - Linux/Mac automated setup script
-- `fix-google-cloud-credentials.bat` - Windows automated setup script
-- `requirements-additions.txt` - Additional Python packages needed
-- `django-settings-update.md` - Complete Django configuration guide
+1. `docker-compose.yml` - Main orchestration file
+2. `.env` - Environment variables with secure SECRET_KEY
+3. `Backend_Dockerfile` - Backend container configuration  
+4. `Frontend_Dockerfile` - Frontend container configuration
+5. `django_settings_updates.py` - Django settings modifications
+6. `requirements_additions.txt` - Additional Python packages needed
+7. `vite.config.js` - Frontend development server configuration
+8. `SETUP_INSTRUCTIONS.md` - This file
 
-## 🎯 What This Fixes
+## 🎯 Step-by-Step Setup
 
-✅ **Google Cloud credentials error**: `DefaultCredentialsError: File shopiet-420118-0c90e2301f32.json was not found`
-✅ **Complex setup process**: Reduces multi-step setup to one command
-✅ **Database configuration**: Switches from CockroachDB to PostgreSQL for Docker compatibility
-✅ **Frontend-Backend communication**: Proper networking and CORS setup
-✅ **Development workflow**: Hot reload for both frontend and backend
+### Step 1: Place Files in Correct Locations
 
-## 🛠️ Prerequisites
+1. **Project Root** (Shopiet-demo/):
+   - `docker-compose.yml` → Replace existing or create new
+   - `.env` → Create new file (never commit this to git!)
 
-Before starting, ensure you have:
+2. **Backend Directory** (Backend(Docked)/):
+   - `Backend_Dockerfile` → Rename to `Dockerfile` and replace existing
+   - Copy settings from `django_settings_updates.py` into your `backend/settings.py`
+   - Add lines from `requirements_additions.txt` to your `requirements.txt`
 
-1. **Docker Desktop** installed and running
-2. **Docker Compose** (usually included with Docker Desktop)
-3. **Google Cloud CLI** (gcloud) installed
-4. **Git** (to clone your repository)
+3. **Frontend Directory** (Frontend/):
+   - `Frontend_Dockerfile` → Rename to `Dockerfile` and replace existing  
+   - `vite.config.js` → Replace existing or create new
 
-## 📂 File Placement Instructions
+### Step 2: Update Django Settings
 
-### 1. Root Directory Files (place in `Shopiet-demo/`)
-- `docker-compose.yml`
-- `.env`
-- `fix-google-cloud-credentials.sh` (Linux/Mac)
-- `fix-google-cloud-credentials.bat` (Windows)
+Open `Backend(Docked)/backend/settings.py` and make these changes:
 
-### 2. Backend Files (place in `Backend(Docked)/`)
-- `Dockerfile` (replace existing file)
+#### A. Add imports at the top:
+```python
+import os
+from dotenv import load_dotenv
 
-### 3. Frontend Files (place in `Frontend/`)
-- `Dockerfile` (create new file)
-- `vite.config.js` (create new file)
-
-## 🚀 Installation Methods
-
-### Method 1: Automated Setup (Recommended)
-
-#### For Linux/Mac:
-```bash
-# 1. Make script executable
-chmod +x fix-google-cloud-credentials.sh
-
-# 2. Run the automated setup
-./fix-google-cloud-credentials.sh
+# Load environment variables
+load_dotenv()
 ```
 
-#### For Windows:
-```cmd
-# Simply double-click the file or run in Command Prompt
-fix-google-cloud-credentials.bat
+#### B. Replace SECRET_KEY line:
+```python
+# OLD: SECRET_KEY = 'your-old-key'
+# NEW:
+SECRET_KEY = os.getenv('SECRET_KEY', 'fallback-secret-key-for-development-only')
 ```
 
-### Method 2: Manual Setup
-
-#### Step 1: Authenticate with Google Cloud
-```bash
-gcloud auth application-default login
+#### C. Update DEBUG setting:
+```python
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 ```
 
-#### Step 2: Update Requirements
-Add the contents of `requirements-additions.txt` to your `Backend(Docked)/requirements.txt`
+#### D. Update ALLOWED_HOSTS:
+```python
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+```
 
-#### Step 3: Update Django Settings
-Follow the complete guide in `django-settings-update.md`
+#### E. Replace DATABASES configuration:
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'shopiet_db'),
+        'USER': os.getenv('POSTGRES_USER', 'shopiet_user'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'shopiet_password'),
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
+        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+    }
+}
+```
 
-#### Step 4: Start the Application
+#### F. Add CORS settings (add to end of settings.py):
+```python
+# CORS settings for frontend communication
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+```
+
+#### G. Add static/media files configuration:
+```python
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Media files (User uploads)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+```
+
+#### H. Make sure 'corsheaders' is in INSTALLED_APPS:
+```python
+INSTALLED_APPS = [
+    # ... your existing apps ...
+    'corsheaders',
+    # ... rest of your apps ...
+]
+```
+
+#### I. Add CORS middleware to MIDDLEWARE (add as first item):
+```python
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    # ... your existing middleware ...
+]
+```
+
+### Step 3: Update Requirements
+
+Add these lines to `Backend(Docked)/requirements.txt`:
+```
+python-dotenv>=1.0.0
+psycopg2-binary>=2.9.7
+django-redis>=5.3.0
+django-cors-headers>=4.3.0
+```
+
+### Step 4: Remove Google Cloud Dependencies
+
+If you still have these in your code, remove them:
+- Remove `google-cloud-storage` from requirements.txt
+- Remove `google-auth` from requirements.txt  
+- Remove `django-storages` from requirements.txt (if present)
+- Remove any imports like `from google.cloud import ...`
+- Remove any `GS_` settings from settings.py
+
+### Step 5: Start Your Application
+
+From your project root directory:
+
 ```bash
+# Stop any running containers
+docker-compose down -v
+
+# Build and start everything
 docker-compose up --build
+
+# Or run in background
+docker-compose up --build -d
 ```
 
-## 🌐 Access Your Application
+## ✅ Expected Result
 
-After successful setup:
+After setup, you should see:
 
+```
+✅ Database container: Running on port 5432
+✅ Redis container: Running on port 6379  
+✅ Backend container: Running on port 8000
+✅ Frontend container: Running on port 3000
+```
+
+Access your application at:
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000
 - **Django Admin**: http://localhost:8000/admin
 
-## 🐛 Troubleshooting
+## 🛠️ Troubleshooting
 
-### Common Issues:
+### If backend still fails to start:
 
-#### 1. "Permission denied" on Linux/Mac
+1. **Check logs**:
+   ```bash
+   docker-compose logs backend
+   ```
+
+2. **Verify environment variables**:
+   ```bash
+   docker-compose exec backend printenv | grep SECRET_KEY
+   ```
+
+3. **Test Django configuration**:
+   ```bash
+   docker-compose exec backend python manage.py check
+   ```
+
+### If frontend can't connect to backend:
+
+1. **Check CORS settings** in Django settings.py
+2. **Verify API URLs** in your frontend code
+3. **Check network connectivity**:
+   ```bash
+   docker-compose exec frontend curl http://backend:8000
+   ```
+
+## 🔒 Security Notes
+
+- The `.env` file contains your SECRET_KEY - **NEVER commit this to version control**
+- Add `.env` to your `.gitignore` file
+- For production, use environment variables or a secure secrets management system
+- Change the default database passwords for production use
+
+## 📚 Additional Commands
+
 ```bash
-chmod +x fix-google-cloud-credentials.sh
-```
-
-#### 2. Google Cloud credentials not found
-```bash
-gcloud auth application-default login
-```
-
-#### 3. Docker containers not starting
-```bash
-docker-compose logs backend
-docker-compose logs frontend
-```
-
-### Useful Commands:
-
-```bash
-# View all container logs
-docker-compose logs -f
-
-# Restart specific service
-docker-compose restart backend
-
-# Run Django management commands
-docker-compose exec backend python manage.py migrate
+# Create Django superuser
 docker-compose exec backend python manage.py createsuperuser
 
-# Stop all services
+# Run Django migrations
+docker-compose exec backend python manage.py migrate
+
+# Collect static files
+docker-compose exec backend python manage.py collectstatic
+
+# View logs
+docker-compose logs -f
+
+# Stop containers
 docker-compose down
 
-# Rebuild and start
-docker-compose up --build
+# Remove all data (reset database)
+docker-compose down -v
 ```
 
 ## 🎉 Success Indicators
 
-Your setup is successful when:
-- ✅ Both frontend and backend containers are running
-- ✅ Frontend loads at http://localhost:3000
-- ✅ Backend API responds at http://localhost:8000
-- ✅ No Google Cloud credentials errors in logs
+You'll know everything is working when:
 
-**Congratulations!** Your Shopiet e-commerce application is now running with Docker Compose!
+1. ✅ All 4 containers start without errors
+2. ✅ Backend shows "Starting development server at http://0.0.0.0:8000/"
+3. ✅ Frontend shows "Local: http://localhost:3000/"
+4. ✅ You can access both frontend and backend URLs
+5. ✅ No SECRET_KEY or authentication errors in logs
+
+That's it! Your Shopiet e-commerce application should now be running completely locally with Docker, with no Google Cloud dependencies and a secure SECRET_KEY configuration.
