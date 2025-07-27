@@ -17,6 +17,9 @@ from dotenv import load_dotenv
 load_dotenv()
 from google.cloud import storage
 import tinify
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 
