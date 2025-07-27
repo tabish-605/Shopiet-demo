@@ -15,11 +15,11 @@ import os
 import dj_database_url
 from dotenv import load_dotenv
 load_dotenv()
-from google.cloud import storage
+#from google.cloud import storage
 import tinify
 import os
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 
 
@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 from datetime import timedelta
 
 
-# Quick-start development settings - unsuitable for production
+# Quick-start development settin - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -136,8 +136,8 @@ SIMPLE_JWT = {
     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
     "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
-    "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
-    "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
+    "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidinerializer",
+    "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidinerializer",
 }
 
 MIDDLEWARE = [
@@ -174,7 +174,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.0/ref/settin/#databases
 
 
 # DATABASES = {
@@ -198,7 +198,7 @@ DATABASES = {
 }
 
 # Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/5.0/ref/settin/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -237,20 +237,20 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS']='shopiet-420118-0c90e2301f32.json'
-storage_client = storage.Client()
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS']='shopiet-420118-0c90e2301f32.json'
+# storage_client = storage.Client()
 
 
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_PROJECT_ID = 'shopiet-420118'
-GS_BUCKET_NAME = 'shopiet-media'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = f"https://storage.googleapis.com/{GS_BUCKET_NAME}/"
+# DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+# _PROJECT_ID = 'shopiet-420118'
+# _BUCKET_NAME = 'shopiet-media'
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = f"https://storage.googleapis.com/{_BUCKET_NAME}/"
 
 
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+# https://docs.djangoproject.com/en/5.0/ref/settin/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
