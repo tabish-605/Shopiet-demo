@@ -27,7 +27,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Import observability components
 from backend.custom_metrics import (
-    track_http_request, track_business_operation, track_user_registration,
+    track_http_request, trace_business_operation, track_user_registration,
     track_user_login, track_item_creation, track_item_view, track_item_save,
     track_search_operation, track_message_sent, track_cache_operation,
     track_api_performance, add_business_context
