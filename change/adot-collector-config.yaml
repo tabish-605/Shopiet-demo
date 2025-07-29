@@ -1,0 +1,266 @@
+# ADOT Collector Configuration for Shopiet E-commerce Application
+# This file should be saved as adot-collector-config.yaml in your project root
+
+receivers:
+  # OTLP receiver for receiving telemetry data from applications
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  # Prometheus receiver for scraping metrics from instrumented applications
+  prometheus:
+    config:
+      global:
+        scrape_interval: 30s
+        evaluation_interval: 30s
+      scrape_configs:
+        # Django backend metrics
+        - job_name: 'shopiet-backend'
+          static_configs:
+            - targets: ['backend:8001']  # Prometheus metrics endpoint from Django
+          metrics_path: '/metrics'
+          scrape_interval: 15s
+          scrape_timeout: 10s
+
+        # PostgreSQL metrics (if using postgres_exporter)
+        - job_name: 'postgres'
+          static_configs:
+            - targets: ['postgres-exporter:9187']
+          scrape_interval: 30s
+
+        # Redis metrics (if using redis_exporter)
+        - job_name: 'redis'
+          static_configs:
+            - targets: ['redis-exporter:9121']
+          scrape_interval: 30s
+
+        # Container metrics (if using cAdvisor)
+        - job_name: 'cadvisor'
+          static_configs:
+            - targets: ['cadvisor:8080']
+          scrape_interval: 30s
+
+  # Host metrics receiver for system-level metrics
+  hostmetrics:
+    collection_interval: 30s
+    scrapers:
+      cpu:
+        metrics:
+          system.cpu.utilization:
+            enabled: true
+      memory:
+        metrics:
+          system.memory.utilization:
+            enabled: true
+      disk:
+        metrics:
+          system.disk.io:
+            enabled: true
+          system.disk.operations:
+            enabled: true
+      filesystem:
+        metrics:
+          system.filesystem.utilization:
+            enabled: true
+      network:
+        metrics:
+          system.network.io:
+            enabled: true
+      processes:
+        metrics:
+          system.processes.count:
+            enabled: true
+          system.processes.created:
+            enabled: true
+
+processors:
+  # Batch processor to batch telemetry data before export
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+    send_batch_max_size: 2048
+
+  # Memory limiter processor to prevent memory issues
+  memory_limiter:
+    limit_mib: 512
+    spike_limit_mib: 128
+
+  # Resource processor to add/modify resource attributes
+  resource:
+    attributes:
+      - key: service.name
+        value: ${env:OTEL_SERVICE_NAME}
+        action: upsert
+      - key: service.version
+        value: ${env:OTEL_SERVICE_VERSION}
+        action: upsert
+      - key: deployment.environment
+        value: ${env:ENVIRONMENT}
+        action: upsert
+      - key: shopiet.component
+        value: "adot-collector"
+        action: upsert
+
+  # Attributes processor for modifying span/metric attributes
+  attributes:
+    actions:
+      - key: shopiet.application
+        value: "shopiet-ecommerce"
+        action: insert
+      - key: shopiet.architecture
+        value: "microservices"
+        action: insert
+
+  # Probabilistic sampler for traces (adjust based on traffic)
+  probabilistic_sampler:
+    sampling_percentage: 100  # Sample 100% for development, reduce for production
+
+  # Span processor for trace enhancement
+  span:
+    name:
+      from_attributes: [http.method, http.route]
+      separator: " "
+
+  # Filter processor to remove sensitive data
+  filter:
+    spans:
+      exclude:
+        match_type: regexp
+        attributes:
+          - key: http.url
+            value: ".*health.*"  # Exclude health check spans
+          - key: http.target
+            value: ".*metrics.*"  # Exclude metrics endpoint spans
+
+  # Groupbyattrs processor for metric aggregation
+  groupbyattrs:
+    keys:
+      - service.name
+      - service.version
+      - http.method
+      - http.status_code
+
+exporters:
+  # Console exporter for debugging (disable in production)
+  logging:
+    loglevel: info
+    sampling_initial: 5
+    sampling_thereafter: 200
+
+  # OTLP exporter for sending to AWS X-Ray
+  awsxray:
+    region: ${env:AWS_REGION}
+    no_verify_ssl: false
+    local_mode: false
+    resource_arn: ""
+    
+  # CloudWatch metrics exporter
+  awscloudwatchmetrics:
+    region: ${env:AWS_REGION}
+    namespace: "Shopiet/Application"
+    dimension_rollup_option: "NoDimensionRollup"
+    metric_declarations:
+      - dimensions: [[service.name], [service.name, http.method]]
+        metric_name_selectors:
+          - ".*_total"
+          - ".*_duration_seconds"
+          - ".*_requests_total"
+        namespace: "Shopiet/HTTP"
+      - dimensions: [[service.name], [service.name, operation]]
+        metric_name_selectors:
+          - "shopiet_*"
+        namespace: "Shopiet/Business"
+
+  # CloudWatch logs exporter
+  awscloudwatchlogs:
+    region: ${env:AWS_REGION}
+    log_group_name: "/aws/shopiet/application"
+    log_stream_name: "adot-collector"
+    endpoint: ""
+
+  # Prometheus Remote Write exporter (for Amazon Managed Prometheus)
+  prometheusremotewrite:
+    endpoint: ${env:PROMETHEUS_REMOTE_WRITE_ENDPOINT}
+    auth:
+      authenticator: sigv4auth
+    resource_to_telemetry_conversion:
+      enabled: true
+    add_metric_suffixes: false
+
+  # OTLP HTTP exporter for custom backends
+  otlphttp:
+    endpoint: ${env:OTEL_EXPORTER_OTLP_ENDPOINT}
+    headers:
+      Authorization: ${env:OTEL_EXPORTER_OTLP_HEADERS}
+    compression: gzip
+
+extensions:
+  # Health check extension
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+  # Performance profiler extension
+  pprof:
+    endpoint: 0.0.0.0:1777
+
+  # zpages extension for debugging
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+  # SigV4 authenticator for AWS services
+  sigv4auth:
+    region: ${env:AWS_REGION}
+    service: "aps"  # Amazon Managed Service for Prometheus
+
+  # File storage extension for persistent queues
+  file_storage:
+    directory: /tmp/otelcol-filestore
+
+service:
+  extensions: [health_check, pprof, zpages, sigv4auth, file_storage]
+  
+  pipelines:
+    # Traces pipeline
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, attributes, probabilistic_sampler, span, filter, batch]
+      exporters: [awsxray, logging]
+
+    # Metrics pipeline for application metrics
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [memory_limiter, resource, attributes, groupbyattrs, batch]
+      exporters: [awscloudwatchmetrics, prometheusremotewrite, logging]
+
+    # Host metrics pipeline
+    metrics/host:
+      receivers: [hostmetrics]
+      processors: [memory_limiter, resource, batch]
+      exporters: [awscloudwatchmetrics]
+
+    # Logs pipeline
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, attributes, batch]
+      exporters: [awscloudwatchlogs, logging]
+
+  # Telemetry configuration for the collector itself
+  telemetry:
+    logs:
+      level: "info"
+      development: false
+    metrics:
+      level: "basic"
+      address: 0.0.0.0:8888
+
+# Environment variables referenced in this configuration:
+# - AWS_REGION: AWS region for services
+# - OTEL_SERVICE_NAME: Service name
+# - OTEL_SERVICE_VERSION: Service version  
+# - ENVIRONMENT: Deployment environment (dev, staging, prod)
+# - PROMETHEUS_REMOTE_WRITE_ENDPOINT: Prometheus remote write endpoint
+# - OTEL_EXPORTER_OTLP_ENDPOINT: Custom OTLP endpoint
+# - OTEL_EXPORTER_OTLP_HEADERS: Custom OTLP headers
