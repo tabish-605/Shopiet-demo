@@ -19,21 +19,19 @@
     "react-places-autocomplete": "^7.3.0",
     "react-router-dom": "^6.22.3",
     
-    // OpenTelemetry Web SDK Core
+    
     "@opentelemetry/api": "^1.8.0",
     "@opentelemetry/sdk-trace-web": "^1.24.0",
     "@opentelemetry/resources": "^1.24.0",
     "@opentelemetry/semantic-conventions": "^1.24.0",
     
-    // OpenTelemetry Context Management
+    
     "@opentelemetry/context-zone": "^1.24.0",
     "@opentelemetry/core": "^1.24.0",
+    "@opentelemetry/exporter-metrics-otlp-http": "^0.201.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.201.0",
     
-    // OpenTelemetry Exporters
-    "@opentelemetry/exporter-otlp-http": "^0.51.0",
-    "@opentelemetry/exporter-trace-otlp-http": "^0.51.0",
     
-    // OpenTelemetry Auto-Instrumentation
     "@opentelemetry/auto-instrumentations-web": "^0.37.0",
     "@opentelemetry/instrumentation": "^0.51.0",
     "@opentelemetry/instrumentation-fetch": "^0.51.0",
@@ -41,11 +39,11 @@
     "@opentelemetry/instrumentation-user-interaction": "^0.37.0",
     "@opentelemetry/instrumentation-document-load": "^0.37.0",
     
-    // OpenTelemetry Propagation
+    
     "@opentelemetry/propagator-b3": "^1.24.0",
     "@opentelemetry/propagator-jaeger": "^1.24.0",
     
-    // Additional utilities for observability
+    
     "web-vitals": "^3.5.2"
   },
   "devDependencies": {
