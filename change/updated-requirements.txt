@@ -24,13 +24,6 @@ djangorestframework==3.14.0
 djangorestframework-simplejwt==5.3.1
 django-redis==5.4.0
 filelock==3.13.4
-google-api-core==2.18.0
-google-auth==2.29.0
-google-cloud-core==2.4.1
-google-cloud-storage==2.16.0
-google-crc32c==1.5.0
-google-resumable-media==2.7.0
-googleapis-common-protos==1.63.0
 gunicorn==21.2.0
 hyperlink==21.0.0
 idna==3.7
@@ -98,10 +91,10 @@ opentelemetry-exporter-otlp-proto-http==1.24.0
 opentelemetry-exporter-otlp-proto-grpc==1.24.0
 
 # OpenTelemetry Resource Detectors for AWS
-opentelemetry-resource-detector-aws==0.45b0
+#opentelemetry-resource-detector-aws==0.45b0
 
 # Prometheus metrics
-opentelemetry-exporter-prometheus==1.12.0
+opentelemetry-exporter-prometheus==0.45b0
 prometheus-client==0.20.0
 
 # Django Prometheus integration
