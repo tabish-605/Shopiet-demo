@@ -120,3 +120,4 @@ opentelemetry-util-http==0.45b0
 
 # Custom metrics and monitoring
 psutil==5.9.8  # For system metrics
+opentelemetry-propagator-b3
