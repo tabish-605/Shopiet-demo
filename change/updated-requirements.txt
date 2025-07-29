@@ -1,0 +1,129 @@
+# Original requirements
+asgiref==3.7.2
+async-timeout==4.0.3
+attrs==23.2.0
+autobahn==23.6.2
+Automat==22.10.0
+cachetools==5.3.3
+certifi==2024.2.2
+cffi==1.16.0
+channels==3.0.5
+channels-redis==4.2.0
+charset-normalizer==3.3.2
+constantly==23.10.4
+cryptography==42.0.8
+daphne==3.0.2
+distlib==0.3.8
+dj-database-url==2.1.0
+Django==5.0
+django-cockroachdb==5.0
+django-cors-headers==4.3.1
+django-phonenumber-field==7.3.0
+django-storages==1.14.2
+djangorestframework==3.14.0
+djangorestframework-simplejwt==5.3.1
+django-redis==5.4.0
+filelock==3.13.4
+google-api-core==2.18.0
+google-auth==2.29.0
+google-cloud-core==2.4.1
+google-cloud-storage==2.16.0
+google-crc32c==1.5.0
+google-resumable-media==2.7.0
+googleapis-common-protos==1.63.0
+gunicorn==21.2.0
+hyperlink==21.0.0
+idna==3.7
+incremental==22.10.0
+msgpack==1.0.8
+packaging==23.2
+phonenumbers==8.13.36
+Pillow==10.1.0
+platformdirs==4.2.0
+proto-plus==1.23.0
+protobuf==4.25.3
+psycopg2-binary==2.9.9
+pyasn1==0.6.0
+pyasn1_modules==0.4.0
+pycparser==2.22
+PyJWT==2.8.0
+pyOpenSSL==24.1.0
+python-dotenv==1.0.1
+pytz==2023.3.post1
+redis==5.0.4
+requests==2.31.0
+rsa==4.9
+service-identity==24.1.0
+setuptools==69.1.0
+six==1.16.0
+sqlparse==0.4.4
+tinify==1.6.0
+Twisted==24.3.0
+txaio==23.1.1
+typing_extensions==4.9.0
+tzdata==2023.3
+urllib3==2.2.1
+uvicorn
+uvicorn[standard]
+virtualenv==20.25.1
+whitenoise==6.6.0
+zope.interface==6.4.post2
+
+# Additional requirements for local Docker development
+python-dotenv>=1.0.0
+psycopg2-binary>=2.9.7
+django-redis>=5.3.0
+django-cors-headers>=4.3.0
+
+# Optional: If you're using channels for WebSockets
+# channels-redis>=4.1.0
+
+# OpenTelemetry Core Components
+opentelemetry-api==1.24.0
+opentelemetry-sdk==1.24.0
+opentelemetry-semantic-conventions==0.45b0
+
+# OpenTelemetry Django Instrumentation
+opentelemetry-instrumentation==0.45b0
+opentelemetry-instrumentation-django==0.45b0
+opentelemetry-instrumentation-psycopg2==0.45b0
+opentelemetry-instrumentation-redis==0.45b0
+opentelemetry-instrumentation-requests==0.45b0
+opentelemetry-instrumentation-urllib3==0.45b0
+opentelemetry-instrumentation-logging==0.45b0
+
+# OpenTelemetry Exporters for AWS
+opentelemetry-exporter-otlp==1.24.0
+opentelemetry-exporter-otlp-proto-http==1.24.0
+opentelemetry-exporter-otlp-proto-grpc==1.24.0
+
+# OpenTelemetry Resource Detectors for AWS
+opentelemetry-resource-detector-aws==0.45b0
+
+# Prometheus metrics
+opentelemetry-exporter-prometheus==1.12.0
+prometheus-client==0.20.0
+
+# Django Prometheus integration
+django-prometheus==2.3.1
+
+# Additional instrumentation for comprehensive monitoring
+opentelemetry-instrumentation-celery==0.45b0
+opentelemetry-instrumentation-asyncio==0.45b0
+
+# AWS SDK instrumentation (if using boto3)
+opentelemetry-instrumentation-boto3sqs==0.45b0
+opentelemetry-instrumentation-botocore==0.45b0
+
+# JSON logging for structured logs
+python-json-logger==2.0.7
+structlog==24.1.0
+
+# HTTP client instrumentation
+opentelemetry-instrumentation-httpx==0.45b0
+
+# For manual instrumentation capabilities
+opentelemetry-util-http==0.45b0
+
+# Custom metrics and monitoring
+psutil==5.9.8  # For system metrics
