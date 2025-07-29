@@ -1,0 +1,61 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "country-state-city": "^3.2.1",
+    "jwt-decode": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-phone-number-input": "^3.4.1",
+    "react-places-autocomplete": "^7.3.0",
+    "react-router-dom": "^6.22.3",
+    
+    // OpenTelemetry Web SDK Core
+    "@opentelemetry/api": "^1.8.0",
+    "@opentelemetry/sdk-trace-web": "^1.24.0",
+    "@opentelemetry/resources": "^1.24.0",
+    "@opentelemetry/semantic-conventions": "^1.24.0",
+    
+    // OpenTelemetry Context Management
+    "@opentelemetry/context-zone": "^1.24.0",
+    "@opentelemetry/core": "^1.24.0",
+    
+    // OpenTelemetry Exporters
+    "@opentelemetry/exporter-otlp-http": "^0.51.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.51.0",
+    
+    // OpenTelemetry Auto-Instrumentation
+    "@opentelemetry/auto-instrumentations-web": "^0.37.0",
+    "@opentelemetry/instrumentation": "^0.51.0",
+    "@opentelemetry/instrumentation-fetch": "^0.51.0",
+    "@opentelemetry/instrumentation-xml-http-request": "^0.51.0",
+    "@opentelemetry/instrumentation-user-interaction": "^0.37.0",
+    "@opentelemetry/instrumentation-document-load": "^0.37.0",
+    
+    // OpenTelemetry Propagation
+    "@opentelemetry/propagator-b3": "^1.24.0",
+    "@opentelemetry/propagator-jaeger": "^1.24.0",
+    
+    // Additional utilities for observability
+    "web-vitals": "^3.5.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "vite": "^5.2.0"
+  }
+}
