@@ -1,0 +1,166 @@
+# ADOT Collector Configuration for Shopiet E-commerce Application
+receivers:
+  # OTLP receiver for receiving telemetry data from applications  
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  # Prometheus receiver for scraping metrics
+  prometheus:
+    config:
+      global:
+        scrape_interval: 30s
+        evaluation_interval: 30s
+      scrape_configs:
+        # Django backend metrics
+        - job_name: 'shopiet-backend'
+          static_configs:
+            - targets: ['backend:8001']
+          metrics_path: '/metrics'
+          scrape_interval: 15s
+          scrape_timeout: 10s
+
+        # PostgreSQL metrics
+        - job_name: 'postgres'
+          static_configs:
+            - targets: ['postgres-exporter:9187']
+          scrape_interval: 30s
+
+        # Redis metrics  
+        - job_name: 'redis'
+          static_configs:
+            - targets: ['redis-exporter:9121']
+          scrape_interval: 30s
+
+        # Container metrics
+        - job_name: 'cadvisor'
+          static_configs:
+            - targets: ['cadvisor:8080']
+          scrape_interval: 30s
+
+processors:
+  # Batch processor to batch telemetry data before export
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+    send_batch_max_size: 2048
+
+  # Memory limiter processor to prevent memory issues
+  memory_limiter:
+    limit_mib: 512
+    spike_limit_mib: 128
+
+  # Resource processor to add/modify resource attributes
+  resource:
+    attributes:
+      - key: service.name
+        value: ${env:OTEL_SERVICE_NAME}
+        action: upsert
+      - key: service.version
+        value: ${env:OTEL_SERVICE_VERSION}
+        action: upsert
+      - key: deployment.environment
+        value: ${env:ENVIRONMENT}
+        action: upsert
+      - key: shopiet.component
+        value: "adot-collector"
+        action: upsert
+
+  # Attributes processor for modifying span/metric attributes
+  attributes:
+    actions:
+      - key: shopiet.application
+        value: "shopiet-ecommerce"
+        action: insert
+      - key: shopiet.architecture
+        value: "microservices"
+        action: insert
+
+  # Filter processor to remove sensitive data
+  filter:
+    spans:
+      exclude:
+        match_type: regexp
+        attributes:
+          - key: http.url
+            value: ".*health.*"
+          - key: http.target
+            value: ".*metrics.*"
+
+exporters:
+  # Debug exporter for local development (replaces deprecated logging)
+  debug:
+    verbosity: normal
+    sampling_initial: 5
+    sampling_thereafter: 200
+
+  # AWS X-Ray exporter
+  awsxray:
+    region: ${env:AWS_REGION}
+    no_verify_ssl: false
+    local_mode: false
+
+  # CloudWatch metrics exporter
+  awscloudwatchmetrics:
+    region: ${env:AWS_REGION}
+    namespace: "Shopiet/Application" 
+    dimension_rollup_option: "NoDimensionRollup"
+    metric_declarations:
+      - dimensions: [[service.name], [service.name, http.method]]
+        metric_name_selectors:
+          - ".*_total"
+          - ".*_duration_seconds"
+          - ".*_requests_total"
+        namespace: "Shopiet/HTTP"
+
+  # CloudWatch logs exporter
+  awscloudwatchlogs:
+    region: ${env:AWS_REGION}
+    log_group_name: "/aws/shopiet/application"
+    log_stream_name: "adot-collector"
+
+extensions:
+  # Health check extension
+  health_check:
+    endpoint: 0.0.0.0:13133
+
+  # Performance profiler extension  
+  pprof:
+    endpoint: 0.0.0.0:1777
+
+  # zpages extension for debugging
+  zpages:
+    endpoint: 0.0.0.0:55679
+
+service:
+  extensions: [health_check, pprof, zpages]
+  
+  pipelines:
+    # Traces pipeline
+    traces:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, attributes, filter, batch]
+      exporters: [awsxray, debug]
+
+    # Metrics pipeline for application metrics
+    metrics:
+      receivers: [otlp, prometheus] 
+      processors: [memory_limiter, resource, attributes, batch]
+      exporters: [awscloudwatchmetrics, debug]
+
+    # Logs pipeline
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, attributes, batch]
+      exporters: [awscloudwatchlogs, debug]
+
+  # Telemetry configuration for the collector itself
+  telemetry:
+    logs:
+      level: "info"
+    metrics:
+      level: "basic"
+      address: 0.0.0.0:8888
