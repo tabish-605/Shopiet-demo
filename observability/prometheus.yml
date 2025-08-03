@@ -1,0 +1,72 @@
+global:
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "alert.rules.yml"   # Uncomment if you add custom alerting
+
+scrape_configs:
+
+  # Scrape Prometheus's internal metrics
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Django backend metrics (Prometheus-exported endpoint)
+  - job_name: 'shopiet-backend'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['backend:8001']
+
+  # PostgreSQL exporter (database metrics)
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+
+  # Redis exporter (metrics for Redis)
+  - job_name: 'redis-exporter'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+
+  # Container metrics via cAdvisor
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+
+  # node_exporter (if you ever add it for host system metrics)
+  # - job_name: 'node'
+  #   static_configs:
+  #     - targets: ['node-exporter:9100']
+
+  # Shopiet Frontend metrics (if exposed)
+  # - job_name: 'shopiet-frontend'
+  #   metrics_path: '/metrics'
+  #   static_configs:
+  #     - targets: ['frontend:3000']
+
+  # ADOT Collector metrics endpoint
+  - job_name: 'adot-collector'
+    static_configs:
+      - targets: ['adot-collector:8888']
+
+  # Logstash HTTP metrics endpoint (if available)
+  # - job_name: 'logstash'
+  #   static_configs:
+  #     - targets: ['logstash:9600']
+
+# Enable if any blackbox/http checks needed, or add as you expand your stack :)
+# - job_name: 'shopiet-health'
+#   metrics_path: /probe
+#   params:
+#     module: [http_2xx]
+#   static_configs:
+#     - targets:
+#       - http://backend:8000/health
+#   relabel_configs:
+#     - source_labels: [__address__]
+#       target_label: __param_target
+#     - source_labels: [__param_target]
+#       target_label: instance
+#     - target_label: __address__
+#       replacement: 'blackbox-exporter:9115'
