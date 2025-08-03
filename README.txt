@@ -23,3 +23,23 @@
 ✅ Development workflow with hot reload
 
 Created: 2025-07-27 10:52:15
+
+
+docker compose exec logstash bash -c "cp -r /usr/share/logstash/patterns/* /usr/share/logstash/patterns_custom"
+
+
+
+docker compose exec logstash bash -c "tar cf - -C /usr/share/logstash/patterns_custom ." \
+  | tar xf - -C observability/logstash/patterns
+
+
+
+
+logstash:
+  # ... existing config ...
+  volumes:
+    - ./observability/logstash/pipeline:/usr/share/logstash/pipeline:ro
+    - ./observability/logstash/config:/usr/share/logstash/config:ro
+    - ./observability/logstash/patterns:/usr/share/logstash/patterns_custom:ro
+  environment:
+    - "LS_GROK_PATTERNS_DIR=/usr/share/logstash/patterns:/usr/share/logstash/patterns_custom"
