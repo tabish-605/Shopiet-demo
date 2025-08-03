@@ -1,0 +1,5 @@
+# Logstash Pipeline Configuration
+- pipeline.id: shopiet-main
+  path.config: "/usr/share/logstash/pipeline/shopiet.conf"
+  pipeline.workers: 2
+  pipeline.batch.size: 125
